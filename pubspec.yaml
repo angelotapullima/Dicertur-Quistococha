@@ -36,6 +36,10 @@ dependencies:
   platform_date_picker: ^0.0.4+1
   carousel_slider: ^4.0.0
   date_picker_timeline: ^1.2.3
+  path_provider: ^2.0.1
+  share_extend: ^2.0.0
+  image_gallery_saver: ^1.6.9
+  screenshot: ^0.3.0
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +59,7 @@ flutter:
   assets:
     - assets/svg/
     - assets/svg/tabs/
+    - assets/settings_svg/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     pageList.add(InicioPage());
     pageList.add(Tickets());
-    pageList.add(Account());
+    pageList.add(UserPage());
 
     super.initState();
   }

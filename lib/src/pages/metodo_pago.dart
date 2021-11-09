@@ -231,7 +231,7 @@ class MetodoPago extends StatelessWidget {
             margin: EdgeInsets.symmetric(
               horizontal: ScreenUtil().setWidth(20),
             ),
-            height: ScreenUtil().setHeight(120),
+            height: ScreenUtil().setHeight(125),
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -246,6 +246,94 @@ class MetodoPago extends StatelessWidget {
             ),
             child: Column(
               children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: ScreenUtil().setWidth(20),
+                    ),
+                    Container(
+                      height: ScreenUtil().setSp(40),
+                      width: ScreenUtil().setSp(40),
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: CircleAvatar(
+                              radius: ScreenUtil().setHeight(15),
+                              backgroundColor: Colors.green,
+                            ),
+                          ),
+                          Center(
+                            child: CircleAvatar(
+                              radius: ScreenUtil().setHeight(12),
+                              backgroundColor: Colors.white,
+                            ),
+                          ),
+                          Center(
+                            child: CircleAvatar(
+                              radius: ScreenUtil().setHeight(9),
+                              backgroundColor: Colors.green,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            return Flex(
+                              children: List.generate(
+                                (constraints.constrainWidth() / 10).floor(),
+                                (index) => SizedBox(
+                                  height: ScreenUtil().setHeight(1),
+                                  width: ScreenUtil().setWidth(5),
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: Color(0XFFC4C4C4),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              direction: Axis.horizontal,
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: ScreenUtil().setSp(80),
+                      width: ScreenUtil().setSp(40),
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: CircleAvatar(
+                              radius: ScreenUtil().setHeight(15),
+                              backgroundColor: Color(0xffffb240),
+                            ),
+                          ),
+                          Center(
+                            child: CircleAvatar(
+                              radius: ScreenUtil().setHeight(12),
+                              backgroundColor: Colors.white,
+                            ),
+                          ),
+                          Center(
+                            child: CircleAvatar(
+                              radius: ScreenUtil().setHeight(9),
+                              backgroundColor: Color(0xffffb240),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: ScreenUtil().setWidth(20),
+                    ),
+                  ],
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -285,7 +373,123 @@ class MetodoPago extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
+          SizedBox(
+            height: ScreenUtil().setHeight(20),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: ScreenUtil().setWidth(20),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20), vertical: ScreenUtil().setHeight(10)),
+            height: ScreenUtil().setHeight(150),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xff323232).withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(0, 0), // changes position of shadow
+                ),
+              ],
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Nombre',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    Spacer(),
+                    Text('BufeoTec Company'),
+                  ],
+                ),
+                Divider(),
+                Row(
+                  children: [
+                    Text(
+                      'Dni',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    Spacer(),
+                    Text('11111111'),
+                  ],
+                ),
+                Divider(),
+                Row(
+                  children: [
+                    Text(
+                      'Entradas',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    Spacer(),
+                    Text('4'),
+                  ],
+                ),
+                Divider()
+              ],
+            ),
+          ),
+          Spacer(),
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, 'SeleccionaHorario');
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color(0xFFF8A62C),
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFFF8A62C).withOpacity(0.3),
+                    spreadRadius: 5,
+                    blurRadius: 12,
+                    offset: Offset(0, 8), // changes position of shadow
+                  ),
+                ],
+              ),
+              margin: EdgeInsets.symmetric(
+                horizontal: ScreenUtil().setWidth(10),
+              ),
+              height: ScreenUtil().setHeight(60),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: ScreenUtil().setWidth(20),
+                  ),
+                  Text(
+                    'Confirmar Pago',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: ScreenUtil().setSp(20),
+                    ),
+                  ),
+                  Spacer(), Text(
+                    'S/45.00',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: ScreenUtil().setSp(20),
+                    ),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios_sharp,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: ScreenUtil().setWidth(20),
+                  )
+                ],
+              ),
+            ),
+          ), SizedBox(
+            height: ScreenUtil().setHeight(20),
+          ),
         ],
       ),
     );
