@@ -33,6 +33,9 @@ dependencies:
   flutter_screenutil: ^5.0.0+2
   flutter_svg: ^0.21.0+1
   google_fonts: ^2.0.0
+  platform_date_picker: ^0.0.4+1
+  carousel_slider: ^4.0.0
+  date_picker_timeline: ^1.2.3
 
 dev_dependencies:
   flutter_test:
