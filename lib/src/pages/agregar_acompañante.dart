@@ -26,7 +26,7 @@ class _AgregarCompanyState extends State<AgregarCompany> {
               Row(
                 children: [
                   SizedBox(
-                    width: ScreenUtil().setWidth(30),
+                    width: ScreenUtil().setWidth(0),
                   ),
                   Text(
                     'AGREGAR ACOMPAÑANTE',
@@ -211,7 +211,7 @@ class _CantidadTabState extends State<CantidadTab> {
           borderRadius: BorderRadius.circular(8),
         ),
         width: responsive.wp(40),
-        height: responsive.hp(7),
+        height: responsive.hp(6),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[

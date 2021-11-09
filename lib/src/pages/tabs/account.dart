@@ -149,45 +149,5 @@ class UserPage extends StatelessWidget {
     );
   }
   
-
- Uint8List _imageFile;
-  List<String> imagePaths = [];
-  ScreenshotController screenshotController = ScreenshotController();
-  
-  takeScreenshotandShare() async {
-    var now = DateTime.now();
-    var nombre = now.microsecond.toString();
-    _imageFile = null;
-    screenshotController.capture(delay: Duration(milliseconds: 10), pixelRatio: 2.0).then((Uint8List image) async {
-      setState(() {
-        _imageFile = image;
-      });
-
-      await ImageGallerySaver.saveImage(image);
-
-      // Save image to gallery,  Needs plugin  https://pub.dev/packages/image_gallery_saver
-      print("File Saved to Gallery");
-
-      final directory = (await getApplicationDocumentsDirectory()).path;
-      Uint8List pngBytes = _imageFile;
-      File imgFile = new File('$directory/Screenshot$nombre.png');
-      imgFile.writeAsBytes(pngBytes);
-      print("File Saved to Gallery");
-
-      imagePaths.clear();
-      imagePaths.add(imgFile.path);
-      if (imagePaths.isNotEmpty) {
-        await Future.delayed(
-          Duration(seconds: 1),
-        );
-
-        ShareExtend.shareMultiple(imagePaths, "image", subject: "goleadores");
-      } else {
-        //showToast2('Ocurrio un error', Colors.yellow);
-      }
-    }).catchError((onError) {
-      print(onError);
-    });
-  }
-}
+ }
  

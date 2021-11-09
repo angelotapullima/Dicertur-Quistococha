@@ -22,6 +22,18 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+
+	<key>NSCameraUsageDescription</key>
+	<string>La aplicación necesita acceso a la cámara para que el usuario pueda tomarse una foto de perfil, el cual se usa en diferentes secciones.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Necesitamos tu ubicación para encontrar la mejor cancha cerca de tí.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Necesitamos tu ubicación para encontrar la mejor cancha cerca de tí.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Necesitamos acceso a la Galería de fotos para guardar las capturas de pantalla y compartirla con tus amigos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Necesitamos acceso a la Galería de fotos para guardar las capturas de pantalla y compartirla con tus amigos.</string>
+	
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

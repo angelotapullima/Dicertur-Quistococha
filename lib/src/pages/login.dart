@@ -45,12 +45,14 @@ class _LoginState extends State<Login> {
                   width: double.infinity,
                   child: Row(
                     children: [
-                      Text(
-                        'Bienvenido de vuelta ',
-                        style: TextStyle(
-                          color: Color(0xffFFB240),
-                          fontSize: ScreenUtil().setSp(28),
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Text(
+                          'Bienvenido de vuelta ',
+                          style: TextStyle(
+                            color: Color(0xffFFB240),
+                            fontSize: ScreenUtil().setSp(28),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       Container(

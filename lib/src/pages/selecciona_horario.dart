@@ -139,8 +139,8 @@ class _SeleccionaHorarioState extends State<SeleccionaHorario> {
           ),
           Positioned(
             bottom: 10,
-            left: 0,
-            right: 0,
+            left: 10,
+            right: 10,
             child: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, 'MetodoPago');
