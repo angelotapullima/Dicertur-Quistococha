@@ -1,7 +1,10 @@
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
+import 'package:dicertur_quistococha/src/pages/agregar_acompa%C3%B1ante.dart';
 import 'package:dicertur_quistococha/src/pages/home.dart';
 import 'package:dicertur_quistococha/src/pages/login.dart';
+import 'package:dicertur_quistococha/src/pages/metodo_pago.dart';
 import 'package:dicertur_quistococha/src/pages/new_account.dart';
+import 'package:dicertur_quistococha/src/pages/selecciona_horario.dart';
 import 'package:dicertur_quistococha/src/pages/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
           title: 'Dicertur',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch:Colors.yellow,
           ),
           initialRoute: 'splash',
           routes: {
@@ -29,6 +32,9 @@ class MyApp extends StatelessWidget {
             'login': (BuildContext context) => Login(),
             'newAccount': (BuildContext context) => NewAccount(),
             'home': (BuildContext context) => HomePage(),
+            'AgregarCompany': (BuildContext context) => AgregarCompany(),
+            'SeleccionaHorario': (BuildContext context) => SeleccionaHorario(),
+            'MetodoPago': (BuildContext context) => MetodoPago(),
           },
 
           //home: MyHomePage(title: 'Flutter Demo Home Page'),
