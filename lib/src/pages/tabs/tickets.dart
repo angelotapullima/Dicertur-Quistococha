@@ -255,9 +255,7 @@ class Tickets extends StatelessWidget {
                       height: ScreenUtil().setHeight(20),
                       width: ScreenUtil().setWidth(10),
                       child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
-                            color: Color(0XFFFAFAFA)),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)), color: Color(0XFFFAFAFA)),
                       ),
                     ),
                     Expanded(
@@ -265,19 +263,22 @@ class Tickets extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: LayoutBuilder(
                           builder: (context, constraints) {
+                            final boxWidth = constraints.constrainWidth();
+                            final dashWidth = 10.0;
+                            final dashCount = (boxWidth / (2 * dashWidth)).floor();
+
                             return Flex(
-                              children: List.generate(
-                                  (constraints.constrainWidth() / 10).floor(),
-                                  (index) => SizedBox(
-                                        height: ScreenUtil().setHeight(1),
-                                        width: ScreenUtil().setWidth(5),
-                                        child: DecoratedBox(
-                                          decoration: BoxDecoration(color: Color(0XFFC4C4C4)),
-                                        ),
-                                      )),
-                              direction: Axis.horizontal,
-                              mainAxisSize: MainAxisSize.max,
+                              children: List.generate(dashCount, (_) {
+                                return SizedBox(
+                                  width: dashWidth,
+                                  height: 1,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(color: Colors.grey),
+                                  ),
+                                );
+                              }),
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              direction: Axis.horizontal,
                             );
                           },
                         ),
@@ -287,8 +288,7 @@ class Tickets extends StatelessWidget {
                       height: ScreenUtil().setHeight(20),
                       width: ScreenUtil().setWidth(10),
                       child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)), color: Color(0XFFFAFAFA)),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)), color: Color(0XFFFAFAFA)),
                       ),
                     ),
                   ],

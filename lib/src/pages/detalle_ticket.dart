@@ -155,28 +155,9 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                         BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)), color: Color(0XFFFAFAFA)),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: LayoutBuilder(
-                                      builder: (context, constraints) {
-                                        return Flex(
-                                          children: List.generate(
-                                              (constraints.constrainWidth() / 10).floor(),
-                                              (index) => SizedBox(
-                                                    height: ScreenUtil().setHeight(1),
-                                                    width: ScreenUtil().setWidth(5),
-                                                    child: DecoratedBox(
-                                                      decoration: BoxDecoration(color: Color(0XFFC4C4C4)),
-                                                    ),
-                                                  )),
-                                          direction: Axis.horizontal,
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        );
-                                      },
-                                    ),
-                                  ),
+                                Container(
+                                  color: Colors.white,
+                                  child: Divider(),
                                 ),
                                 SizedBox(
                                   height: ScreenUtil().setHeight(20),
@@ -292,32 +273,37 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                               ],
                             ),
                           ),
-                          Container(
+                         
+
+                           Container(
                             color: Colors.white,
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: LayoutBuilder(
-                                  builder: (context, constraints) {
-                                    return Flex(
-                                      children: List.generate(
-                                          (constraints.constrainWidth() / 10).floor(),
-                                          (index) => SizedBox(
-                                                height: ScreenUtil().setHeight(1),
-                                                width: ScreenUtil().setWidth(5),
-                                                child: DecoratedBox(
-                                                  decoration: BoxDecoration(color: Color(0XFFC4C4C4)),
-                                                ),
-                                              )),
-                                      direction: Axis.horizontal,
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    );
-                                  },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: LayoutBuilder(
+                                builder: (context, constraints) {
+                                  final boxWidth = constraints.constrainWidth();
+                            final dashWidth = 10.0;
+                            final dashCount = (boxWidth / (2 * dashWidth)).floor();
+
+                            return Flex(
+                            children: List.generate(dashCount, (_) {
+                              return SizedBox(
+                                width: dashWidth,
+                                height: 1,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(color: Colors.grey),
                                 ),
+                              );
+                            }),
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            direction: Axis.horizontal,
+                            );
+                                },
                               ),
                             ),
-                          ),
+                          )
+                          
+                          ,
                           Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: ScreenUtil().setWidth(24),
@@ -440,27 +426,28 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                           ),
                           Container(
                             color: Colors.white,
-                            child: Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: LayoutBuilder(
-                                  builder: (context, constraints) {
-                                    return Flex(
-                                      children: List.generate(
-                                          (constraints.constrainWidth() / 10).floor(),
-                                          (index) => SizedBox(
-                                                height: ScreenUtil().setHeight(1),
-                                                width: ScreenUtil().setWidth(5),
-                                                child: DecoratedBox(
-                                                  decoration: BoxDecoration(color: Color(0XFFC4C4C4)),
-                                                ),
-                                              )),
-                                      direction: Axis.horizontal,
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    );
-                                  },
-                                ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: LayoutBuilder(
+                                builder: (context, constraints) {
+                                  final boxWidth = constraints.constrainWidth();
+                                  final dashWidth = 10.0;
+                                  final dashCount = (boxWidth / (2 * dashWidth)).floor();
+
+                                  return Flex(
+                                    children: List.generate(dashCount, (_) {
+                                      return SizedBox(
+                                        width: dashWidth,
+                                        height: 1,
+                                        child: DecoratedBox(
+                                          decoration: BoxDecoration(color: Colors.grey),
+                                        ),
+                                      );
+                                    }),
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    direction: Axis.horizontal,
+                                  );
+                                },
                               ),
                             ),
                           ),
@@ -534,13 +521,30 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                             ),
                           ),
                           Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: Column(
-                              children: [
-                                Divider(),
-                              ],
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: LayoutBuilder(
+                                builder: (context, constraints) {
+                                  final boxWidth = constraints.constrainWidth();
+                                  final dashWidth = 10.0;
+                                  final dashCount = (boxWidth / (2 * dashWidth)).floor();
+
+                                  return Flex(
+                                    children: List.generate(dashCount, (_) {
+                                      return SizedBox(
+                                        width: dashWidth,
+                                        height: 1,
+                                        child: DecoratedBox(
+                                          decoration: BoxDecoration(color: Colors.grey),
+                                        ),
+                                      );
+                                    }),
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    direction: Axis.horizontal,
+                                  );
+                                },
+                              ),
                             ),
                           ),
                           Container(
