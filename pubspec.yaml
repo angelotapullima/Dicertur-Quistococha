@@ -47,6 +47,15 @@ dependencies:
   internet_connection_checker: ^0.0.1+3
   sqflite: ^2.0.0+3
   path: ^1.8.0
+  sign_in_with_apple: ^3.2.0
+  crypto: ^3.0.1
+  google_sign_in: ^5.1.0
+  jwt_decoder: ^2.0.1
+  firebase_auth: ^3.3.4
+  firebase_core: ^1.10.6
+  firebase_messaging: ^11.2.4
+  flutter_local_notifications: ^9.2.0
+  firebase_crashlytics: ^2.4.4
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +73,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/img/
     - assets/svg/
     - assets/svg/tabs/
     - assets/settings_svg/
