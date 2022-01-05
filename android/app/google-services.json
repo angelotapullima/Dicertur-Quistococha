@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "945836060260",
+    "project_id": "dicertura",
+    "storage_bucket": "dicertura.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945836060260:android:94644cbcd75b8f2b17b971",
+        "android_client_info": {
+          "package_name": "com.bufeotec.QuistocochaCaretur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945836060260-bm0hb8mgupmal2sj0opv96b4e3hugikb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bufeotec.QuistocochaCaretur",
+            "certificate_hash": "87a2f2031027ac8bd0bf1da626c04ff85c57b1d8"
+          }
+        },
+        {
+          "client_id": "945836060260-shm9en1vnihe8s5863v60m5042h5f61r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANlwYdtennGVOkdUKMTUEtnQ3hF5v0ZGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945836060260-shm9en1vnihe8s5863v60m5042h5f61r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "945836060260-ho93pp1heib6nai5kpuofd48io8kv1um.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bufeotec.QuistocochaCaretur"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
