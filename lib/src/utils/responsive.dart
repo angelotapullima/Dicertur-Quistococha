@@ -5,7 +5,7 @@ import 'dart:math' as math;
 
 class Responsive{
 
-  final double width, height, inch;
+  final double ? width, height, inch;
 
   //clase para hacer Responsive las Pantallas
   Responsive({
@@ -24,16 +24,16 @@ class Responsive{
 
   //ancho de la pantalla
   double wp(double percent){
-    return this.width*percent/100;
+    return this.width!*percent/100;
   }
 
   //alto de la pantalla
   double hp(double percent){
-    return this.height*percent/100;
+    return this.height!*percent/100;
   }
 
   //inch o diagonal del ratio de pantalla
   double ip(double percent){
-    return this.inch*percent/100;
+    return this.inch!*percent/100;
   }
 }

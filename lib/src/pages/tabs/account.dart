@@ -1,17 +1,12 @@
-import 'dart:io';
-import 'dart:typed_data';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:share_extend/share_extend.dart';
 
 class UserPage extends StatelessWidget {
-  const UserPage({Key key}) : super(key: key);
+  const UserPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

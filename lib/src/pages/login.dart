@@ -1,16 +1,27 @@
+import 'package:dicertur_quistococha/src/api/login_api.dart';
+import 'package:dicertur_quistococha/src/utils/utils.dart';
+import 'package:dicertur_quistococha/src/widget/show_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key key}) : super(key: key);
+  const Login({Key? key}) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  bool _passwordVisible;
+
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerpassword = TextEditingController();
+  bool? _passwordVisible;
+
+
+
+  final _controller = ControllerLogin();
+
 
   @override
   void initState() {
@@ -80,6 +91,7 @@ class _LoginState extends State<Login> {
                   height: ScreenUtil().setHeight(48),
                 ),
                 TextField(
+                  controller: _controllerEmail,
                   style: TextStyle(
                     color: Color(0xff808080),
                   ),
@@ -112,7 +124,8 @@ class _LoginState extends State<Login> {
                   height: ScreenUtil().setHeight(16),
                 ),
                 TextField(
-                  obscureText: _passwordVisible,
+                  controller: _controllerpassword,
+                  obscureText: _passwordVisible!,
                   style: TextStyle(
                     color: Color(0xff808080),
                   ),
@@ -142,14 +155,14 @@ class _LoginState extends State<Login> {
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
-                          if (_passwordVisible) {
+                          if (_passwordVisible!) {
                             _passwordVisible = false;
                           } else {
                             _passwordVisible = true;
                           }
                         });
                       },
-                      icon: _passwordVisible
+                      icon: _passwordVisible!
                           ? Icon(
                               Icons.visibility,
                               color: Colors.black,
@@ -185,9 +198,30 @@ class _LoginState extends State<Login> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    onPressed: () {
+                    onPressed: () async{
+                      
+                      if (_controllerEmail.text.length > 0) {
+                            if (_controllerpassword.text.length > 0) {
+                              _controller.changeLoadding(true);
+                              final _login = LoginApi();
+                              final res = await _login.login(_controllerEmail.text, _controllerpassword.text);
 
-                      Navigator.pushNamed(context, 'home');
+                              if (res.code == '1') {
+                                Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+                              } else {
+                                showToast2(res.message!, Colors.black);
+                              }
+                              _controller.changeLoadding(false);
+                            } else {
+                              showToast2('Ingrese su contraseña', Colors.black);
+                            }
+                          } else {
+                            showToast2('Ingrese su usuario', Colors.black);
+                          }
+
+
+
+
                     },
                     color: Color(0xffffb240),
                     child: Text('Ingresar'),
@@ -224,8 +258,28 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-        ],
+        
+         AnimatedBuilder(
+              animation: _controller,
+              builder: (context, snapshot) {
+                return ShowLoadding(
+                  active: _controller.loadding,
+                );
+              },
+            ),
+            
+            ],
       ),
     );
+  }
+}
+
+
+
+class ControllerLogin extends ChangeNotifier {
+  bool loadding = false;
+  void changeLoadding(bool v) {
+    loadding = v;
+    notifyListeners();
   }
 }

@@ -1,11 +1,12 @@
-import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
+import 'package:dicertur_quistococha/src/pages/old/detalle_ticket.dart';
+import 'package:dicertur_quistococha/src/pages/pedir_tickets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Tickets extends StatelessWidget {
-  const Tickets({Key key}) : super(key: key);
+  const Tickets({Key? key}) : super(key: key);
   static final _controller = Controller();
 
   @override
@@ -31,94 +32,137 @@ class Tickets extends StatelessWidget {
         child: AnimatedBuilder(
             animation: _controller,
             builder: (context, t) {
-              return Column(
+              return Stack(
                 children: [
-                  SizedBox(
-                    height: ScreenUtil().setHeight(24),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: ScreenUtil().setHeight(24),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: const Color(0XFFECF4FF),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  _controller.changeValueBoton(1);
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: ScreenUtil().setHeight(7),
+                                    horizontal: ScreenUtil().setWidth(2),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: (_controller.valueBoton == 1) ? Colors.white : Color(0XFFECF4FF),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      bottomLeft: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Próximo',
+                                      style: GoogleFonts.poppins(
+                                        color: (_controller.valueBoton == 1) ? Color(0XFF505050) : Color(0XFFAFB6DB),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: ScreenUtil().setSp(15),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  _controller.changeValueBoton(2);
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: ScreenUtil().setHeight(7),
+                                    horizontal: ScreenUtil().setWidth(2),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: (_controller.valueBoton == 2) ? Colors.white : Color(0XFFECF4FF),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Anteriores',
+                                      style: GoogleFonts.poppins(
+                                        color: (_controller.valueBoton == 2) ? Color(0XFF505050) : Color(0XFFAFB6DB),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: ScreenUtil().setSp(15),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(32),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: 5,
+                            itemBuilder: (_, index) {
+                              return _itemTicket(context, (_controller.valueBoton == 1) ? true : false);
+                            }),
+                      ),
+                    ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: const Color(0XFFECF4FF),
+                  Positioned(
+                    bottom: ScreenUtil().setHeight(10),
+                    right: 0,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                              return PedirTickets();
+                            },
+                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              var begin = Offset(0.0, 1.0);
+                              var end = Offset.zero;
+                              var curve = Curves.ease;
+
+                              var tween = Tween(begin: begin, end: end).chain(
+                                CurveTween(curve: curve),
+                              );
+
+                              return SlideTransition(
+                                position: animation.drive(tween),
+                                child: child,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: ScreenUtil().setSp(45),
+                        width: ScreenUtil().setSp(45),
+                        decoration: BoxDecoration(color: Color(0xffFFB240), borderRadius: BorderRadius.circular(5)),
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              _controller.changeValueBoton(1);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                vertical: ScreenUtil().setHeight(7),
-                                horizontal: ScreenUtil().setWidth(2),
-                              ),
-                              decoration: BoxDecoration(
-                                color: (_controller.valueBoton == 1) ? Colors.white : Color(0XFFECF4FF),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  bottomLeft: Radius.circular(20),
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Próximo',
-                                  style: GoogleFonts.poppins(
-                                    color: (_controller.valueBoton == 1) ? Color(0XFF505050) : Color(0XFFAFB6DB),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: ScreenUtil().setSp(15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              _controller.changeValueBoton(2);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                vertical: ScreenUtil().setHeight(7),
-                                horizontal: ScreenUtil().setWidth(2),
-                              ),
-                              decoration: BoxDecoration(
-                                color: (_controller.valueBoton == 2) ? Colors.white : Color(0XFFECF4FF),
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Anteriores',
-                                  style: GoogleFonts.poppins(
-                                    color: (_controller.valueBoton == 2) ? Color(0XFF505050) : Color(0XFFAFB6DB),
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: ScreenUtil().setSp(15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(32),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: (_, index) {
-                          return _itemTicket(context, (_controller.valueBoton == 1) ? true : false);
-                        }),
-                  ),
+                  )
                 ],
               );
             }),
@@ -255,7 +299,9 @@ class Tickets extends StatelessWidget {
                       height: ScreenUtil().setHeight(20),
                       width: ScreenUtil().setWidth(10),
                       child: DecoratedBox(
-                        decoration: BoxDecoration(borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)), color: Color(0XFFFAFAFA)),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
+                            color: Color(0XFFFAFAFA)),
                       ),
                     ),
                     Expanded(
@@ -288,7 +334,8 @@ class Tickets extends StatelessWidget {
                       height: ScreenUtil().setHeight(20),
                       width: ScreenUtil().setWidth(10),
                       child: DecoratedBox(
-                        decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)), color: Color(0XFFFAFAFA)),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)), color: Color(0XFFFAFAFA)),
                       ),
                     ),
                   ],
