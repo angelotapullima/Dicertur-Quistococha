@@ -13,6 +13,7 @@ class DatabaseHelper {
     return openDatabase(path, onCreate: (db, version) {
       db.execute(tableEventoSql);
       db.execute(tableEspacioSql);
+      db.execute(tableTarifasSql);
     }, version: 1, onDowngrade: onDatabaseDowngradeDelete);
   }
 

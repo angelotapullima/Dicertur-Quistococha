@@ -1,20 +1,29 @@
 import 'dart:convert';
 
+import 'package:dicertur_quistococha/core/sharedpreferences/storage_manager.dart';
+import 'package:dicertur_quistococha/database/espacio_database.dart';
+import 'package:dicertur_quistococha/database/evento_database.dart';
+import 'package:dicertur_quistococha/database/tarifa_database.dart';
 import 'package:dicertur_quistococha/src/api/login_api.dart';
 import 'package:dicertur_quistococha/src/models/espacio_model.dart';
 import 'package:dicertur_quistococha/src/models/evento_model.dart';
+import 'package:dicertur_quistococha/src/models/tarifa_model.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class TarifaApi {
-  Future<ApiModel> login(String fecha) async {
+  final espacioDatabase = DocumentosDatabase();
+  final eventoDatabase = EventoDatabase();
+  final tarifaDatabase = TarifaDatabase();
+  Future<ApiModel> obtenerTarifas(String fecha) async {
     try {
       final url = Uri.parse('$apiBaseURL/api/Empresa/listar_tarifas_app');
+      String? token = await StorageManager.readData('token');
 
       final resp = await http.post(url, body: {
         'fecha': '$fecha',
         'app': 'true',
-        'tn': 'true',
+        'tn': token,
       });
 
       final decodedData = json.decode(resp.body);
@@ -24,24 +33,39 @@ class TarifaApi {
       loginModel.code = code.toString();
 
       if (code == 1) {
-        if (decodedData['data'].length > 0) {
-          for (var i = 0; i < decodedData['data'].length; i++) {
+        if (decodedData["result"]['data'].length > 0) {
+          for (var i = 0; i < decodedData["result"]['data'].length; i++) {
             EventoModel evento = EventoModel();
 
-            evento.idEvento = decodedData['data'][i]['id_evento'];
-            evento.eventoNombre = decodedData['data'][i]['evento_nombre'];
-            evento.eventoFecha = decodedData['data'][i]['evento_fecha'];
-            evento.eventoHora = decodedData['data'][i]['evento_hora'];
-            evento.eventoDireccion = decodedData['data'][i]['evento_direccion'];
-            evento.eventoEstado = decodedData['data'][i]['evento_estado'];
-
+            evento.idEvento = decodedData["result"]['data'][i]['id_evento'];
+            evento.eventoNombre = decodedData["result"]['data'][i]['evento_nombre'];
+            evento.eventoFecha = decodedData["result"]['data'][i]['evento_fecha'];
+            evento.eventoHora = decodedData["result"]['data'][i]['evento_hora'];
+            evento.eventoDireccion = decodedData["result"]['data'][i]['evento_direccion'];
+            evento.eventoEstado = decodedData["result"]['data'][i]['evento_estado'];
+            await eventoDatabase.insertarEvento(evento);
 
             EspacioModel espacioModel = EspacioModel();
-            espacioModel.idEspacio = decodedData['data'][i]['id_espacio'];
-            espacioModel.idEvento = decodedData['data'][i]['id_evento'];
-            espacioModel.espacioNombre = decodedData['data'][i]['espacio_nombre'];
-            espacioModel.espacioAforo = decodedData['data'][i]['espacio_aforo'];
-            espacioModel.espacioEstado = decodedData['data'][i]['espacio_estado'];
+            espacioModel.idEspacio = decodedData["result"]['data'][i]['id_espacio'];
+            espacioModel.idEvento = decodedData["result"]['data'][i]['id_evento'];
+            espacioModel.espacioNombre = decodedData["result"]['data'][i]['espacio_nombre'];
+            espacioModel.espacioAforo = decodedData["result"]['data'][i]['espacio_aforo'];
+            espacioModel.espacioEstado = decodedData["result"]['data'][i]['espacio_estado'];
+            await espacioDatabase.insertarEspacio(espacioModel);
+
+            if (decodedData["result"]['data'][i]['tarifas'].length > 0) {
+              for (var x = 0; x < decodedData["result"]['data'][i]['tarifas'].length; x++) {
+                var tarifa = decodedData["result"]['data'][i]['tarifas'][x];
+
+                TarifaModel tarifaModel = TarifaModel();
+                tarifaModel.idTarifa = tarifa['id_tarifa'];
+                tarifaModel.idEspacio = tarifa['id_espacio'];
+                tarifaModel.tarifaNombre = tarifa['tarifa_nombre'];
+                tarifaModel.tarifaPrecio = tarifa['tarifa_precio'];
+                tarifaModel.tarifaEstado = tarifa['tarifa_estado'];
+                await tarifaDatabase.insertarTarifa(tarifaModel);
+              }
+            }
           }
         }
 

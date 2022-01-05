@@ -36,4 +36,18 @@ class EventoDatabase {
       return [];
     }
   }
+
+  Future<List<EventoModel>> getEventoPorFecha(String fecha) async {
+    try {
+      final Database db = await dbprovider.getDatabase();
+      List<EventoModel> list = [];
+      List<Map> maps = await db.rawQuery("SELECT * FROM Evento WHERE eventoFecha='$fecha'");
+
+      if (maps.length > 0) list = EventoModel.fromJsonList(maps);
+      return list;
+    } catch (e) {
+      print(" $e Error en la  tabla Evento");
+      return [];
+    }
+  }
 }
