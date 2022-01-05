@@ -11,15 +11,15 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share_extend/share_extend.dart';
 
 class DetalleTicketPage extends StatefulWidget {
-  final bool esProximo;
-  const DetalleTicketPage({Key key, @required this.esProximo}) : super(key: key);
+  final bool? esProximo;
+  const DetalleTicketPage({Key? key, required this.esProximo}) : super(key: key);
 
   @override
   _DetalleTicketPageState createState() => _DetalleTicketPageState();
 }
 
 class _DetalleTicketPageState extends State<DetalleTicketPage> {
-  Uint8List _imageFile;
+  Uint8List? _imageFile;
   List<String> imagePaths = [];
   ScreenshotController screenshotController = ScreenshotController();
 
@@ -607,7 +607,7 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                     )
                   ],
                 ),
-                (!widget.esProximo)
+                (!widget.esProximo!)
                     ? Container(
                         child: SvgPicture.asset('assets/svg/utilizado.svg'),
                       )
@@ -624,20 +624,20 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
     var now = DateTime.now();
     var nombre = now.microsecond.toString();
     _imageFile = null;
-    screenshotController.capture(delay: Duration(milliseconds: 10), pixelRatio: 2.0).then((Uint8List image) async {
+    screenshotController.capture(delay: Duration(milliseconds: 10), pixelRatio: 2.0).then((Uint8List? image) async {
       setState(() {
         _imageFile = image;
       });
 
-      await ImageGallerySaver.saveImage(image);
+      await ImageGallerySaver.saveImage(image!);
 
       // Save image to gallery,  Needs plugin  https://pub.dev/packages/image_gallery_saver
       print("File Saved to Gallery");
 
       final directory = (await getApplicationDocumentsDirectory()).path;
-      Uint8List pngBytes = _imageFile;
+      Uint8List? pngBytes = _imageFile;
       File imgFile = new File('$directory/Screenshot$nombre.png');
-      imgFile.writeAsBytes(pngBytes);
+      imgFile.writeAsBytes(pngBytes!);
       print("File Saved to Gallery");
 
       imagePaths.clear();

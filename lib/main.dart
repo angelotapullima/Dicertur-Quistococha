@@ -1,10 +1,10 @@
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
-import 'package:dicertur_quistococha/src/pages/agregar_acompa%C3%B1ante.dart';
 import 'package:dicertur_quistococha/src/pages/home.dart';
 import 'package:dicertur_quistococha/src/pages/login.dart';
-import 'package:dicertur_quistococha/src/pages/metodo_pago.dart';
-import 'package:dicertur_quistococha/src/pages/new_account.dart';
-import 'package:dicertur_quistococha/src/pages/selecciona_horario.dart';
+import 'package:dicertur_quistococha/src/pages/old/agregar_acompa%C3%B1ante.dart';
+import 'package:dicertur_quistococha/src/pages/old/metodo_pago.dart';
+import 'package:dicertur_quistococha/src/pages/old/new_account.dart';
+import 'package:dicertur_quistococha/src/pages/old/selecciona_horario.dart';
 import 'package:dicertur_quistococha/src/pages/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

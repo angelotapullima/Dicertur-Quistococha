@@ -1,6 +1,6 @@
 class BannerModel {
-  final String id;
-  final String urlImage;
+  final String? id;
+  final String? urlImage;
 
   const BannerModel({
     this.id,

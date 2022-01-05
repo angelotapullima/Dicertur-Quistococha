@@ -15,13 +15,13 @@ class BottomNaviBloc {
   Function(int) get changePageTorneo => _paginacionTorneoController.sink.add;
 
   // Obtener el último valor ingresado a los streams
-  int get page => _selectPageController.value;
-  int get pageTorneo => _paginacionTorneoController.value;
-  double get subidaImagen => _cantidadSubidaImagen.value;
+  int get page => _selectPageController.value!;
+  int get pageTorneo => _paginacionTorneoController.value!;
+  double get subidaImagen => _cantidadSubidaImagen.value!;
 
   dispose() {
-    _selectPageController?.close();
-    _paginacionTorneoController?.close();
-    _cantidadSubidaImagen?.close();
+    _selectPageController.close();
+    _paginacionTorneoController.close();
+    _cantidadSubidaImagen.close();
   }
 }

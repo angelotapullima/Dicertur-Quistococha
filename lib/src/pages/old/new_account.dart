@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NewAccount extends StatefulWidget {
-  const NewAccount({Key key}) : super(key: key);
+  const NewAccount({Key? key}) : super(key: key);
 
   @override
   _NewAccountState createState() => _NewAccountState();
@@ -12,7 +12,7 @@ class NewAccount extends StatefulWidget {
 
 class _NewAccountState extends State<NewAccount> {
   final _controller = ControllerData();
-  bool _passwordVisible;
+  bool? _passwordVisible;
 
   @override
   void initState() {
@@ -182,7 +182,7 @@ class _NewAccountState extends State<NewAccount> {
                 Container(
                   height: ScreenUtil().setHeight(56),
                   child: TextField(
-                    obscureText: _passwordVisible,
+                    obscureText: _passwordVisible!,
                     style: TextStyle(
                       color: Color(0xff808080),
                     ),
@@ -212,14 +212,14 @@ class _NewAccountState extends State<NewAccount> {
                       suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
-                            if (_passwordVisible) {
+                            if (_passwordVisible!) {
                               _passwordVisible = false;
                             } else {
                               _passwordVisible = true;
                             }
                           });
                         },
-                        icon: _passwordVisible
+                        icon: _passwordVisible!
                             ? Icon(
                                 Icons.visibility,
                                 color: Colors.black,

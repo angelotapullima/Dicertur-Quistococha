@@ -5,20 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SeleccionaHorario extends StatefulWidget {
-  const SeleccionaHorario({Key key}) : super(key: key);
+  const SeleccionaHorario({Key? key}) : super(key: key);
 
   @override
   _SeleccionaHorarioState createState() => _SeleccionaHorarioState();
 }
 
 class _SeleccionaHorarioState extends State<SeleccionaHorario> {
-  String today;
-  String fechaqueLlega;
+  String ?today;
+  String ?fechaqueLlega;
 
   @override
   void initState() {
     today = toDateMonthYear(DateTime.now()).toString();
-    final fechaFormat = today.split(" ");
+    final fechaFormat = today!.split(" ");
     fechaqueLlega = fechaFormat[0].trim();
     super.initState();
   }
@@ -33,7 +33,7 @@ class _SeleccionaHorarioState extends State<SeleccionaHorario> {
               padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(70)),
               child: CustomScrollView(
                 slivers: [
-                  HeaderpersistentDCanchas(fechaActual: fechaqueLlega),
+                  HeaderpersistentDCanchas(fechaActual: fechaqueLlega!),
                   SliverPadding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 0,
@@ -193,8 +193,8 @@ class _SeleccionaHorarioState extends State<SeleccionaHorario> {
 
 class HeaderpersistentDCanchas extends StatefulWidget {
   const HeaderpersistentDCanchas({
-    Key key,
-    @required this.fechaActual,
+    Key? key,
+    required this.fechaActual,
   }) : super(key: key);
 
   final String fechaActual;
@@ -205,14 +205,14 @@ class HeaderpersistentDCanchas extends StatefulWidget {
 
 class _HeaderpersistentDCanchasState extends State<HeaderpersistentDCanchas> {
   DatePickerController _controller = DatePickerController();
-  String fechaBusqueda;
-  String diaDeLaSemana;
-  String idDeLaCancha;
-  String fechaqueLlega;
-  DateTime today;
-  int dias;
+  String? fechaBusqueda;
+  String? diaDeLaSemana;
+  String? idDeLaCancha;
+  String? fechaqueLlega;
+  DateTime? today;
+  int? dias;
 
-  DateTime initialData;
+  DateTime? initialData;
 
   @override
   void initState() {
@@ -257,7 +257,7 @@ class _HeaderpersistentDCanchasState extends State<HeaderpersistentDCanchas> {
                   horizontal: responsive.wp(2),
                 ),
                 child: DatePicker(
-                  initialData,
+                  initialData!,
                   height: responsive.hp(13),
                   width: responsive.wp(15),
                   initialSelectedDate: DateTime.now(),
@@ -273,14 +273,14 @@ class _HeaderpersistentDCanchasState extends State<HeaderpersistentDCanchas> {
                   dayTextStyle: TextStyle(
                     fontSize: responsive.ip(1.2),
                   ),
-                  daysCount: dias,
+                  daysCount: dias!,
                   selectedTextColor: Colors.white,
                   onDateChange: (date) {
                     print(date);
                     fechaBusqueda = date.toString();
                     diaDeLaSemana = date.weekday.toString();
 
-                    final fechaFormat = fechaBusqueda.split(" ");
+                    final fechaFormat = fechaBusqueda!.split(" ");
                     fechaqueLlega = fechaFormat[0].trim();
 
                     _controller.animateToDate(date);

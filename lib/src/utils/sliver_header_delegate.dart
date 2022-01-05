@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
-  SliverCustomHeaderDelegate({@required this.minHeight, @required this.maxHeight, @required this.child});
-  final double minHeight;
-  final double maxHeight;
-  final Widget child;
+  SliverCustomHeaderDelegate({required this.minHeight, required this.maxHeight, required this.child});
+  final double? minHeight;
+  final double? maxHeight;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -12,10 +12,10 @@ class SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => maxHeight;
+  double get maxExtent => maxHeight!;
 
   @override
-  double get minExtent => minHeight;
+  double get minExtent => minHeight!;
 
   @override
   bool shouldRebuild(SliverCustomHeaderDelegate oldDelegate) {

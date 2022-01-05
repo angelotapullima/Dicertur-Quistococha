@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AgregarCompany extends StatefulWidget {
-  const AgregarCompany({Key key}) : super(key: key);
+  const AgregarCompany({Key? key}) : super(key: key);
 
   @override
   _AgregarCompanyState createState() => _AgregarCompanyState();
@@ -170,7 +170,7 @@ class _AgregarCompanyState extends State<AgregarCompany> {
 class CantidadTab extends StatefulWidget {
   final Function llamada;
 
-  CantidadTab({Key key, @required this.llamada}) : super(key: key);
+  CantidadTab({Key? key, required this.llamada}) : super(key: key);
 
   @override
   _CantidadTabState createState() => _CantidadTabState();

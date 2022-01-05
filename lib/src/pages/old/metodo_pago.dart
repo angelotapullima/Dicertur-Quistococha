@@ -1,10 +1,12 @@
-import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
+
+
+import 'package:dicertur_quistococha/src/pages/old/detalle_ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MetodoPago extends StatelessWidget {
-  const MetodoPago({Key key}) : super(key: key);
+  const MetodoPago({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

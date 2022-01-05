@@ -1,8 +1,12 @@
+import 'package:dicertur_quistococha/core/sharedpreferences/storage_manager.dart';
+import 'package:dicertur_quistococha/src/api/login_api.dart';
+import 'package:dicertur_quistococha/src/bloc/login_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/account.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/inicio.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/tickets.dart';
 import 'package:dicertur_quistococha/src/utils/responsive.dart';
+import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final bottomBloc = ProviderBloc.bottom(context);
 
-    final responsive = Responsive.of(context);
+    bottomBloc.changePage(1);
 
     return Scaffold(
       body: StreamBuilder(
@@ -40,7 +44,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Container(
                   padding: EdgeInsets.only(
-                    bottom: kBottomNavigationBarHeight + responsive.hp(4),
+                    bottom: kBottomNavigationBarHeight + ScreenUtil().setHeight(20),
                   ),
                   child: IndexedStack(
                     index: bottomBloc.page,
@@ -53,11 +57,11 @@ class _HomePageState extends State<HomePage> {
                   right: 0,
                   child: Container(
                     padding: EdgeInsets.only(
-                      left: responsive.wp(3),
-                      right: responsive.wp(3),
-                      bottom: responsive.hp(1.5),
+                      left: ScreenUtil().setWidth(10),
+                      right: ScreenUtil().setWidth(10),
+                      bottom: ScreenUtil().setHeight(10),
                     ),
-                    height: kBottomNavigationBarHeight + responsive.hp(4),
+                    height: kBottomNavigationBarHeight + ScreenUtil().setHeight(20),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadiusDirectional.only(
@@ -85,8 +89,8 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                height: responsive.ip(4),
-                                width: responsive.ip(4),
+                                height: ScreenUtil().setSp(30),
+                                width: ScreenUtil().setSp(30),
                                 child: (bottomBloc.page == 0)
                                     ? SvgPicture.asset(
                                         'assets/svg/tabs/home_tab.svg',
@@ -112,8 +116,8 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                height: responsive.ip(4),
-                                width: responsive.ip(4),
+                                height: ScreenUtil().setSp(30),
+                                width: ScreenUtil().setSp(30),
                                 child: (bottomBloc.page == 1)
                                     ? SvgPicture.asset(
                                         'assets/svg/tabs/ticket_tab.svg',
@@ -139,8 +143,8 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                height: responsive.ip(4),
-                                width: responsive.ip(4),
+                                height: ScreenUtil().setSp(30),
+                                width: ScreenUtil().setSp(30),
                                 child: (bottomBloc.page == 2)
                                     ? SvgPicture.asset(
                                         'assets/svg/tabs/user_tab.svg',
@@ -174,5 +178,35 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
+  }
+
+  _submit(BuildContext context, LoginBloc bloc) async {
+    final ApiModel code = await bloc.login('${bloc.usuario}', '${bloc.password}');
+    final bottomBloc = ProviderBloc.bottom(context);
+    bottomBloc.changePage(0);
+    if (code.code == '1') {
+      String? token = await StorageManager.readData('token');
+
+      /* if (token.userEmailValidateCode.isNotEmpty) {
+        Navigator.of(context).pushNamedAndRemoveUntil('validateUserEmail', (Route<dynamic> route) => false);
+        //Navigator.pushReplacementNamed(context, 'validateUserEmail');
+      } else {
+       
+        /*  String token;
+        final tokenApi = TokenApi();
+        final preferences = Preferences();
+        token = await FirebaseMessaging.instance.getToken();
+        tokenApi.enviarToken(token);
+        preferences.tokenFirebase = token; */
+        Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+        //Navigator.pushReplacementNamed(context, 'home');
+      } */
+    } else if (code.code == '2') {
+      showToast2('${code.message}', Colors.red);
+    } else if (code.code == '3') {
+      showToast2('${code.message}', Colors.red);
+    } else {
+      showToast2('${code.message}', Colors.red);
+    }
   }
 }
