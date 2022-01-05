@@ -1,3 +1,5 @@
+import 'package:dicertur_quistococha/src/models/espacio_model.dart';
+
 class EventoModel {
   String? idEvento;
   String? eventoNombre;
@@ -5,6 +7,7 @@ class EventoModel {
   String? eventoHora;
   String? eventoDireccion;
   String? eventoEstado;
+  List<EspacioModel>? espacio;
 
   EventoModel({
     this.idEvento,
@@ -13,6 +16,7 @@ class EventoModel {
     this.eventoHora,
     this.eventoDireccion,
     this.eventoEstado,
+    this.espacio,
   });
 
   static List<EventoModel> fromJsonList(List<dynamic> json) => json.map((i) => EventoModel.fromJson(i)).toList();

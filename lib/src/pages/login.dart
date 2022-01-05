@@ -13,15 +13,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerpassword = TextEditingController();
   bool? _passwordVisible;
 
-
-
   final _controller = ControllerLogin();
-
 
   @override
   void initState() {
@@ -198,30 +194,25 @@ class _LoginState extends State<Login> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    onPressed: () async{
-                      
+                    onPressed: () async {
                       if (_controllerEmail.text.length > 0) {
-                            if (_controllerpassword.text.length > 0) {
-                              _controller.changeLoadding(true);
-                              final _login = LoginApi();
-                              final res = await _login.login(_controllerEmail.text, _controllerpassword.text);
+                        if (_controllerpassword.text.length > 0) {
+                          _controller.changeLoadding(true);
+                          final _login = LoginApi();
+                          final res = await _login.login(_controllerEmail.text, _controllerpassword.text);
 
-                              if (res.code == '1') {
-                                Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
-                              } else {
-                                showToast2(res.message!, Colors.black);
-                              }
-                              _controller.changeLoadding(false);
-                            } else {
-                              showToast2('Ingrese su contraseña', Colors.black);
-                            }
+                          if (res.code == '1') {
+                            Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
                           } else {
-                            showToast2('Ingrese su usuario', Colors.black);
+                            showToast2(res.message!, Colors.black);
                           }
-
-
-
-
+                          _controller.changeLoadding(false);
+                        } else {
+                          showToast2('Ingrese su contraseña', Colors.black);
+                        }
+                      } else {
+                        showToast2('Ingrese su usuario', Colors.black);
+                      }
                     },
                     color: Color(0xffffb240),
                     child: Text('Ingresar'),
@@ -258,23 +249,23 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-        
-         AnimatedBuilder(
-              animation: _controller,
-              builder: (context, snapshot) {
-                return ShowLoadding(
-                  active: _controller.loadding,
-                );
-              },
-            ),
-            
-            ],
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, snapshot) {
+              return ShowLoadding(
+                w: double.infinity,
+                h: double.infinity,
+                colorText: Colors.black,
+                fondo: Colors.black.withOpacity(0.3),
+                active: _controller.loadding,
+              );
+            },
+          ),
+        ],
       ),
     );
   }
 }
-
-
 
 class ControllerLogin extends ChangeNotifier {
   bool loadding = false;

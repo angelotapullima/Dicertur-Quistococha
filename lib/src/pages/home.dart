@@ -5,7 +5,6 @@ import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/account.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/inicio.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/tickets.dart';
-import 'package:dicertur_quistococha/src/utils/responsive.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
