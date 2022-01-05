@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Quistococha-Caretur</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,7 +24,6 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-
 	<key>NSCameraUsageDescription</key>
 	<string>La aplicación necesita acceso a la cámara para que el usuario pueda tomarse una foto de perfil, el cual se usa en diferentes secciones.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -33,7 +34,6 @@
 	<string>Necesitamos acceso a la Galería de fotos para guardar las capturas de pantalla y compartirla con tus amigos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Necesitamos acceso a la Galería de fotos para guardar las capturas de pantalla y compartirla con tus amigos.</string>
-	
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
