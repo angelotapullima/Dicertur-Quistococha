@@ -267,8 +267,16 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                   ),
                 );
               } else {
-                return Center(
-                  child: Text('Sin resultados para la fecha ingresada'),
+                return SafeArea(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BackButton(),
+                      Center(
+                        child: Text('Sin resultados para la fecha ingresada'),
+                      ),
+                    ],
+                  ),
                 );
               }
             } else {
