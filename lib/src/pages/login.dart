@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
             child: Column(
               children: [
                 Container(
-                  height: ScreenUtil().setHeight(30),
+                  height: ScreenUtil().setHeight(40),
                   width: double.infinity,
                   child: Row(
                     children: [

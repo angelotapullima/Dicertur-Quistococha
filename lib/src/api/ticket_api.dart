@@ -1,15 +1,18 @@
 import 'dart:convert';
 
 import 'package:dicertur_quistococha/core/sharedpreferences/storage_manager.dart';
+import 'package:dicertur_quistococha/database/detalle_ticket_database.dart';
 import 'package:dicertur_quistococha/database/ticket_database.dart';
 
 import 'package:dicertur_quistococha/src/api/login_api.dart';
+import 'package:dicertur_quistococha/src/models/detalle_ticket_model.dart';
 import 'package:dicertur_quistococha/src/models/ticket_model.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class TicketApi {
   final ticketDatabase = TicketDatabase();
+  final detalleTicketDatabase = DetalleTicketDatabase();
   Future<ApiModel> getTicketsAPi() async {
     try {
       final url = Uri.parse('$apiBaseURL/api/Empresa/listar_tickets_app');
@@ -38,7 +41,24 @@ class TicketApi {
             ticketModel.ticketTipoPago = decodedData['result']['data'][i]['ticket_tipo_pago'];
             ticketModel.ticketCodigoApp = decodedData['result']['data'][i]['ticket_codigo_app'];
             ticketModel.ticketEstado = decodedData['result']['data'][i]['ticket_estado'];
+            ticketModel.eventoFecha = decodedData['result']['data'][i]['evento_fecha'];
             await ticketDatabase.insertarTicket(ticketModel);
+
+            if (decodedData["result"]['data'][i]['detalle'].length>0) {
+              for (var x = 0; x < decodedData["result"]['data'][i]['detalle'].length; x++) {
+                DetalleTicketModel detalleTicketModel = DetalleTicketModel();
+
+                detalleTicketModel.idDetalleTicket = decodedData["result"]['data'][i]['detalle'][x]['id_ticket_detalle'];
+                detalleTicketModel.idTicket = decodedData["result"]['data'][i]['detalle'][x]['id_ticket'];
+                detalleTicketModel.tarifaNombre = decodedData["result"]['data'][i]['detalle'][x]['tarifa_nombre'];
+                detalleTicketModel.tarifaPrecio = decodedData["result"]['data'][i]['detalle'][x]['tarifa_precio'];
+                detalleTicketModel.tarifaDetalleCantidad = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_cantidad'];
+                detalleTicketModel.tarifaDetalleSubTotal = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_subtotal'];
+                detalleTicketModel.tarifaDetalleEstado = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_estado'];
+
+                await detalleTicketDatabase.insertarDetalleTicket(detalleTicketModel);
+              }
+            }
           }
         }
 

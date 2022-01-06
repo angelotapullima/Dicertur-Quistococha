@@ -15,6 +15,7 @@ class DatabaseHelper {
       db.execute(tableEspacioSql);
       db.execute(tableTarifasSql);
       db.execute(tableTicketSql);
+      db.execute(tableDetalleTicketSql);
     }, version: 1, onDowngrade: onDatabaseDowngradeDelete);
   }
 
@@ -46,7 +47,17 @@ class DatabaseHelper {
       'idEvento TEXT, '
       'ticketTotal TEXT,'
       'ticketDateTime TEXT,'
+      'eventoFecha TEXT,'
       'ticketTipoPago TEXT,'
       'ticketCodigoApp TEXT,'
       'ticketEstado TEXT)';
+
+      static const String tableDetalleTicketSql = 'CREATE TABLE DetalleTicket('
+      'idDetalleTicket TEXT PRIMARY KEY, '
+      'idTicket TEXT, '
+      'tarifaNombre TEXT, '
+      'tarifaPrecio TEXT,'
+      'tarifaDetalleCantidad TEXT,'
+      'tarifaDetalleSubTotal TEXT,'
+      'tarifaDetalleEstado TEXT)';
 }

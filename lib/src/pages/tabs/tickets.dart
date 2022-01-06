@@ -18,7 +18,7 @@ class Tickets extends StatelessWidget {
     ticketBloc.getTicketsForUser('0');
 
     return Scaffold(
-      backgroundColor: Color(0XFFFAFAFA),
+      backgroundColor: Color(0xFFF3F3F3),
       appBar: AppBar(
         title: Text(
           'Mis tickets',
@@ -34,7 +34,7 @@ class Tickets extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(32)),
+        padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(16)),
         child: AnimatedBuilder(
             animation: _controller,
             builder: (context, t) {
@@ -131,6 +131,9 @@ class Tickets extends StatelessWidget {
                               if (snapshot.data!.length > 0) {
                                 return Expanded(
                                   child: ListView.builder(
+                                      padding: EdgeInsets.only(
+                                        bottom: ScreenUtil().setHeight(65),
+                                      ),
                                       itemCount: snapshot.data!.length,
                                       itemBuilder: (_, index) {
                                         return _itemTicket(context, snapshot.data![index]);
@@ -197,7 +200,10 @@ class Tickets extends StatelessWidget {
 
   Widget _itemTicket(BuildContext context, TicketModel model) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(5)),
+      padding: EdgeInsets.symmetric(
+        vertical: ScreenUtil().setHeight(10),
+        horizontal: ScreenUtil().setWidth(5),
+      ),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -226,6 +232,16 @@ class Tickets extends StatelessWidget {
           );
         },
         child: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 1), // changes position of shadow
+              ),
+            ],
+          ),
           child: Column(
             children: [
               Container(
@@ -254,7 +270,7 @@ class Tickets extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '01 agosto',
+                                '${model.eventoFecha}',
                                 style: GoogleFonts.poppins(
                                   color: Color(0XFFA8A8A8),
                                   fontWeight: FontWeight.w400,
@@ -296,7 +312,7 @@ class Tickets extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '2hr',
+                          'Hasta',
                           style: GoogleFonts.poppins(
                             color: Color(0XFFA8A8A8),
                             fontWeight: FontWeight.w400,
@@ -304,7 +320,7 @@ class Tickets extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '10:00 AM',
+                          '6:00 PM',
                           style: GoogleFonts.poppins(
                             color: (model.ticketEstado == '0') ? Color(0XFFEA5555) : Color(0XFF505050),
                             fontWeight: FontWeight.w700,
@@ -325,8 +341,12 @@ class Tickets extends StatelessWidget {
                       width: ScreenUtil().setWidth(10),
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
-                            color: Color(0XFFFAFAFA)),
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
+                          color: Colors.grey.withOpacity(0.2),
+                        ),
                       ),
                     ),
                     Expanded(
@@ -360,7 +380,12 @@ class Tickets extends StatelessWidget {
                       width: ScreenUtil().setWidth(10),
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)), color: Color(0XFFFAFAFA)),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                          ),
+                          color: Colors.grey.withOpacity(0.2),
+                        ),
                       ),
                     ),
                   ],
@@ -384,14 +409,14 @@ class Tickets extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Container(
+                            /*   Container(
                               child: SvgPicture.asset('assets/svg/visa.svg'),
-                            ),
+                            ), */
                             SizedBox(
                               width: ScreenUtil().setWidth(8),
                             ),
                             Text(
-                              '*** 1234',
+                              '',
                               style: GoogleFonts.poppins(
                                 color: Color(0XFF505050),
                                 fontWeight: FontWeight.w500,
@@ -401,7 +426,7 @@ class Tickets extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          'S/ 45.00',
+                          'S/${model.ticketTotal}',
                           style: GoogleFonts.poppins(
                             color: Color(0XFF505050),
                             fontWeight: FontWeight.w600,
@@ -414,7 +439,7 @@ class Tickets extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Método de pago',
+                          'pago con tarjeta',
                           style: GoogleFonts.poppins(
                             color: Color(0XFFA8A8A8),
                             fontWeight: FontWeight.w400,
