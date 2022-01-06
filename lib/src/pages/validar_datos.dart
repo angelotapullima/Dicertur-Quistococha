@@ -1,7 +1,11 @@
+import 'package:dicertur_quistococha/src/api/tickets_api.dart';
 import 'package:dicertur_quistococha/src/models/evento_model.dart';
 import 'package:dicertur_quistococha/src/models/tarifas_monto_precio_model.dart';
 import 'package:dicertur_quistococha/src/pages/old/detalle_ticket.dart';
+import 'package:dicertur_quistococha/src/pages/pedir_tickets.dart';
+import 'package:dicertur_quistococha/src/pages/web_view_pago_tickets.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
+import 'package:dicertur_quistococha/src/widget/show_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,6 +26,8 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
   final TextEditingController _nombreController = TextEditingController();
   final TextEditingController _dniController = TextEditingController();
   final TextEditingController _telController = TextEditingController();
+
+  final _controller = TicketsController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -424,10 +430,48 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
             right: 0,
             bottom: 0,
             child: InkWell(
-              onTap: () {
+              onTap: () async {
+                _controller.changeLoadding(true);
                 if (_nombreController.text.isNotEmpty) {
                   if (_dniController.text.isNotEmpty) {
                     if (_telController.text.isNotEmpty) {
+                      final _ticketApi = TicketsApi();
+                      String detalle = '';
+                      for (var i = 0; i < widget.tarifas.length; i++) {
+                        detalle += '${widget.tarifas[i].idTarifa},,,${widget.tarifas[i].tarifaCantidad}//--';
+                      }
+
+                      final res = await _ticketApi.guardarTicket(
+                          widget.evento.idEvento.toString(), widget.total, detalle, _nombreController.text, _telController.text, _dniController.text);
+
+                      if (res.code == '1') {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                              return WebViewPagosTickets(
+                                link: res.url.toString(),
+                              );
+                            },
+                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              var begin = Offset(0.0, 1.0);
+                              var end = Offset.zero;
+                              var curve = Curves.ease;
+
+                              var tween = Tween(begin: begin, end: end).chain(
+                                CurveTween(curve: curve),
+                              );
+
+                              return SlideTransition(
+                                position: animation.drive(tween),
+                                child: child,
+                              );
+                            },
+                          ),
+                        );
+                      } else {
+                        showToast2(res.message.toString(), Colors.black);
+                      }
                     } else {
                       showToast2('Ingrese teléfono', Colors.black);
                     }
@@ -437,30 +481,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                 } else {
                   showToast2('Ingrese nombre', Colors.black);
                 }
-                // Navigator.push(
-                //   context,
-                //   PageRouteBuilder(
-                //     pageBuilder: (context, animation, secondaryAnimation) {
-                //       return DetalleTicketPage(
-                //         esProximo: true,
-                //       );
-                //     },
-                //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                //       var begin = Offset(0.0, 1.0);
-                //       var end = Offset.zero;
-                //       var curve = Curves.ease;
-
-                //       var tween = Tween(begin: begin, end: end).chain(
-                //         CurveTween(curve: curve),
-                //       );
-
-                //       return SlideTransition(
-                //         position: animation.drive(tween),
-                //         child: child,
-                //       );
-                //     },
-                //   ),
-                // );
+                _controller.changeLoadding(false);
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -513,6 +534,18 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                 ),
               ),
             ),
+          ),
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, snapshot) {
+              return ShowLoadding(
+                w: double.infinity,
+                h: double.infinity,
+                colorText: Colors.yellow,
+                fondo: Colors.black.withOpacity(0.3),
+                active: _controller.loadding,
+              );
+            },
           ),
         ],
       ),
