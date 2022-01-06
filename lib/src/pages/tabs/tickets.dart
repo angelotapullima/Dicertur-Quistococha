@@ -1,5 +1,8 @@
+import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
+import 'package:dicertur_quistococha/src/models/ticket_model.dart';
 import 'package:dicertur_quistococha/src/pages/old/detalle_ticket.dart';
 import 'package:dicertur_quistococha/src/pages/pedir_tickets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +14,9 @@ class Tickets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ticketBloc = ProviderBloc.ticket(context);
+    ticketBloc.getTicketsForUser('0');
+
     return Scaffold(
       backgroundColor: Color(0XFFFAFAFA),
       appBar: AppBar(
@@ -53,6 +59,8 @@ class Tickets extends StatelessWidget {
                               child: InkWell(
                                 onTap: () {
                                   _controller.changeValueBoton(1);
+
+                                  ticketBloc.getTicketsForUser('0');
                                 },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
@@ -83,6 +91,7 @@ class Tickets extends StatelessWidget {
                               child: InkWell(
                                 onTap: () {
                                   _controller.changeValueBoton(2);
+                                  ticketBloc.getTicketsForUser('1');
                                 },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
@@ -115,13 +124,29 @@ class Tickets extends StatelessWidget {
                       SizedBox(
                         height: ScreenUtil().setHeight(32),
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                            itemCount: 5,
-                            itemBuilder: (_, index) {
-                              return _itemTicket(context, (_controller.valueBoton == 1) ? true : false);
-                            }),
-                      ),
+                      StreamBuilder(
+                          stream: ticketBloc.ticketStream,
+                          builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data!.length > 0) {
+                                return Expanded(
+                                  child: ListView.builder(
+                                      itemCount: snapshot.data!.length,
+                                      itemBuilder: (_, index) {
+                                        return _itemTicket(context, snapshot.data![index]);
+                                      }),
+                                );
+                              } else {
+                                return Center(
+                                  child: Text('No existen Tickets'),
+                                );
+                              }
+                            } else {
+                              return Center(
+                                child: CupertinoActivityIndicator(),
+                              );
+                            }
+                          }),
                     ],
                   ),
                   Positioned(
@@ -170,9 +195,9 @@ class Tickets extends StatelessWidget {
     );
   }
 
-  Widget _itemTicket(BuildContext context, bool esProximo) {
+  Widget _itemTicket(BuildContext context, TicketModel model) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(5)),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -180,7 +205,7 @@ class Tickets extends StatelessWidget {
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) {
                 return DetalleTicketPage(
-                  esProximo: esProximo,
+                  esProximo: true,
                 );
               },
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -216,7 +241,7 @@ class Tickets extends StatelessWidget {
                     )),
                 child: Column(
                   children: [
-                    (esProximo)
+                    (model.ticketEstado == '0')
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -265,7 +290,7 @@ class Tickets extends StatelessWidget {
                         Text(
                           '8:00 AM',
                           style: GoogleFonts.poppins(
-                            color: (esProximo) ? Color(0XFF7DBE6D) : Color(0XFF505050),
+                            color: (model.ticketEstado == '0') ? Color(0XFF7DBE6D) : Color(0XFF505050),
                             fontWeight: FontWeight.w700,
                             fontSize: ScreenUtil().setSp(18),
                           ),
@@ -281,7 +306,7 @@ class Tickets extends StatelessWidget {
                         Text(
                           '10:00 AM',
                           style: GoogleFonts.poppins(
-                            color: (esProximo) ? Color(0XFFEA5555) : Color(0XFF505050),
+                            color: (model.ticketEstado == '0') ? Color(0XFFEA5555) : Color(0XFF505050),
                             fontWeight: FontWeight.w700,
                             fontSize: ScreenUtil().setSp(18),
                           ),
