@@ -24,6 +24,17 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.945836060260-ho93pp1heib6nai5kpuofd48io8kv1um</string>
+			</array>
+		</dict>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>La aplicación necesita acceso a la cámara para que el usuario pueda tomarse una foto de perfil, el cual se usa en diferentes secciones.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
