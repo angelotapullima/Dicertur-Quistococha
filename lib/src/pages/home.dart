@@ -4,6 +4,7 @@ import 'package:dicertur_quistococha/src/bloc/login_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/account.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/inicio.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/scan_qr.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/tickets.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     pageList.add(InicioPage());
     pageList.add(Tickets());
+    pageList.add(ScanQR());
     pageList.add(UserPage());
 
     super.initState();
@@ -146,6 +148,33 @@ class _HomePageState extends State<HomePage> {
                                 width: ScreenUtil().setSp(30),
                                 child: (bottomBloc.page == 2)
                                     ? SvgPicture.asset(
+                                        'assets/svg/tabs/qr.svg',
+                                        color: Color(0xffffb240),
+                                      )
+                                    : SvgPicture.asset(
+                                        'assets/svg/tabs/qr.svg',
+                                        color: Color(0xffafafaf),
+                                      ), //Image.ass//Imagsset('assets/logo_largo.svg'),
+                              ),
+                              CircleAvatar(
+                                radius: ScreenUtil().setHeight(5),
+                                backgroundColor: (bottomBloc.page == 2) ? Color(0xffffb240) : Colors.transparent,
+                              )
+                            ],
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            bottomBloc.changePage(3);
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: ScreenUtil().setSp(30),
+                                width: ScreenUtil().setSp(30),
+                                child: (bottomBloc.page == 3)
+                                    ? SvgPicture.asset(
                                         'assets/svg/tabs/user_tab.svg',
                                         color: Color(0xffffb240),
                                       )
@@ -156,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               CircleAvatar(
                                 radius: ScreenUtil().setHeight(5),
-                                backgroundColor: (bottomBloc.page == 2) ? Color(0xffffb240) : Colors.transparent,
+                                backgroundColor: (bottomBloc.page == 3) ? Color(0xffffb240) : Colors.transparent,
                               )
                             ],
                           ),
