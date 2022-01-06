@@ -1,6 +1,8 @@
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/evento_model.dart';
 import 'package:dicertur_quistococha/src/models/tarifa_model.dart';
+import 'package:dicertur_quistococha/src/models/tarifas_monto_precio_model.dart';
+import 'package:dicertur_quistococha/src/pages/validar_datos.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:dicertur_quistococha/src/widget/show_loading.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +106,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                                     for (var i = 0; i < tarifas.length; i++) {
                                       array.add(0);
                                     }
-                                    _controller.changeArray(array);
+                                    _controller.changeArray(array, tarifas);
                                     return ListView.builder(
                                         itemCount: tarifas.length,
                                         itemBuilder: (_, index) {
@@ -112,13 +114,27 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  Text(
-                                                    '${tarifas[index].tarifaNombre}',
-                                                    style: GoogleFonts.poppins(
-                                                      fontSize: ScreenUtil().setSp(16),
-                                                      fontWeight: FontWeight.w500,
-                                                      color: Color(0XFF505050),
-                                                    ),
+                                                  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        '${tarifas[index].tarifaNombre}',
+                                                        style: GoogleFonts.poppins(
+                                                          fontSize: ScreenUtil().setSp(16),
+                                                          fontWeight: FontWeight.w500,
+                                                          color: Color(0XFF505050),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'S/${tarifas[index].tarifaPrecio}',
+                                                        style: GoogleFonts.poppins(
+                                                          fontSize: ScreenUtil().setSp(14),
+                                                          fontWeight: FontWeight.w400,
+                                                          color: Color(0XFF505050),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                   Spacer(),
                                                   _cantidad(_controller.array[index], index)
@@ -149,15 +165,59 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                           onTap: () {
                             int disponile = int.parse(evento.espacio![0].espacioAforo.toString());
                             num tarifaSeleccionado = 0;
+                            double total = 0;
+                            List<TarifasMontoPrecioModel> tarifasseleccionadas = [];
                             for (var i = 0; i < _controller.array.length; i++) {
                               tarifaSeleccionado = tarifaSeleccionado + _controller.array[i];
+                              if (_controller.array[i] > 0) {
+                                TarifasMontoPrecioModel tarifita = TarifasMontoPrecioModel();
+                                tarifita.idTarifa = _controller.tarifas[i].idTarifa;
+                                tarifita.idEspacio = _controller.tarifas[i].idEspacio;
+                                tarifita.tarifaNombre = _controller.tarifas[i].tarifaNombre;
+                                tarifita.tarifaPrecio = _controller.tarifas[i].tarifaPrecio;
+                                tarifita.tarifaCantidad = _controller.array[i].toString();
+                                tarifita.tarifaTotal = (double.parse(tarifita.tarifaPrecio.toString()) * _controller.array[i]).toStringAsFixed(2);
+                                tarifasseleccionadas.add(tarifita);
+
+                                total = total + (double.parse(tarifita.tarifaPrecio.toString()) * _controller.array[i]);
+                              }
+                            }
+                            if (tarifaSeleccionado == 0) {
+                              showToast2('Indique la cantidad de entradas para poder continuar', Colors.black);
+                            } else {
+                              if (tarifaSeleccionado <= disponile) {
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    pageBuilder: (context, animation, secondaryAnimation) {
+                                      return ValidarDatosPrepago(
+                                        evento: evento,
+                                        tarifas: tarifasseleccionadas,
+                                        total: total.toStringAsFixed(2),
+                                        totalEntradas: tarifaSeleccionado.toString(),
+                                      );
+                                    },
+                                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                      var begin = Offset(0.0, 1.0);
+                                      var end = Offset.zero;
+                                      var curve = Curves.ease;
+
+                                      var tween = Tween(begin: begin, end: end).chain(
+                                        CurveTween(curve: curve),
+                                      );
+
+                                      return SlideTransition(
+                                        position: animation.drive(tween),
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
+                              } else {
+                                showToast2('Se excedió del límite disponible', Colors.black);
+                              }
                             }
 
-                            if (tarifaSeleccionado <= disponile) {
-                              showToast2('Puede seguir', Colors.black);
-                            } else {
-                              showToast2('Se excedió del límite disponible', Colors.black);
-                            }
                             // Navigator.pushNamed(context, 'SeleccionaHorario');
                           },
                           child: Container(
@@ -308,9 +368,11 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
 
 class TarifasController extends ChangeNotifier {
   var array;
+  List<TarifaModel> tarifas = [];
 
-  void changeArray(var dato) {
+  void changeArray(var dato, List<TarifaModel> t) {
     array = dato;
+    tarifas = t;
     notifyListeners();
   }
 
