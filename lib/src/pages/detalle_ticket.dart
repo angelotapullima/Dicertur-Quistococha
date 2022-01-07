@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/ticket_model.dart';
-import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -542,20 +541,20 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                       ),
                                     ),
                                     SizedBox(
-                                      height: ScreenUtil().setHeight(12),
+                                      height: ScreenUtil().setHeight(32),
                                     ),
                                     Container(
-                                      height: ScreenUtil().setHeight(180),
-                                      width: ScreenUtil().setWidth(180),
+                                      height: ScreenUtil().setHeight(200),
+                                      width: ScreenUtil().setWidth(200),
                                       child: PrettyQr(
-                                        data: '$apiBaseURL/${snapshot.data![0].idTicket}',
-                                        size: ScreenUtil().setSp(80),
+                                        data: '${snapshot.data![0].idTicket}',
+                                        size: ScreenUtil().setSp(60),
                                         image: AssetImage('assets/img/logo_bufeo.png'),
-                                        errorCorrectLevel: QrErrorCorrectLevel.M,
+                                        errorCorrectLevel: QrErrorCorrectLevel.H,
                                       ),
                                     ),
                                     SizedBox(
-                                      height: ScreenUtil().setHeight(12),
+                                      height: ScreenUtil().setHeight(52),
                                     ),
                                     Container(
                                       child: Image.asset('assets/svg/banner.png'),
