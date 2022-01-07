@@ -12,6 +12,8 @@ class TicketModel {
   String? clienteNombre;
   String? clienteTelefono;
   String? clienteDni;
+  String? eventoHoraInicio;
+  String? eventoHoraFin;
   String? ticketEstado;
 
   List<DetalleTicketModel>? detalle;
@@ -28,6 +30,8 @@ class TicketModel {
     this.clienteNombre,
     this.clienteTelefono,
     this.clienteDni,
+    this.eventoHoraInicio,
+    this.eventoHoraFin,
     this.ticketEstado,
     this.detalle,
   });
@@ -46,6 +50,8 @@ class TicketModel {
         "clienteNombre": clienteNombre,
         "clienteTelefono": clienteTelefono,
         "clienteDni": clienteDni,
+        "eventoHoraInicio": eventoHoraInicio,
+        "eventoHoraFin": eventoHoraFin,
         "ticketEstado": ticketEstado,
       };
   factory TicketModel.fromJson(Map<String, dynamic> json) => TicketModel(
@@ -60,6 +66,8 @@ class TicketModel {
         clienteNombre: json["clienteNombre"],
         clienteTelefono: json["clienteTelefono"],
         clienteDni: json["clienteDni"],
+        eventoHoraInicio: json["eventoHoraInicio"],
+        eventoHoraFin: json["eventoHoraFin"],
         ticketEstado: json["ticketEstado"],
       );
 }

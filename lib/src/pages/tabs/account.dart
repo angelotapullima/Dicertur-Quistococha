@@ -1,5 +1,5 @@
-
-
+import 'package:dicertur_quistococha/src/pages/politicas_de_privacidad.dart';
+import 'package:dicertur_quistococha/src/pages/terminos_y_condiciones.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,12 +35,8 @@ class UserPage extends StatelessWidget {
               height: ScreenUtil().setHeight(16),
             ),
             Center(
-              child: Container(
-                width: ScreenUtil().setWidth(100),
-                height: ScreenUtil().setHeight(100),
-                child: Image.asset('assets/svg/profile.png')
-              ),
-            ), 
+              child: Container(width: ScreenUtil().setWidth(100), height: ScreenUtil().setHeight(100), child: Image.asset('assets/svg/profile.png')),
+            ),
             SizedBox(
               height: ScreenUtil().setHeight(16),
             ),
@@ -62,17 +58,66 @@ class UserPage extends StatelessWidget {
             SizedBox(
               height: ScreenUtil().setHeight(32),
             ),
-            
-           
             InkWell(onTap: () {}, child: _itemsConfig('archive', 'Recibos')),
             SizedBox(
               height: ScreenUtil().setHeight(32),
             ),
-            _itemsConfig('file', 'Términos de uso'),
+            InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return TerminosYCondiciones();
+                      },
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        var begin = Offset(0.0, 1.0);
+                        var end = Offset.zero;
+                        var curve = Curves.ease;
+
+                        var tween = Tween(begin: begin, end: end).chain(
+                          CurveTween(curve: curve),
+                        );
+
+                        return SlideTransition(
+                          position: animation.drive(tween),
+                          child: child,
+                        );
+                      },
+                    ),
+                  );
+                  //TerminosYCondiciones
+                },
+                child: _itemsConfig('file', 'Términos de uso')),
             SizedBox(
               height: ScreenUtil().setHeight(32),
             ),
-            _itemsConfig('policies', 'Políticas de privacidad'),
+            InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return PoliticasPrivacidad();
+                      },
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        var begin = Offset(0.0, 1.0);
+                        var end = Offset.zero;
+                        var curve = Curves.ease;
+
+                        var tween = Tween(begin: begin, end: end).chain(
+                          CurveTween(curve: curve),
+                        );
+
+                        return SlideTransition(
+                          position: animation.drive(tween),
+                          child: child,
+                        );
+                      },
+                    ),
+                  );
+                },
+                child: _itemsConfig('policies', 'Políticas de privacidad')),
             SizedBox(
               height: ScreenUtil().setHeight(32),
             ),
@@ -80,7 +125,12 @@ class UserPage extends StatelessWidget {
             SizedBox(
               height: ScreenUtil().setHeight(32),
             ),
-            _itemsConfig('version', 'v.1.0.0'),
+            InkWell(
+              onTap: () {
+                _versionInfo(context, '1.0.0');
+              },
+              child: _itemsConfig('version', 'v.1.0.0'),
+            ),
             SizedBox(
               height: ScreenUtil().setHeight(46),
             ),
@@ -108,6 +158,80 @@ class UserPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _versionInfo(BuildContext context, String version) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return GestureDetector(
+          child: Container(
+            color: Color.fromRGBO(0, 0, 0, 0.001),
+            child: GestureDetector(
+              onTap: () {},
+              child: DraggableScrollableSheet(
+                initialChildSize: 0.3,
+                minChildSize: 0.3,
+                maxChildSize: 0.3,
+                builder: (_, controller) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(25.0),
+                        topRight: const Radius.circular(25.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: ScreenUtil().setWidth(24),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: ScreenUtil().setHeight(16),
+                          ),
+                          Text(
+                            'Desarrollado por:',
+                            style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontSize: ScreenUtil().setSp(16),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(8),
+                          ),
+                          Container(
+                            height: ScreenUtil().setHeight(100),
+                            width: ScreenUtil().setWidth(200),
+                            child: Image.asset('assets/img/logo_bufeo.png'),
+                          ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(16),
+                          ),
+                          Text(
+                            'Versión $version',
+                            style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontSize: ScreenUtil().setSp(16),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -143,6 +267,9 @@ class UserPage extends StatelessWidget {
       ),
     );
   }
-  
- }
+}
  
+
+
+ //https://bufeotec.com/tickets/Login/politicas
+ //https://bufeotec.com/tickets/Login/terminos

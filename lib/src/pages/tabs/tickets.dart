@@ -292,7 +292,9 @@ class Tickets extends StatelessWidget {
                                 SizedBox(
                                   height: ScreenUtil().setHeight(32),
                                 ),
-                               Center(child: Text('No existen tickets disponibles'),)
+                                Center(
+                                  child: Text('No existen tickets disponibles'),
+                                )
                               ],
                             ),
                             Positioned(
@@ -439,7 +441,7 @@ class Tickets extends StatelessWidget {
                           )
                         : Center(
                             child: Text(
-                              '01 agosto',
+                              '${model.eventoFecha}',
                               style: GoogleFonts.poppins(
                                 color: Color(0XFFA8A8A8),
                                 fontWeight: FontWeight.w400,
@@ -454,7 +456,7 @@ class Tickets extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '8:00 AM',
+                          '${model.eventoHoraInicio}',
                           style: GoogleFonts.poppins(
                             color: (model.ticketEstado == '0') ? Color(0XFF7DBE6D) : Color(0XFF505050),
                             fontWeight: FontWeight.w700,
@@ -470,7 +472,7 @@ class Tickets extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '6:00 PM',
+                          '${model.eventoHoraFin}',
                           style: GoogleFonts.poppins(
                             color: (model.ticketEstado == '0') ? Color(0XFFEA5555) : Color(0XFF505050),
                             fontWeight: FontWeight.w700,
@@ -557,32 +559,23 @@ class Tickets extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            /*   Container(
-                              child: SvgPicture.asset('assets/svg/visa.svg'),
-                            ), */
-                            SizedBox(
-                              width: ScreenUtil().setWidth(8),
-                            ),
-                            Text(
-                              '',
+                         Text(
+                              'Método de pago',
                               style: GoogleFonts.poppins(
-                                color: Color(0XFF505050),
-                                fontWeight: FontWeight.w500,
-                                fontSize: ScreenUtil().setSp(16),
+                                color: Color(0XFFA8A8A8),
+                                fontWeight: FontWeight.w400,
+                                fontSize: ScreenUtil().setSp(14),
                               ),
                             ),
-                          ],
-                        ),
-                        Text(
-                          'S/${model.ticketTotal}',
-                          style: GoogleFonts.poppins(
-                            color: Color(0XFF505050),
-                            fontWeight: FontWeight.w600,
-                            fontSize: ScreenUtil().setSp(18),
-                          ),
-                        ),
+                            Spacer(),
+                            Text(
+                              'Precio',
+                              style: GoogleFonts.poppins(
+                                color: Color(0XFFA8A8A8),
+                                fontWeight: FontWeight.w400,
+                                fontSize: ScreenUtil().setSp(14),
+                              ),
+                            ),
                       ],
                     ),
                     Row(
@@ -591,17 +584,17 @@ class Tickets extends StatelessWidget {
                         Text(
                           'pago con tarjeta',
                           style: GoogleFonts.poppins(
-                            color: Color(0XFFA8A8A8),
-                            fontWeight: FontWeight.w400,
+                            color: Color(0xff505050),
+                            fontWeight: FontWeight.w600,
                             fontSize: ScreenUtil().setSp(14),
                           ),
                         ),
                         Text(
-                          'Precio',
+                          'S/${model.ticketTotal}',
                           style: GoogleFonts.poppins(
-                            color: Color(0XFFA8A8A8),
-                            fontWeight: FontWeight.w400,
-                            fontSize: ScreenUtil().setSp(14),
+                            color: Color(0xff505050),
+                            fontWeight: FontWeight.w600,
+                            fontSize: ScreenUtil().setSp(18),
                           ),
                         ),
                       ],
