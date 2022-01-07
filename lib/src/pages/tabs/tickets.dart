@@ -1,11 +1,10 @@
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/ticket_model.dart';
-import 'package:dicertur_quistococha/src/pages/old/detalle_ticket.dart';
-import 'package:dicertur_quistococha/src/pages/pedir_tickets.dart';
+import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/inicio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Tickets extends StatelessWidget {
@@ -17,119 +16,119 @@ class Tickets extends StatelessWidget {
     final ticketBloc = ProviderBloc.ticket(context);
     ticketBloc.getTicketsForUser('0');
 
-    return Scaffold(
-      backgroundColor: Color(0xFFF3F3F3),
-      appBar: AppBar(
-        title: Text(
-          'Mis tickets',
-          style: GoogleFonts.poppins(
-            color: Color(0XFFFFB240),
-            fontWeight: FontWeight.w700,
-            //fontSize: ScreenUtil().setSp(18),
-            letterSpacing: 1.5,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(16)),
-        child: AnimatedBuilder(
-            animation: _controller,
-            builder: (context, t) {
-              return Stack(
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: ScreenUtil().setHeight(24),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: const Color(0XFFECF4FF),
-                          ),
-                        ),
-                        child: Row(
+    return StreamBuilder(
+        stream: ticketBloc.ticketStream,
+        builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data!.length > 0) {
+              return Scaffold(
+                backgroundColor: Color(0xFFF3F3F3),
+                appBar: AppBar(
+                  title: Text(
+                    'Mis tickets',
+                    style: GoogleFonts.poppins(
+                      color: Color(0XFFFFB240),
+                      fontWeight: FontWeight.w700,
+                      //fontSize: ScreenUtil().setSp(18),
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                  centerTitle: true,
+                  elevation: 0,
+                  backgroundColor: Colors.white,
+                ),
+                body: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(16)),
+                  child: AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, t) {
+                        return Stack(
                           children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  _controller.changeValueBoton(1);
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(24),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: const Color(0XFFECF4FF),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            _controller.changeValueBoton(1);
 
-                                  ticketBloc.getTicketsForUser('0');
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: ScreenUtil().setHeight(7),
-                                    horizontal: ScreenUtil().setWidth(2),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: (_controller.valueBoton == 1) ? Colors.white : Color(0XFFECF4FF),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      bottomLeft: Radius.circular(20),
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Próximo',
-                                      style: GoogleFonts.poppins(
-                                        color: (_controller.valueBoton == 1) ? Color(0XFF505050) : Color(0XFFAFB6DB),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: ScreenUtil().setSp(15),
+                                            ticketBloc.getTicketsForUser('0');
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: ScreenUtil().setHeight(7),
+                                              horizontal: ScreenUtil().setWidth(2),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: (_controller.valueBoton == 1) ? Colors.white : Color(0XFFECF4FF),
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                bottomLeft: Radius.circular(20),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                'Próximo',
+                                                style: GoogleFonts.poppins(
+                                                  color: (_controller.valueBoton == 1) ? Color(0XFF505050) : Color(0XFFAFB6DB),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: ScreenUtil().setSp(15),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            _controller.changeValueBoton(2);
+                                            ticketBloc.getTicketsForUser('1');
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: ScreenUtil().setHeight(7),
+                                              horizontal: ScreenUtil().setWidth(2),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: (_controller.valueBoton == 2) ? Colors.white : Color(0XFFECF4FF),
+                                              borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(20),
+                                                bottomRight: Radius.circular(20),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                'Anteriores',
+                                                style: GoogleFonts.poppins(
+                                                  color: (_controller.valueBoton == 2) ? Color(0XFF505050) : Color(0XFFAFB6DB),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: ScreenUtil().setSp(15),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ),
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  _controller.changeValueBoton(2);
-                                  ticketBloc.getTicketsForUser('1');
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: ScreenUtil().setHeight(7),
-                                    horizontal: ScreenUtil().setWidth(2),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: (_controller.valueBoton == 2) ? Colors.white : Color(0XFFECF4FF),
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(20),
-                                      bottomRight: Radius.circular(20),
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Anteriores',
-                                      style: GoogleFonts.poppins(
-                                        color: (_controller.valueBoton == 2) ? Color(0XFF505050) : Color(0XFFAFB6DB),
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: ScreenUtil().setSp(15),
-                                      ),
-                                    ),
-                                  ),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(32),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: ScreenUtil().setHeight(32),
-                      ),
-                      StreamBuilder(
-                          stream: ticketBloc.ticketStream,
-                          builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
-                            if (snapshot.hasData) {
-                              if (snapshot.data!.length > 0) {
-                                return Expanded(
+                                Expanded(
                                   child: ListView.builder(
                                       padding: EdgeInsets.only(
                                         bottom: ScreenUtil().setHeight(65),
@@ -138,64 +137,215 @@ class Tickets extends StatelessWidget {
                                       itemBuilder: (_, index) {
                                         return _itemTicket(context, snapshot.data![index]);
                                       }),
-                                );
-                              } else {
-                                return Center(
-                                  child: Text('No existen Tickets'),
-                                );
-                              }
-                            } else {
-                              return Center(
-                                child: CupertinoActivityIndicator(),
-                              );
-                            }
-                          }),
-                    ],
-                  ),
-                  Positioned(
-                    bottom: ScreenUtil().setHeight(10),
-                    right: 0,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation, secondaryAnimation) {
-                              return PedirTickets();
-                            },
-                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                              var begin = Offset(0.0, 1.0);
-                              var end = Offset.zero;
-                              var curve = Curves.ease;
+                                ),
+                              ],
+                            ),
+                            Positioned(
+                              bottom: ScreenUtil().setHeight(10),
+                              right: 0,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation, secondaryAnimation) {
+                                        return InicioPage();
+                                      },
+                                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                        var begin = Offset(0.0, 1.0);
+                                        var end = Offset.zero;
+                                        var curve = Curves.ease;
 
-                              var tween = Tween(begin: begin, end: end).chain(
-                                CurveTween(curve: curve),
-                              );
+                                        var tween = Tween(begin: begin, end: end).chain(
+                                          CurveTween(curve: curve),
+                                        );
 
-                              return SlideTransition(
-                                position: animation.drive(tween),
-                                child: child,
-                              );
-                            },
-                          ),
+                                        return SlideTransition(
+                                          position: animation.drive(tween),
+                                          child: child,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  height: ScreenUtil().setSp(45),
+                                  width: ScreenUtil().setSp(45),
+                                  decoration: BoxDecoration(color: Color(0xffFFB240), borderRadius: BorderRadius.circular(5)),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
                         );
-                      },
-                      child: Container(
-                        height: ScreenUtil().setSp(45),
-                        width: ScreenUtil().setSp(45),
-                        decoration: BoxDecoration(color: Color(0xffFFB240), borderRadius: BorderRadius.circular(5)),
-                        child: Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+                      }),
+                ),
               );
-            }),
-      ),
-    );
+            } else {
+              return Scaffold(
+                backgroundColor: Color(0xFFF3F3F3),
+                appBar: AppBar(
+                  title: Text(
+                    'Mis tickets',
+                    style: GoogleFonts.poppins(
+                      color: Color(0XFFFFB240),
+                      fontWeight: FontWeight.w700,
+                      //fontSize: ScreenUtil().setSp(18),
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                  centerTitle: true,
+                  elevation: 0,
+                  backgroundColor: Colors.white,
+                ),
+                body: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(16)),
+                  child: AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, t) {
+                        return Stack(
+                          children: [
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(24),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: const Color(0XFFECF4FF),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            _controller.changeValueBoton(1);
+
+                                            ticketBloc.getTicketsForUser('0');
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: ScreenUtil().setHeight(7),
+                                              horizontal: ScreenUtil().setWidth(2),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: (_controller.valueBoton == 1) ? Colors.white : Color(0XFFECF4FF),
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                bottomLeft: Radius.circular(20),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                'Próximo',
+                                                style: GoogleFonts.poppins(
+                                                  color: (_controller.valueBoton == 1) ? Color(0XFF505050) : Color(0XFFAFB6DB),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: ScreenUtil().setSp(15),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            _controller.changeValueBoton(2);
+                                            ticketBloc.getTicketsForUser('1');
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: ScreenUtil().setHeight(7),
+                                              horizontal: ScreenUtil().setWidth(2),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: (_controller.valueBoton == 2) ? Colors.white : Color(0XFFECF4FF),
+                                              borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(20),
+                                                bottomRight: Radius.circular(20),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                'Anteriores',
+                                                style: GoogleFonts.poppins(
+                                                  color: (_controller.valueBoton == 2) ? Color(0XFF505050) : Color(0XFFAFB6DB),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: ScreenUtil().setSp(15),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(32),
+                                ),
+                               Center(child: Text('No existen tickets disponibles'),)
+                              ],
+                            ),
+                            Positioned(
+                              bottom: ScreenUtil().setHeight(10),
+                              right: 0,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation, secondaryAnimation) {
+                                        return InicioPage();
+                                      },
+                                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                        var begin = Offset(0.0, 1.0);
+                                        var end = Offset.zero;
+                                        var curve = Curves.ease;
+
+                                        var tween = Tween(begin: begin, end: end).chain(
+                                          CurveTween(curve: curve),
+                                        );
+
+                                        return SlideTransition(
+                                          position: animation.drive(tween),
+                                          child: child,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  height: ScreenUtil().setSp(45),
+                                  width: ScreenUtil().setSp(45),
+                                  decoration: BoxDecoration(color: Color(0xffFFB240), borderRadius: BorderRadius.circular(5)),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      }),
+                ),
+              );
+            }
+          } else {
+            return Center(
+              child: CupertinoActivityIndicator(),
+            );
+          }
+        });
   }
 
   Widget _itemTicket(BuildContext context, TicketModel model) {
@@ -211,7 +361,7 @@ class Tickets extends StatelessWidget {
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) {
                 return DetalleTicketPage(
-                  esProximo: true,
+                  idTicket: model.idTicket,
                 );
               },
               transitionsBuilder: (context, animation, secondaryAnimation, child) {

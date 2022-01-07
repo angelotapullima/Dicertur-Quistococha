@@ -1,8 +1,8 @@
 import 'package:dicertur_quistococha/src/api/tickets_api.dart';
 import 'package:dicertur_quistococha/src/models/evento_model.dart';
 import 'package:dicertur_quistococha/src/models/tarifas_monto_precio_model.dart';
-import 'package:dicertur_quistococha/src/pages/old/detalle_ticket.dart';
-import 'package:dicertur_quistococha/src/pages/pedir_tickets.dart';
+import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/inicio.dart';
 import 'package:dicertur_quistococha/src/pages/web_view_pago_tickets.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:dicertur_quistococha/src/widget/show_loading.dart';
@@ -74,7 +74,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                     margin: EdgeInsets.symmetric(
                       horizontal: ScreenUtil().setWidth(20),
                     ),
-                    height: ScreenUtil().setHeight(125),
+                    height: ScreenUtil().setHeight(150),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
@@ -451,6 +451,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                             pageBuilder: (context, animation, secondaryAnimation) {
                               return WebViewPagosTickets(
                                 link: res.url.toString(),
+                                idTicket: res.idTicket.toString(),
                               );
                             },
                             transitionsBuilder: (context, animation, secondaryAnimation, child) {

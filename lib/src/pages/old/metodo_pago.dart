@@ -1,4 +1,4 @@
-
+/* 
 
 import 'package:dicertur_quistococha/src/pages/old/detalle_ticket.dart';
 import 'package:flutter/material.dart';
@@ -523,3 +523,4 @@ class MetodoPago extends StatelessWidget {
     );
   }
 }
+ */

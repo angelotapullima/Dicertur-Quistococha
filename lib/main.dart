@@ -4,7 +4,6 @@ import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/home.dart';
 import 'package:dicertur_quistococha/src/pages/login.dart';
 import 'package:dicertur_quistococha/src/pages/old/agregar_acompa%C3%B1ante.dart';
-import 'package:dicertur_quistococha/src/pages/old/metodo_pago.dart';
 import 'package:dicertur_quistococha/src/pages/old/new_account.dart';
 import 'package:dicertur_quistococha/src/pages/old/selecciona_horario.dart';
 import 'package:dicertur_quistococha/src/pages/splash.dart';
@@ -65,7 +64,7 @@ class MyApp extends StatelessWidget {
             'home': (BuildContext context) => HomePage(),
             'AgregarCompany': (BuildContext context) => AgregarCompany(),
             'SeleccionaHorario': (BuildContext context) => SeleccionaHorario(),
-            'MetodoPago': (BuildContext context) => MetodoPago(),
+            //'MetodoPago': (BuildContext context) => MetodoPago(),
           },
 
           //home: MyHomePage(title: 'Flutter Demo Home Page'),

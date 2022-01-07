@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:dicertur_quistococha/src/bloc/nuevo_metodo_pago_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
-import 'package:dicertur_quistococha/src/pages/old/detalle_ticket.dart';
+import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,9 +13,11 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPagosTickets extends StatefulWidget {
   final String link;
+  final String idTicket;
   const WebViewPagosTickets({
     Key? key,
     required this.link,
+    required this.idTicket,
   }) : super(key: key);
   @override
   _WebViewPagosTicketsState createState() => _WebViewPagosTicketsState();
@@ -186,14 +189,14 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
             print('Page started loading: $url');
             nuevoMetodoPagoBloc.changeEstadoWebview(true);
 
-            if (url == 'https://bufeotec.com/respuesta/respuesta.php?respuesta=CORRECTO') {
+            if (url == '$apiBaseURL/Empresa/respuesta_pasarela/CORRECTO') {
               Navigator.push(
                 context,
                 PageRouteBuilder(
                   transitionDuration: const Duration(milliseconds: 700),
                   pageBuilder: (context, animation, secondaryAnimation) {
                     return DetalleTicketPage(
-                      esProximo: true,
+                      idTicket: widget.idTicket,
                     );
                   },
                   transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -204,7 +207,7 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
                   },
                 ),
               );
-            } else if (url == 'https://bufeotec.com/respuesta/respuesta.php?respuesta=CANCELADO') {
+            } else if (url == '$apiBaseURL/Empresa/respuesta_pasarela/CANCELADO') {
               Navigator.pushNamed(context, 'home');
               /*  ArgumentsWebview argumentsWebview = ArgumentsWebview();
                       argumentsWebview.idPedido = args.idPedido;
@@ -212,7 +215,7 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
 
                       Navigator.pushNamed(context, 'ticket',
                           arguments: argumentsWebview); */
-            } else if (url == 'https://bufeotec.com/respuesta/respuesta.php?respuesta=RECHAZADO') {
+            } else if (url == '$apiBaseURL/Empresa/respuesta_pasarela/RECHAZADO') {
               Navigator.pushNamed(context, 'home');
               /* ArgumentsWebview argumentsWebview = ArgumentsWebview();
                       argumentsWebview.idPedido = args.idPedido;
@@ -220,7 +223,7 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
 
                       Navigator.pushNamed(context, 'ticket',
                           arguments: argumentsWebview); */
-            } else if (url == 'https://bufeotec.com/respuesta/respuesta.php?respuesta=ERROR') {
+            } else if (url == '$apiBaseURL/Empresa/respuesta_pasarela/ERROR') {
               Navigator.pushNamed(context, 'home');
               /*   ArgumentsWebview argumentsWebview = ArgumentsWebview();
                       argumentsWebview.idPedido = args.idPedido;
@@ -234,14 +237,14 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
             nuevoMetodoPagoBloc.changeEstadoWebview(false);
             print('Page finished loading: $url');
 
-            if (url == 'https://bufeotec.com/respuesta/respuesta.php?respuesta=CORRECTO') {
+            if (url == '$apiBaseURL/Empresa/respuesta_pasarela/CORRECTO') {
               Navigator.push(
                 context,
                 PageRouteBuilder(
                   transitionDuration: const Duration(milliseconds: 700),
                   pageBuilder: (context, animation, secondaryAnimation) {
                     return DetalleTicketPage(
-                      esProximo: true,
+                      idTicket: widget.idTicket,
                     );
                   },
                   transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -252,7 +255,7 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
                   },
                 ),
               );
-            } else if (url == 'https://bufeotec.com/respuesta/respuesta.php?respuesta=CANCELADO') {
+            } else if (url == '$apiBaseURL/Empresa/respuesta_pasarela/CANCELADO') {
               Navigator.pushNamed(context, 'home');
               /* ArgumentsWebview argumentsWebview = ArgumentsWebview();
                       argumentsWebview.idPedido = args.idPedido;
@@ -260,7 +263,7 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
 
                       Navigator.pushNamed(context, 'ticket',
                           arguments: argumentsWebview); */
-            } else if (url == 'https://bufeotec.com/respuesta/respuesta.php?respuesta=RECHAZADO') {
+            } else if (url == '$apiBaseURL/Empresa/respuesta_pasarela/RECHAZADO') {
               Navigator.pushNamed(context, 'home');
               /*  ArgumentsWebview argumentsWebview = ArgumentsWebview();
                       argumentsWebview.idPedido = args.idPedido;
@@ -268,7 +271,7 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
 
                       Navigator.pushNamed(context, 'ticket',
                           arguments: argumentsWebview); */
-            } else if (url == 'https://bufeotec.com/respuesta/respuesta.php?respuesta=ERROR') {
+            } else if (url == '$apiBaseURL/Empresa/respuesta_pasarela/ERROR') {
               Navigator.pushNamed(context, 'home');
               /* ArgumentsWebview argumentsWebview = ArgumentsWebview();
                       argumentsWebview.idPedido = args.idPedido;

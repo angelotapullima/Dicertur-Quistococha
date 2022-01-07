@@ -33,6 +33,20 @@ class TicketDatabase {
     }
   }
 
+  Future<List<TicketModel>> getTicketsForUserActivos(String idUser) async {
+    try {
+      final Database db = await dbprovider.getDatabase();
+      List<TicketModel> list = [];
+      List<Map> maps = await db.rawQuery("SELECT * FROM Ticket where idUser = '$idUser' and ticketEstado <> '2' ");
+
+      if (maps.length > 0) list = TicketModel.fromJsonList(maps);
+      return list;
+    } catch (e) {
+      print(" $e Error en la  tabla Ticket");
+      return [];
+    }
+  }
+
   Future<List<TicketModel>> getTicketsForID(String idTicket) async {
     try {
       final Database db = await dbprovider.getDatabase();
