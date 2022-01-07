@@ -42,7 +42,7 @@ class DatabaseHelper {
       'tarifaEstado TEXT)';
 
     /*
-    0 es cuando fue creado, 1 cuando fue usado parcialmente y 2 cuando ya fue usado por completo
+      0 es cuando fue creado, 1 cuando fue usado parcialmente y 2 cuando ya fue usado por completo
     */
   static const String tableTicketSql = 'CREATE TABLE Ticket('
       'idTicket TEXT PRIMARY KEY, '
@@ -51,6 +51,8 @@ class DatabaseHelper {
       'ticketTotal TEXT,'
       'ticketDateTime TEXT,'
       'eventoFecha TEXT,'
+      'eventoHoraInicio TEXT,'
+      'eventoHoraFin TEXT,'
       'ticketTipoPago TEXT,'
       'ticketCodigoApp TEXT,'
       'clienteNombre TEXT,'

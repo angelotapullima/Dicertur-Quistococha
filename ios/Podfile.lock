@@ -108,6 +108,7 @@ PODS:
   - GTMSessionFetcher/Core (1.7.0)
   - image_gallery_saver (1.5.0):
     - Flutter
+  - MTBBarcodeScanner (5.0.11)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -116,6 +117,9 @@ PODS:
   - path_provider (0.0.1):
     - Flutter
   - PromisesObjC (2.0.0)
+  - qr_code_scanner (0.2.0):
+    - Flutter
+    - MTBBarcodeScanner
   - share_extend (0.0.1):
     - Flutter
   - shared_preferences (0.0.1):
@@ -140,6 +144,7 @@ DEPENDENCIES:
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
   - share_extend (from `.symlinks/plugins/share_extend/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sign_in_with_apple (from `.symlinks/plugins/sign_in_with_apple/ios`)
@@ -162,6 +167,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - MTBBarcodeScanner
     - nanopb
     - PromisesObjC
     - Toast
@@ -187,6 +193,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_gallery_saver/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  qr_code_scanner:
+    :path: ".symlinks/plugins/qr_code_scanner/ios"
   share_extend:
     :path: ".symlinks/plugins/share_extend/ios"
   shared_preferences:
@@ -222,9 +230,11 @@ SPEC CHECKSUMS:
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
+  MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
   share_extend: b6748dc53695587891126a89533b862b92548c7b
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   sign_in_with_apple: f3bf75217ea4c2c8b91823f225d70230119b8440

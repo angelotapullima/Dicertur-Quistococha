@@ -59,6 +59,8 @@ class TicketBloc {
         ticketModel.clienteNombre = list[i].clienteNombre;
         ticketModel.clienteTelefono = list[i].clienteTelefono;
         ticketModel.clienteDni = list[i].clienteDni;
+        ticketModel.eventoHoraFin = list[i].eventoHoraFin;
+        ticketModel.eventoHoraInicio = list[i].eventoHoraInicio;
 
         final detalleData = await detalleTicketDatabase.getDetalleTicketsForID(list[i].idTicket.toString());
 

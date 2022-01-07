@@ -33,8 +33,6 @@ class TicketApi {
       if (code == 1) {
         if (decodedData["result"]['data'].length > 0) {
           for (var i = 0; i < decodedData["result"]['data'].length; i++) {
-
-
             TicketModel ticketModel = TicketModel();
             ticketModel.idTicket = decodedData['result']['data'][i]['id_ticket'];
             ticketModel.idUser = decodedData['result']['data'][i]['id_usuario'];
@@ -45,9 +43,16 @@ class TicketApi {
             ticketModel.ticketCodigoApp = decodedData['result']['data'][i]['ticket_codigo_app'];
             ticketModel.ticketEstado = decodedData['result']['data'][i]['ticket_estado'];
             ticketModel.eventoFecha = decodedData['result']['data'][i]['evento_fecha'];
-            ticketModel.clienteNombre =decodedData['result']['data'][i]['cliente_nombre'];
+            ticketModel.clienteNombre = decodedData['result']['data'][i]['cliente_nombre'];
             ticketModel.clienteTelefono = decodedData['result']['data'][i]['cliente_telefono'];
-            ticketModel.clienteDni =decodedData['result']['data'][i]['cliente_numero'];
+            ticketModel.clienteDni = decodedData['result']['data'][i]['cliente_numero'];
+
+            final horsFormat = decodedData['result']['data'][i]['evento_hora']!.split("-");
+            var horaInicio = horsFormat[0].trim();
+            var horaFin = horsFormat[1].trim();
+            ticketModel.eventoHoraInicio = horaInicio;
+            ticketModel.eventoHoraFin = horaFin;
+
             await ticketDatabase.insertarTicket(ticketModel);
 
             if (decodedData["result"]['data'][i]['detalle'].length > 0) {
@@ -99,8 +104,6 @@ class TicketApi {
       loginModel.code = code.toString();
 
       if (code == 1) {
-
-        
         TicketModel ticketModel = TicketModel();
         ticketModel.idTicket = decodedData['result']['data']['id_ticket'];
         ticketModel.idUser = decodedData['result']['data']['id_usuario'];
@@ -114,6 +117,13 @@ class TicketApi {
         ticketModel.clienteNombre = decodedData['result']['data']['cliente_nombre'];
         ticketModel.clienteTelefono = decodedData['result']['data']['cliente_telefono'];
         ticketModel.clienteDni = decodedData['result']['data']['cliente_numero'];
+
+        final horsFormat = decodedData['result']['data']['evento_hora']!.split("-");
+        var horaInicio = horsFormat[0].trim();
+        var horaFin = horsFormat[1].trim();
+        ticketModel.eventoHoraInicio = horaInicio;
+        ticketModel.eventoHoraFin = horaFin;
+
         await ticketDatabase.insertarTicket(ticketModel);
 
         if (decodedData["result"]['data']['detalle'].length > 0) {
@@ -145,8 +155,7 @@ class TicketApi {
     }
   }
 
-
-   Future<TicketUrlApiModel> guardarTicket(
+  Future<TicketUrlApiModel> guardarTicket(
     String idEvento,
     String total,
     String detalle,
@@ -194,8 +203,4 @@ class TicketApi {
       return apiModel;
     }
   }
-
-
-
-
 }

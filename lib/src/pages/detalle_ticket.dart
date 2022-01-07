@@ -128,7 +128,7 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                '8:00 AM',
+                                                '${snapshot.data![0].eventoHoraInicio}',
                                                 style: GoogleFonts.poppins(
                                                   color: Color(0XFF505050),
                                                   fontWeight: FontWeight.w700,
@@ -144,7 +144,7 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                                 ),
                                               ),
                                               Text(
-                                                '6:00 PM',
+                                                '${snapshot.data![0].eventoHoraFin}',
                                                 style: GoogleFonts.poppins(
                                                   color: Color(0XFF505050),
                                                   fontWeight: FontWeight.w700,
