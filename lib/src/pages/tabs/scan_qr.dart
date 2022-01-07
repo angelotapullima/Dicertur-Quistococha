@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dicertur_quistococha/src/pages/cobro_ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -35,7 +36,13 @@ class _ScanQRState extends State<ScanQR> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [qrView(context), Positioned(bottom: 10, child: resultadoScanQR())],
+        children: [
+          qrView(context),
+          Positioned(
+            bottom: 10,
+            child: resultadoScanQR(),
+          )
+        ],
       ),
     );
   }
@@ -68,6 +75,32 @@ class _ScanQRState extends State<ScanQR> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((barcode) {
+      if (barcode != null) {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return CobroTicket(
+                idTicket: barcode.toString(),
+              );
+            },
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              var begin = Offset(0.0, 1.0);
+              var end = Offset.zero;
+              var curve = Curves.ease;
+
+              var tween = Tween(begin: begin, end: end).chain(
+                CurveTween(curve: curve),
+              );
+
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+          ),
+        );
+      }
       setState(() {
         this.barcode = barcode;
       });
