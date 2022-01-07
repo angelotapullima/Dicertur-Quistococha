@@ -59,6 +59,7 @@ dependencies:
   webview_flutter: ^2.0.13
   pretty_qr_code: ^2.0.2
   qr_code_scanner: ^0.6.1
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:
