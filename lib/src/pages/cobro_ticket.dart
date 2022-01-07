@@ -13,26 +13,29 @@ class CobroTicket extends StatefulWidget {
 
 class _CobroTicketState extends State<CobroTicket> {
   @override
-  Widget build(BuildContext context) { final ticketBloc = ProviderBloc.ticket(context);
+  Widget build(BuildContext context) {
+    final ticketBloc = ProviderBloc.ticket(context);
     ticketBloc.getTicketsForID(widget.idTicket.toString());
-    return Scaffold(
-      body:StreamBuilder(
-         stream: ticketBloc.ticketIdStream,
-        builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data!.length > 0) {
-              return Container();   } else {
-              return Center(
-                child: Text('No existen Tickets'),
-              );
-            }
+    return StreamBuilder(
+      stream: ticketBloc.ticketIdStream,
+      builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data!.length > 0) {
+            return Scaffold(appBar: AppBar(), body: Container());
           } else {
-            return Center(
-              child: CupertinoActivityIndicator(),
+            return Scaffold(
+              appBar: AppBar(),
+              body: Center(
+                child: Text('No existen Tickets'),
+              ),
             );
           }
-        },
-      ),
+        } else {
+          return Center(
+            child: CupertinoActivityIndicator(),
+          );
+        }
+      },
     );
   }
 }

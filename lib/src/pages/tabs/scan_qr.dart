@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dicertur_quistococha/src/pages/cobro_ticket.dart';
+import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -13,14 +14,28 @@ class ScanQR extends StatefulWidget {
 }
 
 class _ScanQRState extends State<ScanQR> {
+  int con = 0;
   final qrKey = GlobalKey(debugLabel: 'QR');
-  Barcode? barcode;
+  Barcode? barcodeData;
   QRViewController? controller;
 
+
+@override
+  void didChangeDependencies() {
+    showToast2('bienvenido',Colors.red);
+    super.didChangeDependencies();
+  }
   @override
   void dispose() {
     controller?.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    print('init');
+    con = 0;
+    super.initState();
   }
 
   @override
@@ -49,7 +64,7 @@ class _ScanQRState extends State<ScanQR> {
 
   Widget resultadoScanQR() {
     return Text(
-      barcode != null ? 'Resultado: ${barcode!.code}' : 'Scanear QR',
+      barcodeData != null ? 'Resultado: ${barcodeData!.code}' : 'Scanear QR',
       style: TextStyle(color: Colors.white),
       maxLines: 3,
       textAlign: TextAlign.center,
@@ -75,13 +90,13 @@ class _ScanQRState extends State<ScanQR> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((barcode) {
-      if (barcode != null) {
+      if (con == 0 ) {
         Navigator.push(
           context,
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) {
               return CobroTicket(
-                idTicket: barcode.toString(),
+                idTicket: barcode.code.toString(),
               );
             },
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -100,9 +115,10 @@ class _ScanQRState extends State<ScanQR> {
             },
           ),
         );
+        con++;
       }
       setState(() {
-        this.barcode = barcode;
+        this.barcodeData = barcode;
       });
     });
   }
