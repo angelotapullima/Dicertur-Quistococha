@@ -1,7 +1,7 @@
-import 'package:dicertur_quistococha/src/api/tickets_api.dart';
+
+import 'package:dicertur_quistococha/src/api/ticket_api.dart';
 import 'package:dicertur_quistococha/src/models/evento_model.dart';
 import 'package:dicertur_quistococha/src/models/tarifas_monto_precio_model.dart';
-import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/inicio.dart';
 import 'package:dicertur_quistococha/src/pages/web_view_pago_tickets.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
@@ -435,7 +435,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                 if (_nombreController.text.isNotEmpty) {
                   if (_dniController.text.isNotEmpty) {
                     if (_telController.text.isNotEmpty) {
-                      final _ticketApi = TicketsApi();
+                      final _ticketApi = TicketApi();
                       String detalle = '';
                       for (var i = 0; i < widget.tarifas.length; i++) {
                         detalle += '${widget.tarifas[i].idTarifa},,,${widget.tarifas[i].tarifaCantidad}//--';
