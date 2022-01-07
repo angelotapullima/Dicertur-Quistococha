@@ -164,21 +164,51 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                             width: ScreenUtil().setWidth(10),
                                             child: DecoratedBox(
                                               decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
-                                                  color: Color(0XFFFAFAFA)),
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(10),
+                                                  bottomRight: Radius.circular(10),
+                                                ),
+                                                color: Color(0XFFFAFAFA),
+                                              ),
                                             ),
                                           ),
-                                          Container(
-                                            color: Colors.white,
-                                            child: Divider(),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: LayoutBuilder(
+                                                builder: (context, constraints) {
+                                                  final boxWidth = constraints.constrainWidth();
+                                                  final dashWidth = 10.0;
+                                                  final dashCount = (boxWidth / (2 * dashWidth)).floor();
+
+                                                  return Flex(
+                                                    children: List.generate(dashCount, (_) {
+                                                      return SizedBox(
+                                                        width: dashWidth,
+                                                        height: 1,
+                                                        child: DecoratedBox(
+                                                          decoration: BoxDecoration(color: Colors.grey),
+                                                        ),
+                                                      );
+                                                    }),
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    direction: Axis.horizontal,
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
                                           SizedBox(
                                             height: ScreenUtil().setHeight(20),
                                             width: ScreenUtil().setWidth(10),
                                             child: DecoratedBox(
                                               decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-                                                  color: Color(0XFFFAFAFA)),
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(10),
+                                                  bottomLeft: Radius.circular(10),
+                                                ),
+                                                color: Color(0XFFFAFAFA),
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -540,25 +570,31 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: ScreenUtil().setHeight(32),
-                                    ),
                                     Container(
-                                      height: ScreenUtil().setHeight(200),
-                                      width: ScreenUtil().setWidth(200),
-                                      child: PrettyQr(
-                                        data: '${snapshot.data![0].idTicket}',
-                                        size: ScreenUtil().setSp(60),
-                                        image: AssetImage('assets/img/logo_bufeo.png'),
-                                        errorCorrectLevel: QrErrorCorrectLevel.H,
+                                      padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(24), vertical: ScreenUtil().setHeight(20)),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(15),
+                                          bottomRight: Radius.circular(15),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Container(
+                                          height: ScreenUtil().setHeight(200),
+                                          width: ScreenUtil().setWidth(200),
+                                          child: PrettyQr(
+                                            data: '${snapshot.data![0].idTicket}',
+                                            size: ScreenUtil().setSp(60),
+                                            image: AssetImage('assets/img/logo_bufeo.png'),
+                                            errorCorrectLevel: QrErrorCorrectLevel.H,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
                                       height: ScreenUtil().setHeight(52),
                                     ),
-                                    Container(
-                                      child: Image.asset('assets/svg/banner.png'),
-                                    )
                                   ],
                                 ),
                               ),
