@@ -267,20 +267,29 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                '${snapshot.data![0].clienteNombre}',
-                                                style: GoogleFonts.poppins(
-                                                  color: Color(0XFF505050),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: ScreenUtil().setSp(16),
+                                              Expanded(
+                                                child: Text(
+                                                  '${snapshot.data![0].clienteNombre}',
+                                                  style: GoogleFonts.poppins(
+                                                    color: Color(0XFF505050),
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: ScreenUtil().setSp(16),
+                                                  ),
                                                 ),
                                               ),
-                                              Text(
-                                                '${snapshot.data![0].clienteDni}',
-                                                style: GoogleFonts.poppins(
-                                                  color: Color(0XFF505050),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: ScreenUtil().setSp(16),
+                                              SizedBox(
+                                                width: ScreenUtil().setWidth(10),
+                                              ),
+                                              Container(
+                                                width: ScreenUtil().setWidth(85),
+                                                child: Text(
+                                                  '${snapshot.data![0].clienteDni}',
+                                                  textAlign: TextAlign.end,
+                                                  style: GoogleFonts.poppins(
+                                                    color: Color(0XFF505050),
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: ScreenUtil().setSp(16),
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -350,38 +359,40 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                           ),
                                           (snapshot.data![0].detalle!.length > 0)
                                               ? Container(
-                                                  height:( snapshot.data![0].detalle!.length +1)* ScreenUtil().setHeight(20),
+                                                  height: (snapshot.data![0].detalle!.length + 1) * ScreenUtil().setHeight(25),
                                                   child: ListView.builder(
-                                                    physics: ClampingScrollPhysics(),
+                                                      physics: NeverScrollableScrollPhysics(),
                                                       itemCount: snapshot.data![0].detalle!.length,
                                                       itemBuilder: (context, index2) {
                                                         return Row(
                                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                           children: [
-                                                            Text(
-                                                              '${snapshot.data![0].detalle![index2].tarifaNombre}',
-                                                              style: GoogleFonts.poppins(
-                                                                color: Color(0XFF505050),
-                                                                fontWeight: FontWeight.w500,
-                                                                fontSize: ScreenUtil().setSp(16),
+                                                            Expanded(
+                                                              child: Text(
+                                                                '${snapshot.data![0].detalle![index2].tarifaNombre}',
+                                                                style: GoogleFonts.poppins(
+                                                                  color: Color(0XFF505050),
+                                                                  fontWeight: FontWeight.w500,
+                                                                  fontSize: ScreenUtil().setSp(16),
+                                                                ),
                                                               ),
                                                             ),
-                                                            Text(
-                                                              '${snapshot.data![0].detalle![index2].tarifaDetalleCantidad} X ${snapshot.data![0].detalle![index2].tarifaPrecio}',
-                                                              style: GoogleFonts.poppins(
-                                                                color: Color(0XFF505050),
-                                                                fontWeight: FontWeight.w400,
-                                                                fontSize: ScreenUtil().setSp(16),
+                                                            Container(
+                                                              width: ScreenUtil().setWidth(70),
+                                                              child: Text(
+                                                                '${snapshot.data![0].detalle![index2].tarifaDetalleCantidad} X ${snapshot.data![0].detalle![index2].tarifaPrecio}',
+                                                                style: GoogleFonts.poppins(
+                                                                  color: Color(0XFF505050),
+                                                                  fontWeight: FontWeight.w400,
+                                                                  fontSize: ScreenUtil().setSp(16),
+                                                                ),
                                                               ),
                                                             ),
                                                           ],
                                                         );
                                                       }),
                                                 )
-                                              : Container()
-                                          ,
-                                           
-                                           
+                                              : Container(),
                                         ],
                                       ),
                                     ),
@@ -450,6 +461,23 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
+                                              ('${snapshot.data![0].ticketTipoPago}' == '1')
+                                                  ? Text(
+                                                      'Pago con tarjeta',
+                                                      style: GoogleFonts.poppins(
+                                                        color: Color(0XFF505050),
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: ScreenUtil().setSp(16),
+                                                      ),
+                                                    )
+                                                  : Text(
+                                                      'Pago en efectivo',
+                                                      style: GoogleFonts.poppins(
+                                                        color: Color(0XFF505050),
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: ScreenUtil().setSp(16),
+                                                      ),
+                                                    ),
                                               Spacer(),
                                               Text(
                                                 'S/.${snapshot.data![0].ticketTotal}',

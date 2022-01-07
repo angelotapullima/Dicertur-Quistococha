@@ -7,6 +7,7 @@ import 'package:dicertur_quistococha/database/ticket_database.dart';
 import 'package:dicertur_quistococha/src/api/login_api.dart';
 import 'package:dicertur_quistococha/src/models/detalle_ticket_model.dart';
 import 'package:dicertur_quistococha/src/models/ticket_model.dart';
+import 'package:dicertur_quistococha/src/models/ticket_url_api_model.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,8 +34,6 @@ class TicketApi {
         if (decodedData["result"]['data'].length > 0) {
           for (var i = 0; i < decodedData["result"]['data'].length; i++) {
 
-            final ticketData = await ticketDatabase.getTicketsForID(decodedData['result']['data'][i]['id_ticket']);
-
 
             TicketModel ticketModel = TicketModel();
             ticketModel.idTicket = decodedData['result']['data'][i]['id_ticket'];
@@ -46,9 +45,9 @@ class TicketApi {
             ticketModel.ticketCodigoApp = decodedData['result']['data'][i]['ticket_codigo_app'];
             ticketModel.ticketEstado = decodedData['result']['data'][i]['ticket_estado'];
             ticketModel.eventoFecha = decodedData['result']['data'][i]['evento_fecha'];
-            ticketModel.clienteNombre = (ticketData.length<0)?ticketData[0].clienteNombre:'';
-            ticketModel.clienteTelefono = (ticketData.length<0)?ticketData[0].clienteTelefono:'';
-            ticketModel.clienteDni = (ticketData.length<0)?ticketData[0].clienteDni:'';
+            ticketModel.clienteNombre =decodedData['result']['data'][i]['cliente_nombre'];
+            ticketModel.clienteTelefono = decodedData['result']['data'][i]['cliente_telefono'];
+            ticketModel.clienteDni =decodedData['result']['data'][i]['cliente_numero'];
             await ticketDatabase.insertarTicket(ticketModel);
 
             if (decodedData["result"]['data'][i]['detalle'].length > 0) {
@@ -114,7 +113,7 @@ class TicketApi {
         ticketModel.eventoFecha = decodedData['result']['data']['evento_fecha'];
         ticketModel.clienteNombre = decodedData['result']['data']['cliente_nombre'];
         ticketModel.clienteTelefono = decodedData['result']['data']['cliente_telefono'];
-        ticketModel.clienteDni = decodedData['result']['data']['cliente_telefono'];
+        ticketModel.clienteDni = decodedData['result']['data']['cliente_numero'];
         await ticketDatabase.insertarTicket(ticketModel);
 
         if (decodedData["result"]['data']['detalle'].length > 0) {
@@ -145,4 +144,58 @@ class TicketApi {
       return loginModel;
     }
   }
+
+
+   Future<TicketUrlApiModel> guardarTicket(
+    String idEvento,
+    String total,
+    String detalle,
+    String nombre,
+    String telefono,
+    String dni,
+  ) async {
+    try {
+      final url = Uri.parse('$apiBaseURL/api/Empresa/guardar_ticket');
+      String? token = await StorageManager.readData('token');
+
+      final resp = await http.post(url, body: {
+        'nombre': nombre,
+        'id_evento': idEvento,
+        'telefono': telefono,
+        'dni': dni,
+        'total': total,
+        'tipo_pago': '1',
+        'detalle': detalle,
+        'app': 'true',
+        'id_tipodocumento': '2',
+        'tn': token,
+      });
+
+      final decodedData = json.decode(resp.body);
+      print(decodedData);
+
+      final int code = decodedData['result']['code'];
+      TicketUrlApiModel apiModel = TicketUrlApiModel();
+      apiModel.code = code.toString();
+
+      if (code == 1) {
+        apiModel.idTicket = decodedData['result']['id_ticket'];
+        apiModel.estado = decodedData['result']['pago_online']['estado'];
+        apiModel.url = decodedData['result']['pago_online']['link'];
+        apiModel.message = decodedData['result']['pago_online']['mensaje'];
+      }
+
+      return apiModel;
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      TicketUrlApiModel apiModel = TicketUrlApiModel();
+      apiModel.code = '2';
+      apiModel.message = 'Error en la petición';
+      return apiModel;
+    }
+  }
+
+
+
+
 }
