@@ -64,5 +64,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+<true/>
+<key>NSCameraUsageDescription</key>
+<string>Esta aplicacción necesita acceso a la cámara para poder escanear código QR</string>
 </dict>
 </plist>

@@ -58,6 +58,7 @@ dependencies:
   firebase_crashlytics: ^2.4.4
   webview_flutter: ^2.0.13
   pretty_qr_code: ^2.0.2
+  qr_code_scanner: ^0.6.1
 
 dev_dependencies:
   flutter_test:
