@@ -162,6 +162,9 @@ class TicketApi {
     String nombre,
     String telefono,
     String dni,
+    String idTipoDocumento,
+    String domicilio,
+    String tipoVenta,
   ) async {
     try {
       final url = Uri.parse('$apiBaseURL/api/Empresa/guardar_ticket');
@@ -175,8 +178,10 @@ class TicketApi {
         'total': total,
         'tipo_pago': '1',
         'detalle': detalle,
+        'id_tipodocumento': idTipoDocumento,
+        'tipo_venta': tipoVenta,
+        'domicilio': domicilio,
         'app': 'true',
-        'id_tipodocumento': '2',
         'tn': token,
       });
 
