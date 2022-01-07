@@ -1,4 +1,3 @@
-
 import 'package:dicertur_quistococha/src/api/ticket_api.dart';
 import 'package:dicertur_quistococha/src/models/evento_model.dart';
 import 'package:dicertur_quistococha/src/models/tarifas_monto_precio_model.dart';
@@ -272,6 +271,40 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                             ),
                             Spacer(),
                             Text('${widget.totalEntradas}'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: ScreenUtil().setHeight(20),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: ScreenUtil().setWidth(20),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20), vertical: ScreenUtil().setHeight(10)),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xff323232).withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: Offset(0, 0), // changes position of shadow
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'Seleccione tipo de documento',
+                              style: TextStyle(color: Colors.grey),
+                            ),
                           ],
                         ),
                       ],
