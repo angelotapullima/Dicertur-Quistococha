@@ -5,10 +5,12 @@ import 'package:dicertur_quistococha/src/pages/home.dart';
 import 'package:dicertur_quistococha/src/pages/login.dart';
 import 'package:dicertur_quistococha/src/pages/new_account.dart';
 import 'package:dicertur_quistococha/src/pages/splash.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/bloc_contador_qr.dart';
 import 'package:dicertur_quistococha/src/pushProvider/push_notifications.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 void main() {
 
@@ -45,25 +47,32 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ProviderBloc(
-      child: ScreenUtilInit(
-        designSize: Size(375, 812),
-        builder: () => MaterialApp(
-          title: 'Dicertur',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch:Colors.yellow,
+    return MultiProvider(providers: [
+        ChangeNotifierProvider<ContadorQrBloc>(
+          create: (_) => ContadorQrBloc(),
+        ),
+        
+      ],
+      child: ProviderBloc(
+        child: ScreenUtilInit(
+          designSize: Size(375, 812),
+          builder: () => MaterialApp(
+            title: 'Dicertur',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primarySwatch:Colors.yellow,
+            ),
+            initialRoute: 'splash',
+            routes: {
+              'splash': (BuildContext context) => Splash(),
+              'login': (BuildContext context) => Login(),
+              'newAccount': (BuildContext context) => NewAccount(),
+              'home': (BuildContext context) => HomePage(),
+              //'MetodoPago': (BuildContext context) => MetodoPago(),
+            },
+    
+            //home: MyHomePage(title: 'Flutter Demo Home Page'),
           ),
-          initialRoute: 'splash',
-          routes: {
-            'splash': (BuildContext context) => Splash(),
-            'login': (BuildContext context) => Login(),
-            'newAccount': (BuildContext context) => NewAccount(),
-            'home': (BuildContext context) => HomePage(),
-            //'MetodoPago': (BuildContext context) => MetodoPago(),
-          },
-
-          //home: MyHomePage(title: 'Flutter Demo Home Page'),
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:dicertur_quistococha/src/api/login_api.dart';
 import 'package:dicertur_quistococha/src/bloc/login_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/account.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/bloc_contador_qr.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/inicio.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/scan_qr.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/tickets.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -138,6 +140,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         InkWell(
                           onTap: () {
+
+    final provider = Provider.of<ContadorQrBloc>(context, listen: false);
+    provider.changeValorQr(0);
                             bottomBloc.changePage(2);
                           },
                           child: Column(

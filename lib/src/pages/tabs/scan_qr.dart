@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:dicertur_quistococha/src/pages/cobro_ticket.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/bloc_contador_qr.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ScanQR extends StatefulWidget {
@@ -14,17 +16,16 @@ class ScanQR extends StatefulWidget {
 }
 
 class _ScanQRState extends State<ScanQR> {
-  int con = 0;
   final qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? barcodeData;
   QRViewController? controller;
 
-
-@override
+  @override
   void didChangeDependencies() {
-    showToast2('bienvenido',Colors.red);
+    showToast2('bienvenido', Colors.red);
     super.didChangeDependencies();
   }
+
   @override
   void dispose() {
     controller?.dispose();
@@ -34,7 +35,6 @@ class _ScanQRState extends State<ScanQR> {
   @override
   void initState() {
     print('init');
-    con = 0;
     super.initState();
   }
 
@@ -49,10 +49,11 @@ class _ScanQRState extends State<ScanQR> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ContadorQrBloc>(context, listen: false);
     return Scaffold(
       body: Stack(
         children: [
-          qrView(context),
+          qrView(context, provider),
           Positioned(
             bottom: 10,
             child: resultadoScanQR(),
@@ -71,10 +72,12 @@ class _ScanQRState extends State<ScanQR> {
     );
   }
 
-  Widget qrView(BuildContext context) {
+  Widget qrView(BuildContext context, ContadorQrBloc contador) {
     return QRView(
       key: qrKey,
-      onQRViewCreated: onQRViewCreated,
+      onQRViewCreated: (valoor) {
+        return onQRViewCreated2(valoor, contador);
+      },
       overlay: QrScannerOverlayShape(
         borderWidth: ScreenUtil().setWidth(15),
         borderRadius: 10,
@@ -85,12 +88,12 @@ class _ScanQRState extends State<ScanQR> {
     );
   }
 
-  void onQRViewCreated(QRViewController controller) {
+  void onQRViewCreated2(QRViewController controller, ContadorQrBloc contador) {
     setState(() {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((barcode) {
-      if (con == 0 ) {
+      if (contador.valor.value == 0) {
         Navigator.push(
           context,
           PageRouteBuilder(
@@ -115,7 +118,7 @@ class _ScanQRState extends State<ScanQR> {
             },
           ),
         );
-        con++;
+        contador.changeValorQr(1);
       }
       setState(() {
         this.barcodeData = barcode;
