@@ -1,12 +1,5 @@
 class TarifaModel {
-  /*
-  'idTarifa TEXT PRIMARY KEY, '
-      ' TEXT, '
-      ' TEXT, '
-      ' TEXT,'
-      ' TEXT)';
-      
-       */
+ 
   String? idTarifa;
   String? idEspacio;
   String? tarifaNombre;

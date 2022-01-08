@@ -101,7 +101,6 @@ class LoginApi {
       if (code == 1) {
         print('code suscessfull');
 
-
         StorageManager.saveData('idUser', decodedData['data']['c_u']);
         StorageManager.saveData('idPerson', decodedData['data']['c_p']);
         StorageManager.saveData('userNickname', decodedData['data']['_n']);
@@ -125,6 +124,44 @@ class LoginApi {
       return loginModel;
     }
   }
+
+  Future<ApiModel> registerUser(String nombre, String apellido, String email, String pass) async {
+    try {
+      final url = Uri.parse('$apiBaseURL/api/Login/guardar_usuario');
+
+      final resp = await http.post(url, body: {
+        'persona_nombre': '$nombre',
+        'persona_apellido_paterno': '$apellido',
+        'usuario_nickname': '$email',
+        'id_rol': '4',
+        'persona_telefono': '11111111',
+        'usuario_contrasenha': '$pass',
+        'usuario_email': '$email',
+        'app': 'true',
+      });
+
+      final decodedData = json.decode(resp.body);
+
+      final int code = decodedData['result']['code'];
+      ApiModel loginModel = ApiModel();
+      loginModel.code = code.toString();
+      loginModel.message = decodedData['result']['message'];
+
+      if (code == 1) {
+        print('code suscessfull');
+
+        return loginModel;
+      } else {
+        return loginModel;
+      }
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      ApiModel loginModel = ApiModel();
+      loginModel.code = '2';
+      loginModel.message = 'Error en la petición';
+      return loginModel;
+    }
+  }
 }
 
 class ApiModel {
@@ -133,3 +170,16 @@ class ApiModel {
 
   ApiModel({this.code, this.message});
 }
+
+
+/*
+
+$ok_data = $this->validar->validar_parametro('persona_nombre', 'POST',true,$ok_data,100,'texto',0);
+            $ok_data = $this->validar->validar_parametro('persona_apellido_paterno', 'POST',true,$ok_data,30,'texto',0);
+            $ok_data = $this->validar->validar_parametro('persona_telefono', 'POST',true,$ok_data,15,'texto',0);
+            $ok_data = $this->validar->validar_parametro('id_rol', 'POST',true,$ok_data,11,'numero',0);
+            $ok_data = $this->validar->validar_parametro('usuario_nickname', 'POST',true,$ok_data,100,'texto',0);
+            $ok_data = $this->validar->validar_parametro('usuario_contrasenha', 'POST',true,$ok_data,70,'texto',0);
+            $ok_data = $this->validar->validar_parametro('usuario_email', 'POST',false,$ok_data,100,'email',0);
+            
+             */

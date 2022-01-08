@@ -12,32 +12,41 @@ class TicketBloc {
   final detalleTicketDatabase = DetalleTicketDatabase();
   final _ticketController = BehaviorSubject<List<TicketModel>>();
   final _ticketIdController = BehaviorSubject<List<TicketModel>>();
+  final _cargandoController = BehaviorSubject<bool>();
   Stream<List<TicketModel>> get ticketStream => _ticketController.stream;
   Stream<List<TicketModel>> get ticketIdStream => _ticketIdController.stream;
+  Stream<bool> get cargando => _cargandoController.stream;
 
   dispose() {
     _ticketController.close();
     _ticketIdController.close();
+    _cargandoController.close();
   }
 
   void getTicketsForUser(String estado) async {
     String? idUser = await StorageManager.readData('idUser');
 
     if (estado == '2') {
+      _cargandoController.sink.add(true);
       _ticketController.sink.add(await ticketDatabase.getTicketsForUser(idUser!, estado));
       await ticketApi.getTicketsAPi();
       _ticketController.sink.add(await ticketDatabase.getTicketsForUser(idUser, estado));
+      _cargandoController.sink.add(false);
     } else {
-      _ticketController.sink.add(await ticketDatabase.getTicketsForUser(idUser!, estado));
+      _cargandoController.sink.add(true);
+      _ticketController.sink.add(await ticketDatabase.getTicketsForUserActivos(idUser!));
       await ticketApi.getTicketsAPi();
-      _ticketController.sink.add(await ticketDatabase.getTicketsForUser(idUser, estado));
+      _ticketController.sink.add(await ticketDatabase.getTicketsForUserActivos(idUser));
+      _cargandoController.sink.add(false);
     }
   }
 
   void getTicketsForID(String id) async {
+      _cargandoController.sink.add(true);
     _ticketIdController.sink.add(await ticketDetails(id));
     await ticketApi.getTicketsForIdApi(id);
     _ticketIdController.sink.add(await ticketDetails(id));
+      _cargandoController.sink.add(false);
   }
 
   Future<List<TicketModel>> ticketDetails(String id) async {
@@ -76,6 +85,7 @@ class TicketBloc {
             detalleTicketModel.tarifaDetalleCantidad = detalleData[x].tarifaDetalleCantidad;
             detalleTicketModel.tarifaDetalleSubTotal = detalleData[x].tarifaDetalleSubTotal;
             detalleTicketModel.tarifaDetalleEstado = detalleData[x].tarifaDetalleEstado;
+            detalleTicketModel.idTarifa = detalleData[x].idTarifa;
             listDetalleFinal.add(detalleTicketModel);
           }
         }

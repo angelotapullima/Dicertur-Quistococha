@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dicertur_quistococha/src/bloc/nuevo_metodo_pago_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
+import 'package:dicertur_quistococha/src/pages/detalle_ticket_pagoOnline.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -236,13 +237,14 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
             nuevoMetodoPagoBloc.changeEstadoWebview(false);
             print('Page finished loading: $url');
 
-            if (url == '$apiBaseURL/Empresa/respuesta_pasarela/CORRECTO') {
+            if (url == '$apiBaseURL/Empresa/respuesta_pasarela/CORRECTO/') {
+
               Navigator.push(
                 context,
                 PageRouteBuilder(
                   transitionDuration: const Duration(milliseconds: 700),
                   pageBuilder: (context, animation, secondaryAnimation) {
-                    return DetalleTicketPage(
+                    return DetalleTicketPageOnline(
                       idTicket: widget.idTicket,
                     );
                   },

@@ -66,6 +66,7 @@ class TicketApi {
                 detalleTicketModel.tarifaDetalleCantidad = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_cantidad'];
                 detalleTicketModel.tarifaDetalleSubTotal = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_subtotal'];
                 detalleTicketModel.tarifaDetalleEstado = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_estado'];
+                detalleTicketModel.idTarifa = decodedData["result"]['data'][i]['detalle'][x]['id_tarifa'];
 
                 await detalleTicketDatabase.insertarDetalleTicket(detalleTicketModel);
               }
@@ -137,7 +138,7 @@ class TicketApi {
             detalleTicketModel.tarifaDetalleCantidad = decodedData["result"]['data']['detalle'][x]['ticket_detalle_cantidad'];
             detalleTicketModel.tarifaDetalleSubTotal = decodedData["result"]['data']['detalle'][x]['ticket_detalle_subtotal'];
             detalleTicketModel.tarifaDetalleEstado = decodedData["result"]['data']['detalle'][x]['ticket_detalle_estado'];
-
+            detalleTicketModel.idTarifa = decodedData["result"]['data']['detalle'][x]['id_tarifa'];
             await detalleTicketDatabase.insertarDetalleTicket(detalleTicketModel);
           }
         }
@@ -206,6 +207,38 @@ class TicketApi {
       apiModel.code = '2';
       apiModel.message = 'Error en la petición';
       return apiModel;
+    }
+  }
+
+  Future<ApiModel> cobrarTicket(String idTicket, String detalle) async {
+    try {
+      final url = Uri.parse('$apiBaseURL/api/Empresa/cobrar_ticket');
+      String? token = await StorageManager.readData('token');
+
+      final resp = await http.post(url, body: {
+        'app': 'true',
+        'tn': token,
+        'id_ticket': idTicket,
+        'detalle': detalle,
+      });
+
+      final decodedData = json.decode(resp.body);
+
+      final int code = decodedData['result']['code'];
+      ApiModel loginModel = ApiModel();
+      loginModel.code = code.toString();
+
+      if (code == 1) {
+        return loginModel;
+      } else {
+        return loginModel;
+      }
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      ApiModel loginModel = ApiModel();
+      loginModel.code = '2';
+      loginModel.message = 'Error en la petición';
+      return loginModel;
     }
   }
 }

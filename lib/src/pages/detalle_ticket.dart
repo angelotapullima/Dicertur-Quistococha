@@ -638,9 +638,21 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                 ),
               );
             } else {
-              return Center(
-                child: Text('No existen Tickets'),
-              );
+              return StreamBuilder(
+                  stream: ticketBloc.cargando,
+                  builder: (context, AsyncSnapshot<bool> snapshot) {
+                    if (snapshot.hasData) {
+                      return (snapshot.data!)
+                          ? Scaffold(
+                              body: Center(
+                                child: CupertinoActivityIndicator(),
+                              ),
+                            )
+                          : Container();
+                    } else {
+                      return Container();
+                    }
+                  });
             }
           } else {
             return Center(

@@ -4,6 +4,7 @@ class DetalleTicketModel {
   String? tarifaNombre;
   String? tarifaPrecio;
   String? tarifaDetalleCantidad;
+  String? idTarifa;
   String? tarifaDetalleSubTotal;
   String? tarifaDetalleEstado;
 
@@ -13,6 +14,7 @@ class DetalleTicketModel {
     this.tarifaNombre,
     this.tarifaPrecio,
     this.tarifaDetalleCantidad,
+    this.idTarifa,
     this.tarifaDetalleSubTotal,
     this.tarifaDetalleEstado,
   });
@@ -25,6 +27,7 @@ class DetalleTicketModel {
         "tarifaNombre": tarifaNombre,
         "tarifaPrecio": tarifaPrecio,
         "tarifaDetalleCantidad": tarifaDetalleCantidad,
+        "idTarifa": idTarifa,
         "tarifaDetalleSubTotal": tarifaDetalleSubTotal,
         "tarifaDetalleEstado": tarifaDetalleEstado,
       };
@@ -34,6 +37,7 @@ class DetalleTicketModel {
         tarifaNombre: json["tarifaNombre"],
         tarifaPrecio: json["tarifaPrecio"],
         tarifaDetalleCantidad: json["tarifaDetalleCantidad"],
+        idTarifa: json["idTarifa"],
         tarifaDetalleSubTotal: json["tarifaDetalleSubTotal"],
         tarifaDetalleEstado: json["tarifaDetalleEstado"],
       );

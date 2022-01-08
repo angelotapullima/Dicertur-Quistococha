@@ -134,10 +134,10 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                                                           color: Color(0XFF505050),
                                                         ),
                                                       ),
-                                                    ],
+                                                    ], 
                                                   ),
                                                   Spacer(),
-                                                  _cantidad(_controller.array[index], index)
+                                                  _cantidad( index)
                                                 ],
                                               ),
                                               Divider(),
@@ -292,7 +292,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
     );
   }
 
-  Widget _cantidad(int cantidad, int index) {
+  Widget _cantidad( int index) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
       child: Container(

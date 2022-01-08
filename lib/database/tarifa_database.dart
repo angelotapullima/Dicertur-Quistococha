@@ -1,5 +1,4 @@
 import 'package:dicertur_quistococha/database/databd_config.dart';
-import 'package:dicertur_quistococha/src/models/evento_model.dart';
 import 'package:dicertur_quistococha/src/models/tarifa_model.dart';
 import 'package:sqflite/sqlite_api.dart';
 

@@ -95,7 +95,7 @@ class Tickets extends StatelessWidget {
                                         child: InkWell(
                                           onTap: () {
                                             _controller.changeValueBoton(2);
-                                            ticketBloc.getTicketsForUser('1');
+                                            ticketBloc.getTicketsForUser('2');
                                           },
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
@@ -130,6 +130,7 @@ class Tickets extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: ListView.builder(
+                                      reverse: true,
                                       padding: EdgeInsets.only(
                                         bottom: ScreenUtil().setHeight(65),
                                       ),
@@ -259,7 +260,7 @@ class Tickets extends StatelessWidget {
                                         child: InkWell(
                                           onTap: () {
                                             _controller.changeValueBoton(2);
-                                            ticketBloc.getTicketsForUser('1');
+                                            ticketBloc.getTicketsForUser('2');
                                           },
                                           child: Container(
                                             padding: EdgeInsets.symmetric(
@@ -292,9 +293,17 @@ class Tickets extends StatelessWidget {
                                 SizedBox(
                                   height: ScreenUtil().setHeight(32),
                                 ),
-                                Center(
-                                  child: Text('No existen tickets disponibles'),
-                                )
+                                StreamBuilder(
+                                    stream: ticketBloc.cargando,
+                                    builder: (context, AsyncSnapshot<bool> snapshot) {
+                                      if (snapshot.hasData) {
+                                        return (snapshot.data!)?Center(
+                                          child: CupertinoActivityIndicator(),
+                                        ):Container();
+                                      } else {
+                                        return Container();
+                                      }
+                                    })
                               ],
                             ),
                             Positioned(
@@ -408,7 +417,30 @@ class Tickets extends StatelessWidget {
                       topRight: Radius.circular(15),
                     )),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Código :',
+                          style: GoogleFonts.poppins(
+                            color: Color(0XFFA8A8A8),
+                            fontWeight: FontWeight.w400,
+                            fontSize: ScreenUtil().setSp(14),
+                          ),
+                        ),
+                        Spacer(),
+                        Text(
+                          '${model.ticketCodigoApp}',
+                          style: GoogleFonts.poppins(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: ScreenUtil().setSp(14),
+                          ),
+                        ),
+                      ],
+                    ),
                     (model.ticketEstado == '0')
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -439,16 +471,25 @@ class Tickets extends StatelessWidget {
                               ),
                             ],
                           )
-                        : Center(
-                            child: Text(
-                              '${model.eventoFecha}',
+                        : Row(
+                          children: [
+                            Text(
+                              'Fecha:  ',
                               style: GoogleFonts.poppins(
                                 color: Color(0XFFA8A8A8),
                                 fontWeight: FontWeight.w400,
                                 fontSize: ScreenUtil().setSp(14),
                               ),
+                            ),Text(
+                              ' ${model.eventoFecha}',
+                              style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                fontSize: ScreenUtil().setSp(14),
+                              ),
                             ),
-                          ),
+                          ],
+                        ),
                     SizedBox(
                       height: ScreenUtil().setHeight(12),
                     ),
@@ -559,23 +600,23 @@ class Tickets extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         Text(
-                              'Método de pago',
-                              style: GoogleFonts.poppins(
-                                color: Color(0XFFA8A8A8),
-                                fontWeight: FontWeight.w400,
-                                fontSize: ScreenUtil().setSp(14),
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              'Precio',
-                              style: GoogleFonts.poppins(
-                                color: Color(0XFFA8A8A8),
-                                fontWeight: FontWeight.w400,
-                                fontSize: ScreenUtil().setSp(14),
-                              ),
-                            ),
+                        Text(
+                          'Método de pago',
+                          style: GoogleFonts.poppins(
+                            color: Color(0XFFA8A8A8),
+                            fontWeight: FontWeight.w400,
+                            fontSize: ScreenUtil().setSp(14),
+                          ),
+                        ),
+                        Spacer(),
+                        Text(
+                          'Precio',
+                          style: GoogleFonts.poppins(
+                            color: Color(0XFFA8A8A8),
+                            fontWeight: FontWeight.w400,
+                            fontSize: ScreenUtil().setSp(14),
+                          ),
+                        ),
                       ],
                     ),
                     Row(
