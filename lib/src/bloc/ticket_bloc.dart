@@ -42,11 +42,11 @@ class TicketBloc {
   }
 
   void getTicketsForID(String id) async {
-      _cargandoController.sink.add(true);
+    _cargandoController.sink.add(true);
     _ticketIdController.sink.add(await ticketDetails(id));
     await ticketApi.getTicketsForIdApi(id);
     _ticketIdController.sink.add(await ticketDetails(id));
-      _cargandoController.sink.add(false);
+    _cargandoController.sink.add(false);
   }
 
   Future<List<TicketModel>> ticketDetails(String id) async {
@@ -70,6 +70,15 @@ class TicketBloc {
         ticketModel.clienteDni = list[i].clienteDni;
         ticketModel.eventoHoraFin = list[i].eventoHoraFin;
         ticketModel.eventoHoraInicio = list[i].eventoHoraInicio;
+        ticketModel.rucQR = list[i].rucQR;
+        ticketModel.ventaTipoQR = list[i].ventaTipoQR;
+        ticketModel.ventaSerieQR = list[i].ventaSerieQR;
+        ticketModel.ventaCorrelativoQR = list[i].ventaCorrelativoQR;
+        ticketModel.ventaTotalIGVQR = list[i].ventaTotalIGVQR;
+        ticketModel.ventaTotalQR = list[i].ventaTotalQR;
+        ticketModel.ventaFechaQR = list[i].ventaFechaQR;
+        ticketModel.clienteTipoDocumetoCodigoQR = list[i].clienteTipoDocumetoCodigoQR;
+        ticketModel.clienteNumeroQR = list[i].clienteNumeroQR;
 
         final detalleData = await detalleTicketDatabase.getDetalleTicketsForID(list[i].idTicket.toString());
 
