@@ -60,4 +60,16 @@ class TicketDatabase {
       return [];
     }
   }
+
+
+
+  deleteTicket() async {
+    final db = await dbprovider.database;
+
+    final res = await db.rawDelete("DELETE FROM Ticket");
+
+    return res;
+  }
+
+
 }

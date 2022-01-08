@@ -2,7 +2,7 @@ import 'package:dicertur_quistococha/database/databd_config.dart';
 import 'package:dicertur_quistococha/src/models/espacio_model.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-class DocumentosDatabase {
+class EspacioDatabase {
   final dbprovider = DatabaseHelper.instance;
 
   Future<void> insertarEspacio(EspacioModel espacioModel) async {
@@ -35,5 +35,15 @@ class DocumentosDatabase {
       print(" $e Error en la  tabla Espacio");
       return [];
     }
+  }
+
+
+
+  deleteEspacio() async {
+    final db = await dbprovider.database;
+
+    final res = await db.rawDelete("DELETE FROM Espacio");
+
+    return res;
   }
 }

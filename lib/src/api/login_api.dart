@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:dicertur_quistococha/core/sharedpreferences/storage_manager.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
+import 'package:dicertur_quistococha/src/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class LoginApi {
@@ -22,8 +24,6 @@ class LoginApi {
       loginModel.message = decodedData['result']['message'];
 
       if (code == 1) {
-        print('code suscessfull');
-
         StorageManager.saveData('idUser', decodedData['data']['c_u']);
         StorageManager.saveData('idPerson', decodedData['data']['c_p']);
         StorageManager.saveData('userNickname', decodedData['data']['_n']);
@@ -34,39 +34,6 @@ class LoginApi {
         StorageManager.saveData('idRoleUser', decodedData['data']['ru']);
         StorageManager.saveData('roleName', decodedData['data']['rn']);
         StorageManager.saveData('token', decodedData['data']['tn']);
-
-        /*  prefs.idUser = decodedData['data']['c_u'];
-        //prefs.idPerson = decodedData['data']['c_p'];
-
-        //variable que indica si tienes permiso para crear un torneo
-        //u_torneo = 0 => 'no tiene permisos' ,u_torneo = 1=> 'si tiene permisos'
-        prefs.validarCrearTorneo = decodedData['data']['u_torneo'];
-
-        prefs.userNickname = decodedData['data']['_n'];
-        prefs.userEmail = decodedData['data']['u_e'];
-        prefs.userEmailValidateCode = decodedData['data']['u_ve'];
-        prefs.image = decodedData['data']['u_i'];
-        prefs.personName = decodedData['data']['p_n'];
-        prefs.personSurname = '${decodedData['data']['p_p']} ${decodedData['data']['p_m']}';
-        prefs.apellidoPaterno = decodedData['data']['p_p'];
-        prefs.apellidoMaterno = decodedData['data']['p_m'];
-        prefs.personAddress = decodedData['data']['p_d'];
-        prefs.personGenre = decodedData['data']['p_s'];
-        prefs.personNacionalidad = decodedData['data']['p_na'];
-        prefs.fechaCreacion = decodedData['data']['u_crea'];
-        prefs.idRol = decodedData['data']['ru'];
-        prefs.rolNombre = decodedData['data']['rn'];
-        prefs.ciudadID = decodedData['data']['u_u'];
-        prefs.userPosicion = decodedData['data']['u_po'];
-        prefs.userHabilidad = decodedData['data']['u_ha'];
-        prefs.userNum = decodedData['data']['u_nu'];
-        prefs.token = decodedData['data']['tn'];
-        prefs.tokenFirebase = decodedData['data']['u_tk'];
-        //prefs.tieneNegocio = decodedData['data']['u_tn'];
-        prefs.codigoUser = decodedData['data']['u_cod'];
-        prefs.personNumberPhone = (decodedData['data']['p_t'] == null) ? '' : decodedData['data']['p_t'];
-        prefs.personBirth = (decodedData['data']['p_nac'] == null) ? '' : decodedData['data']['p_nac'];
-        prefs.password = pass; */
 
         return loginModel;
       } else {
@@ -148,8 +115,9 @@ class LoginApi {
       loginModel.message = decodedData['result']['message'];
 
       if (code == 1) {
-        print('code suscessfull');
-
+        return loginModel;
+      } else if (code == 4 || code == 3) {
+        showToast2('Este email ya esta asignado a otra cuenta', Colors.yellow);
         return loginModel;
       } else {
         return loginModel;

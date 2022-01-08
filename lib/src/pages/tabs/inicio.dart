@@ -32,6 +32,7 @@ class _InicioPageState extends State<InicioPage> {
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.white,
+                centerTitle: true,
                 elevation: 0,
                 title: Text(
                   'Hola ${snapshot.data!.personName}',

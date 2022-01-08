@@ -50,4 +50,15 @@ class EventoDatabase {
       return [];
     }
   }
+
+
+
+
+  deleteEvento() async {
+    final db = await dbprovider.database;
+
+    final res = await db.rawDelete("DELETE FROM Evento");
+
+    return res;
+  }
 }

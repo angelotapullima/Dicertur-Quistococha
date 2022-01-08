@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/home.dart';
 import 'package:dicertur_quistococha/src/pages/login.dart';
-import 'package:dicertur_quistococha/src/pages/new_account.dart';
 import 'package:dicertur_quistococha/src/pages/splash.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/bloc_contador_qr.dart';
 import 'package:dicertur_quistococha/src/pushProvider/push_notifications.dart';
@@ -78,7 +77,7 @@ class MyApp extends StatelessWidget {
             routes: {
               'splash': (BuildContext context) => Splash(),
               'login': (BuildContext context) => Login(),
-              'newAccount': (BuildContext context) => NewAccount(),
+              
               'home': (BuildContext context) => HomePage(),
               //'MetodoPago': (BuildContext context) => MetodoPago(),
             },

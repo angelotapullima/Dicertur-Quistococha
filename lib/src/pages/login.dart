@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:dicertur_quistococha/src/api/login_api.dart';
+import 'package:dicertur_quistococha/src/pages/new_account.dart';
 import 'package:dicertur_quistococha/src/utils/auth.dart';
+import 'package:dicertur_quistococha/src/utils/responsive.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:dicertur_quistococha/src/widget/show_loading.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive.of(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -277,7 +280,7 @@ class _LoginState extends State<Login> {
                         )
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [signInGoogle(context), signInApple(context)],
+                          children: [signInGoogle(context), signInApple(context, responsive)],
                         ),
                 ],
               ),
@@ -311,7 +314,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget signInApple(BuildContext context) {
+  Widget signInApple(BuildContext context, Responsive responsive) {
     return InkWell(
       onTap: () async {
         final user = await Auth.instance.signInWithApple(context);
@@ -392,16 +395,11 @@ class _LoginState extends State<Login> {
         }
       },
       child: CircleAvatar(
-        radius: ScreenUtil().setSp(22),
-        backgroundColor: Colors.black,
-        child: SizedBox(
-          height: ScreenUtil().setSp(25),
-          child: AspectRatio(
-            aspectRatio: 25 / 31,
-            child: CustomPaint(
-              painter: AppleLogoPainter(color: Colors.white),
-            ),
-          ),
+        radius: responsive.ip(3),
+        backgroundColor: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Image.asset('assets/img/google.png'),
         ),
       ),
     );
@@ -418,8 +416,7 @@ class _LoginState extends State<Login> {
           final _login = LoginApi();
 
           final ApiModel code = await _login.loginEmail('${user.emailAddress}');
-          /*  final bottomBloc = ProviderBloc.bottom(context);
-                                  bottomBloc.changePage(0); */
+
           if (code.code == '1') {
             /*  String token;
                                       final tokenApi = TokenApi();
@@ -428,8 +425,6 @@ class _LoginState extends State<Login> {
                                       tokenApi.enviarToken(token);
                                       preferences.tokenFirebase = token; */
             Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
-            //Navigator.pushReplacementNamed(context, 'home');
-
           } else {
             String nome = '';
             String mail = '';
@@ -441,56 +436,54 @@ class _LoginState extends State<Login> {
             }
 
             print('ptmr');
-            /*  Navigator.push(
-                                      context,
-                                      PageRouteBuilder(
-                                        pageBuilder: (context, animation, secondaryAnimation) {
-                                          return RegistroPage(name: nome, email: mail);
-                                        },
-                                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                          var begin = Offset(0.0, 1.0);
-                                          var end = Offset.zero;
-                                          var curve = Curves.ease;
-          
-                                          var tween = Tween(begin: begin, end: end).chain(
-                                            CurveTween(curve: curve),
-                                          );
-          
-                                          return SlideTransition(
-                                            position: animation.drive(tween),
-                                            child: child,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                   */
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return NewAccount(name: nome, email: mail);
+                },
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  var begin = Offset(0.0, 1.0);
+                  var end = Offset.zero;
+                  var curve = Curves.ease;
+
+                  var tween = Tween(begin: begin, end: end).chain(
+                    CurveTween(curve: curve),
+                  );
+
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  );
+                },
+              ),
+            );
           }
         } else {
           String nome = '';
           String mail = '';
-          /*  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, animation, secondaryAnimation) {
-                                        return RegistroPage(name: nome, email: mail);
-                                      },
-                                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                        var begin = Offset(0.0, 1.0);
-                                        var end = Offset.zero;
-                                        var curve = Curves.ease;
-          
-                                        var tween = Tween(begin: begin, end: end).chain(
-                                          CurveTween(curve: curve),
-                                        );
-          
-                                        return SlideTransition(
-                                          position: animation.drive(tween),
-                                          child: child,
-                                        );
-                                      },
-                                    ),
-                                  );
-                                 */
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) {
+                return NewAccount(name: nome, email: mail);
+              },
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                var begin = Offset(0.0, 1.0);
+                var end = Offset.zero;
+                var curve = Curves.ease;
+
+                var tween = Tween(begin: begin, end: end).chain(
+                  CurveTween(curve: curve),
+                );
+
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            ),
+          );
         }
       },
       child: CircleAvatar(
