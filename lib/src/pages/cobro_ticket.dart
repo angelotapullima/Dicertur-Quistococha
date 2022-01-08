@@ -24,10 +24,14 @@ class CobroTicket extends StatefulWidget {
 class _CobroTicketState extends State<CobroTicket> {
   final _controllerCobro = TarifasCobroController();
   ValueNotifier<bool> _cargando = ValueNotifier(false);
+  String idConsulta = '';
+
   @override
   Widget build(BuildContext context) {
+    var fomatoQR = widget.idTicket.split("|");
+    idConsulta = fomatoQR[fomatoQR.length - 1].trim();
     final ticketBloc = ProviderBloc.ticket(context);
-    ticketBloc.getTicketsForID(widget.idTicket.toString());
+    ticketBloc.getTicketsForID(idConsulta);
 
     final ContadorQrBloc? provider = Provider.of<ContadorQrBloc>(context, listen: false);
 

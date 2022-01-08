@@ -584,7 +584,8 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                           height: ScreenUtil().setHeight(200),
                                           width: ScreenUtil().setWidth(200),
                                           child: PrettyQr(
-                                            data: '${snapshot.data![0].idTicket}',
+                                            data:
+                                                '${snapshot.data![0].rucQR}|${snapshot.data![0].ventaTipoQR}|${snapshot.data![0].ventaSerieQR}|${snapshot.data![0].ventaCorrelativoQR}|${snapshot.data![0].ventaTotalIGVQR}|${snapshot.data![0].ventaTotalQR}|${snapshot.data![0].ventaFechaQR}|${snapshot.data![0].clienteTipoDocumetoCodigoQR}|${snapshot.data![0].clienteNumeroQR}|${snapshot.data![0].idTicket}',
                                             size: ScreenUtil().setSp(60),
                                             image: AssetImage('assets/img/logo_bufeo.png'),
                                             errorCorrectLevel: QrErrorCorrectLevel.H,

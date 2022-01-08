@@ -19,11 +19,12 @@ class TicketDatabase {
     }
   }
 
-  Future<List<TicketModel>> getTicketsForUser(String idUser,String estado) async {
+  Future<List<TicketModel>> getTicketsForUser(String idUser, String estado) async {
     try {
       final Database db = await dbprovider.getDatabase();
       List<TicketModel> list = [];
-      List<Map> maps = await db.rawQuery("SELECT * FROM Ticket where idUser = '$idUser' and ticketEstado = '$estado' ");
+      List<Map> maps =
+          await db.rawQuery("SELECT * FROM Ticket where idUser = '$idUser' and ticketEstado = '$estado' ORDER BY cast(idTicket as int) DESC ");
 
       if (maps.length > 0) list = TicketModel.fromJsonList(maps);
       return list;
@@ -37,7 +38,8 @@ class TicketDatabase {
     try {
       final Database db = await dbprovider.getDatabase();
       List<TicketModel> list = [];
-      List<Map> maps = await db.rawQuery("SELECT * FROM Ticket where idUser = '$idUser' and ticketEstado <> '2' ");
+      List<Map> maps =
+          await db.rawQuery("SELECT * FROM Ticket where idUser = '$idUser' and ticketEstado <> '2' ORDER BY cast(idTicket as int) DESC ");
 
       if (maps.length > 0) list = TicketModel.fromJsonList(maps);
       return list;
@@ -61,8 +63,6 @@ class TicketDatabase {
     }
   }
 
-
-
   deleteTicket() async {
     final db = await dbprovider.database;
 
@@ -70,6 +70,4 @@ class TicketDatabase {
 
     return res;
   }
-
-
 }

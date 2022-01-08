@@ -130,7 +130,6 @@ class Tickets extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: ListView.builder(
-                                      reverse: true,
                                       padding: EdgeInsets.only(
                                         bottom: ScreenUtil().setHeight(65),
                                       ),
