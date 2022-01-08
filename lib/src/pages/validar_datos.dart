@@ -259,7 +259,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                     style: TextStyle(color: Colors.grey),
                                   ),
                                   Spacer(),
-                                  Text('X ${widget.tarifas[index].tarifaCantidad}'),
+                                  Text('${widget.tarifas[index].tarifaCantidad} X S/ ${widget.tarifas[index].tarifaTotal}'),
                                 ],
                               ),
                             );
@@ -273,7 +273,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                               style: TextStyle(color: Colors.grey),
                             ),
                             Spacer(),
-                            Text('${widget.totalEntradas}'),
+                            Text('${widget.totalEntradas} X S/ ${widget.total}'),
                           ],
                         ),
                       ],
@@ -305,7 +305,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                         Row(
                           children: [
                             Text(
-                              'Seleccione tipo de documento',
+                              'Seleccione tipo de comprobante',
                               style: TextStyle(color: Colors.grey),
                             ),
                           ],
