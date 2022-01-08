@@ -46,6 +46,15 @@ class TicketApi {
             ticketModel.clienteNombre = decodedData['result']['data'][i]['cliente_nombre'];
             ticketModel.clienteTelefono = decodedData['result']['data'][i]['cliente_telefono'];
             ticketModel.clienteDni = decodedData['result']['data'][i]['cliente_numero'];
+            ticketModel.rucQR = decodedData['result']['data'][i]['data_qr']["ruc"];
+            ticketModel.ventaTipoQR = decodedData['result']['data'][i]['data_qr']["venta_tipo"];
+            ticketModel.ventaSerieQR = decodedData['result']['data'][i]['data_qr']["venta_serie"];
+            ticketModel.ventaCorrelativoQR = decodedData['result']['data'][i]['data_qr']["venta_correlativo"];
+            ticketModel.ventaTotalIGVQR = decodedData['result']['data'][i]['data_qr']["venta_totaligv"];
+            ticketModel.ventaTotalQR = decodedData['result']['data'][i]['data_qr']["venta_total"];
+            ticketModel.ventaFechaQR = decodedData['result']['data'][i]['data_qr']["venta_fecha"];
+            ticketModel.clienteTipoDocumetoCodigoQR = decodedData['result']['data'][i]['data_qr']["cliente_tipodocumento_codigo"];
+            ticketModel.clienteNumeroQR = decodedData['result']['data'][i]['data_qr']["cliente_numero"];
 
             final horsFormat = decodedData['result']['data'][i]['evento_hora']!.split("-");
             var horaInicio = horsFormat[0].trim();
@@ -118,6 +127,15 @@ class TicketApi {
         ticketModel.clienteNombre = decodedData['result']['data']['cliente_nombre'];
         ticketModel.clienteTelefono = decodedData['result']['data']['cliente_telefono'];
         ticketModel.clienteDni = decodedData['result']['data']['cliente_numero'];
+        ticketModel.rucQR = decodedData['result']['data']['data_qr']["ruc"];
+        ticketModel.ventaTipoQR = decodedData['result']['data']['data_qr']["venta_tipo"];
+        ticketModel.ventaSerieQR = decodedData['result']['data']['data_qr']["venta_serie"];
+        ticketModel.ventaCorrelativoQR = decodedData['result']['data']['data_qr']["venta_correlativo"];
+        ticketModel.ventaTotalIGVQR = decodedData['result']['data']['data_qr']["venta_totaligv"];
+        ticketModel.ventaTotalQR = decodedData['result']['data']['data_qr']["venta_total"];
+        ticketModel.ventaFechaQR = decodedData['result']['data']['data_qr']["venta_fecha"];
+        ticketModel.clienteTipoDocumetoCodigoQR = decodedData['result']['data']['data_qr']["cliente_tipodocumento_codigo"];
+        ticketModel.clienteNumeroQR = decodedData['result']['data']['data_qr']["cliente_numero"];
 
         final horsFormat = decodedData['result']['data']['evento_hora']!.split("-");
         var horaInicio = horsFormat[0].trim();

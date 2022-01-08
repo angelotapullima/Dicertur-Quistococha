@@ -15,6 +15,15 @@ class TicketModel {
   String? eventoHoraInicio;
   String? eventoHoraFin;
   String? ticketEstado;
+  String? rucQR;
+  String? ventaTipoQR;
+  String? ventaSerieQR;
+  String? ventaCorrelativoQR;
+  String? ventaTotalIGVQR;
+  String? ventaTotalQR;
+  String? ventaFechaQR;
+  String? clienteTipoDocumetoCodigoQR;
+  String? clienteNumeroQR;
 
   List<DetalleTicketModel>? detalle;
 
@@ -34,6 +43,15 @@ class TicketModel {
     this.eventoHoraFin,
     this.ticketEstado,
     this.detalle,
+    this.rucQR,
+    this.ventaTipoQR,
+    this.ventaSerieQR,
+    this.ventaCorrelativoQR,
+    this.ventaTotalIGVQR,
+    this.ventaTotalQR,
+    this.ventaFechaQR,
+    this.clienteTipoDocumetoCodigoQR,
+    this.clienteNumeroQR,
   });
 
   static List<TicketModel> fromJsonList(List<dynamic> json) => json.map((i) => TicketModel.fromJson(i)).toList();
@@ -53,6 +71,15 @@ class TicketModel {
         "eventoHoraInicio": eventoHoraInicio,
         "eventoHoraFin": eventoHoraFin,
         "ticketEstado": ticketEstado,
+        "rucQR": rucQR,
+        "ventaTipoQR": ventaTipoQR,
+        "ventaSerieQR": ventaSerieQR,
+        "ventaCorrelativoQR": ventaCorrelativoQR,
+        "ventaTotalIGVQR": ventaTotalIGVQR,
+        "ventaTotalQR": ventaTotalQR,
+        "ventaFechaQR": ventaFechaQR,
+        "clienteTipoDocumetoCodigoQR": clienteTipoDocumetoCodigoQR,
+        "clienteNumeroQR": clienteNumeroQR,
       };
   factory TicketModel.fromJson(Map<String, dynamic> json) => TicketModel(
         idTicket: json["idTicket"],
@@ -69,5 +96,14 @@ class TicketModel {
         eventoHoraInicio: json["eventoHoraInicio"],
         eventoHoraFin: json["eventoHoraFin"],
         ticketEstado: json["ticketEstado"],
+        rucQR: json["rucQR"],
+        ventaTipoQR: json["ventaTipoQR"],
+        ventaSerieQR: json["ventaSerieQR"],
+        ventaCorrelativoQR: json["ventaCorrelativoQR"],
+        ventaTotalIGVQR: json["ventaTotalIGVQR"],
+        ventaTotalQR: json["ventaTotalQR"],
+        ventaFechaQR: json["ventaFechaQR"],
+        clienteTipoDocumetoCodigoQR: json["clienteTipoDocumetoCodigoQR"],
+        clienteNumeroQR: json["clienteNumeroQR"],
       );
 }
