@@ -22,7 +22,6 @@ class _ScanQRState extends State<ScanQR> {
 
   @override
   void didChangeDependencies() {
-    showToast2('bienvenido', Colors.red);
     super.didChangeDependencies();
   }
 

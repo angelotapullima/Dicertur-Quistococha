@@ -32,4 +32,13 @@ class DetalleTicketDatabase {
       return [];
     }
   }
+
+
+  deleteDetalleTicket() async {
+    final db = await dbprovider.database;
+
+    final res = await db.rawDelete("DELETE FROM DetalleTicket");
+
+    return res;
+  }
 }

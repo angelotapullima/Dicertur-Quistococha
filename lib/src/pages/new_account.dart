@@ -7,7 +7,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NewAccount extends StatefulWidget {
-  const NewAccount({Key? key}) : super(key: key);
+  final String? email;
+  final String? name;
+  const NewAccount({Key? key, required this.email, required this.name}) : super(key: key);
 
   @override
   _NewAccountState createState() => _NewAccountState();
@@ -34,6 +36,8 @@ class _NewAccountState extends State<NewAccount> {
   @override
   void initState() {
     _passwordVisible = true;
+    _controllerEmail.text = widget.email!;
+    _controllerName.text = widget.name!;
     super.initState();
   }
 
@@ -67,19 +71,15 @@ class _NewAccountState extends State<NewAccount> {
                     child: Column(
                       children: [
                         Container(
-                          height: ScreenUtil().setHeight(30),
+                          height: ScreenUtil().setHeight(40),
                           width: double.infinity,
-                          child: Row(
-                            children: [
-                              Text(
-                                'Crear una nueva cuenta',
-                                style: TextStyle(
-                                  color: Color(0xffFFB240),
-                                  fontSize: ScreenUtil().setSp(28),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
+                          child: Text(
+                            'Crear una nueva cuenta',
+                            style: TextStyle(
+                              color: Color(0xffFFB240),
+                              fontSize: ScreenUtil().setSp(28),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         SizedBox(

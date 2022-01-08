@@ -12,7 +12,7 @@ import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class TarifaApi {
-  final espacioDatabase = DocumentosDatabase();
+  final espacioDatabase = EspacioDatabase();
   final eventoDatabase = EventoDatabase();
   final tarifaDatabase = TarifaDatabase();
   Future<ApiModel> obtenerTarifas(String fecha) async {

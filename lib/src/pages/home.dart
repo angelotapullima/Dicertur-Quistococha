@@ -140,9 +140,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                         InkWell(
                           onTap: () {
-
-    final provider = Provider.of<ContadorQrBloc>(context, listen: false);
-    provider.changeValorQr(0);
+                            final provider = Provider.of<ContadorQrBloc>(context, listen: false);
+                            provider.changeValorQr(0);
                             bottomBloc.changePage(2);
                           },
                           child: Column(

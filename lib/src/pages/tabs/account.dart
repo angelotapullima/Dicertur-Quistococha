@@ -1,4 +1,9 @@
 import 'package:dicertur_quistococha/core/sharedpreferences/storage_manager.dart';
+import 'package:dicertur_quistococha/database/detalle_ticket_database.dart';
+import 'package:dicertur_quistococha/database/espacio_database.dart';
+import 'package:dicertur_quistococha/database/evento_database.dart';
+import 'package:dicertur_quistococha/database/tarifa_database.dart';
+import 'package:dicertur_quistococha/database/ticket_database.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/politicas_de_privacidad.dart';
 import 'package:dicertur_quistococha/src/pages/terminos_y_condiciones.dart';
@@ -72,7 +77,6 @@ class UserPage extends StatelessWidget {
                     SizedBox(
                       height: ScreenUtil().setHeight(32),
                     ),
-                    
                     InkWell(
                         onTap: () {
                           Navigator.push(
@@ -146,9 +150,21 @@ class UserPage extends StatelessWidget {
                       height: ScreenUtil().setHeight(46),
                     ),
                     InkWell(
-                      onTap: ()async {
+                      onTap: () async {
+                        final detalleTicketDatabase = DetalleTicketDatabase();
+                        final espacioDatabase = EspacioDatabase();
+                        final eventoDatabase = EventoDatabase();
+                        final tarifaDatabase = TarifaDatabase();
+                        final ticketDatabase = TicketDatabase();
 
                         await StorageManager.deleteAllData();
+
+                        await detalleTicketDatabase.deleteDetalleTicket();
+                        await espacioDatabase.deleteEspacio();
+                        await eventoDatabase.deleteEvento();
+                        await tarifaDatabase.deleteTarifas();
+                        await ticketDatabase.deleteTicket();
+
                         Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
                       },
                       child: Container(
