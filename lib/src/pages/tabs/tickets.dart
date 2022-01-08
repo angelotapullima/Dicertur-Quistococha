@@ -297,9 +297,11 @@ class Tickets extends StatelessWidget {
                                     stream: ticketBloc.cargando,
                                     builder: (context, AsyncSnapshot<bool> snapshot) {
                                       if (snapshot.hasData) {
-                                        return (snapshot.data!)?Center(
-                                          child: CupertinoActivityIndicator(),
-                                        ):Container();
+                                        return (snapshot.data!)
+                                            ? Center(
+                                                child: CupertinoActivityIndicator(),
+                                              )
+                                            : Container();
                                       } else {
                                         return Container();
                                       }
@@ -472,24 +474,25 @@ class Tickets extends StatelessWidget {
                             ],
                           )
                         : Row(
-                          children: [
-                            Text(
-                              'Fecha:  ',
-                              style: GoogleFonts.poppins(
-                                color: Color(0XFFA8A8A8),
-                                fontWeight: FontWeight.w400,
-                                fontSize: ScreenUtil().setSp(14),
+                            children: [
+                              Text(
+                                'Fecha:  ',
+                                style: GoogleFonts.poppins(
+                                  color: Color(0XFFA8A8A8),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: ScreenUtil().setSp(14),
+                                ),
                               ),
-                            ),Text(
-                              ' ${model.eventoFecha}',
-                              style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: ScreenUtil().setSp(14),
+                              Text(
+                                ' ${model.eventoFecha}',
+                                style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: ScreenUtil().setSp(14),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
                     SizedBox(
                       height: ScreenUtil().setHeight(12),
                     ),
