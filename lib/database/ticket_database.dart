@@ -53,7 +53,7 @@ class TicketDatabase {
     try {
       final Database db = await dbprovider.getDatabase();
       List<TicketModel> list = [];
-      List<Map> maps = await db.rawQuery("SELECT * FROM Ticket where idTicket = '$idTicket' ");
+      List<Map> maps = await db.rawQuery("SELECT * FROM Ticket where idTicket = '$idTicket'");
 
       if (maps.length > 0) list = TicketModel.fromJsonList(maps);
       return list;

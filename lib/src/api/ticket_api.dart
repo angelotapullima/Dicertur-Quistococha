@@ -74,8 +74,10 @@ class TicketApi {
                 detalleTicketModel.tarifaPrecio = decodedData["result"]['data'][i]['detalle'][x]['tarifa_precio'];
                 detalleTicketModel.tarifaDetalleCantidad = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_cantidad'];
                 detalleTicketModel.tarifaDetalleSubTotal = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_subtotal'];
-                detalleTicketModel.tarifaDetalleEstado = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_estado'];
+                detalleTicketModel.detalleTicketEstado = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_estado'];
                 detalleTicketModel.idTarifa = decodedData["result"]['data'][i]['detalle'][x]['id_tarifa'];
+
+                detalleTicketModel.ticketDetalleUsados = decodedData["result"]['data'][i]['detalle'][x]['ticket_detalle_usados'].toString();
 
                 await detalleTicketDatabase.insertarDetalleTicket(detalleTicketModel);
               }
@@ -96,7 +98,8 @@ class TicketApi {
     }
   }
 
-  Future<ApiModel> getTicketsForIdApi(String id) async {
+  Future<List<TicketModel>> getTicketsForIdApi(String id) async {
+    final List<TicketModel> finalList = [];
     try {
       final url = Uri.parse('$apiBaseURL/api/Empresa/listar_ticket_id_app');
       String? token = await StorageManager.readData('token');
@@ -145,6 +148,8 @@ class TicketApi {
 
         await ticketDatabase.insertarTicket(ticketModel);
 
+        final List<DetalleTicketModel> detallitos = [];
+
         if (decodedData["result"]['data']['detalle'].length > 0) {
           for (var x = 0; x < decodedData["result"]['data']['detalle'].length; x++) {
             DetalleTicketModel detalleTicketModel = DetalleTicketModel();
@@ -155,22 +160,25 @@ class TicketApi {
             detalleTicketModel.tarifaPrecio = decodedData["result"]['data']['detalle'][x]['tarifa_precio'];
             detalleTicketModel.tarifaDetalleCantidad = decodedData["result"]['data']['detalle'][x]['ticket_detalle_cantidad'];
             detalleTicketModel.tarifaDetalleSubTotal = decodedData["result"]['data']['detalle'][x]['ticket_detalle_subtotal'];
-            detalleTicketModel.tarifaDetalleEstado = decodedData["result"]['data']['detalle'][x]['ticket_detalle_estado'];
+            detalleTicketModel.detalleTicketEstado = decodedData["result"]['data']['detalle'][x]['ticket_detalle_estado'];
             detalleTicketModel.idTarifa = decodedData["result"]['data']['detalle'][x]['id_tarifa'];
+            detalleTicketModel.ticketDetalleUsados = decodedData["result"]['data']['detalle'][x]['ticket_detalle_usados'].toString();
             await detalleTicketDatabase.insertarDetalleTicket(detalleTicketModel);
+
+            detallitos.add(detalleTicketModel);
           }
         }
+        ticketModel.detalle = detallitos;
+        finalList.add(ticketModel);
 
-        return loginModel;
+        return finalList;
       } else {
-        return loginModel;
+        return finalList;
       }
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
-      ApiModel loginModel = ApiModel();
-      loginModel.code = '2';
-      loginModel.message = 'Error en la petición';
-      return loginModel;
+
+      return finalList;
     }
   }
 

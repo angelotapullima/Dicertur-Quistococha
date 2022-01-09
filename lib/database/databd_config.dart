@@ -77,5 +77,6 @@ class DatabaseHelper {
       'tarifaDetalleCantidad TEXT,'
       'idTarifa TEXT,'
       'tarifaDetalleSubTotal TEXT,'
-      'tarifaDetalleEstado TEXT)';
+      'ticketDetalleUsados TEXT,'
+      'detalleTicketEstado TEXT)';
 }

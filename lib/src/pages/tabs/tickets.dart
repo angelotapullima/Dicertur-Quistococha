@@ -433,7 +433,7 @@ class Tickets extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(
-                          '${model.ticketCodigoApp}',
+                          '${model.ticketCodigoApp}- ${model.idTicket}',
                           style: GoogleFonts.poppins(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
@@ -442,7 +442,7 @@ class Tickets extends StatelessWidget {
                         ),
                       ],
                     ),
-                    (model.ticketEstado == '0')
+                    (model.ticketEstado == '0' || model.ticketEstado == '1')
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -465,7 +465,7 @@ class Tickets extends StatelessWidget {
                               Text(
                                 'Salida',
                                 style: GoogleFonts.poppins(
-                                  color: Color(0XFFA8A8A8),
+                                  color: Color(0xffA8A8A8),
                                   fontWeight: FontWeight.w400,
                                   fontSize: ScreenUtil().setSp(14),
                                 ),
@@ -477,7 +477,7 @@ class Tickets extends StatelessWidget {
                               Text(
                                 'Fecha:  ',
                                 style: GoogleFonts.poppins(
-                                  color: Color(0XFFA8A8A8),
+                                  color: Color(0xffA8A8A8),
                                   fontWeight: FontWeight.w400,
                                   fontSize: ScreenUtil().setSp(14),
                                 ),
@@ -501,7 +501,7 @@ class Tickets extends StatelessWidget {
                         Text(
                           '${model.eventoHoraInicio}',
                           style: GoogleFonts.poppins(
-                            color: (model.ticketEstado == '0') ? Color(0XFF7DBE6D) : Color(0XFF505050),
+                            color: (model.ticketEstado == '0' ||model.ticketEstado == '1') ? Color(0xff7DBE6D) : Color(0xff505050),
                             fontWeight: FontWeight.w700,
                             fontSize: ScreenUtil().setSp(18),
                           ),
@@ -517,7 +517,7 @@ class Tickets extends StatelessWidget {
                         Text(
                           '${model.eventoHoraFin}',
                           style: GoogleFonts.poppins(
-                            color: (model.ticketEstado == '0') ? Color(0XFFEA5555) : Color(0XFF505050),
+                            color: (model.ticketEstado == '0' || model.ticketEstado == '1') ? Color(0xffEA5555) : Color(0xff505050),
                             fontWeight: FontWeight.w700,
                             fontSize: ScreenUtil().setSp(18),
                           ),
