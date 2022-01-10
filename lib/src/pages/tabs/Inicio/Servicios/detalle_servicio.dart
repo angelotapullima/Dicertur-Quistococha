@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dicertur_quistococha/src/models/servicios_model.dart'; 
+import 'package:dicertur_quistococha/src/models/servicios_model.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,13 +25,11 @@ class DetalleServicio extends StatelessWidget {
                   tag: '$hero',
                   child: CachedNetworkImage(
                     placeholder: (context, url) => Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: Image(
-                        image: AssetImage('assets/img/loading.gif'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: Center(
+                          child: CupertinoActivityIndicator(),
+                        )),
                     errorWidget: (context, url, error) => Container(
                       width: double.infinity,
                       height: double.infinity,
@@ -37,8 +37,7 @@ class DetalleServicio extends StatelessWidget {
                         child: Icon(Icons.error),
                       ),
                     ),
-                    imageUrl: 'https://portal.andina.pe/EDPfotografia3/Thumbnail/2021/12/15/000832051W.jpg',
-                    //imageUrl: '$apiBaseURL/${servicio.servicioImagen}',
+                    imageUrl: '$apiBaseURL/${servicio.servicioImagen}',
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(

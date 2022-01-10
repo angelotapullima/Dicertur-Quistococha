@@ -88,8 +88,7 @@ class ServiciosPage extends StatelessWidget {
                                       child: Icon(Icons.error),
                                     ),
                                   ),
-                                  imageUrl: 'https://portal.andina.pe/EDPfotografia3/Thumbnail/2021/12/15/000832051W.jpg',
-                                  //imageUrl: '$apiBaseURL/${snapshot.data![x].servicioImagen}',
+                                  imageUrl: '$apiBaseURL/${snapshot.data![x].servicioImagen}',
                                   imageBuilder: (context, imageProvider) => Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(

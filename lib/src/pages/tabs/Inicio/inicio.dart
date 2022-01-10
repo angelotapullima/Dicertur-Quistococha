@@ -1,6 +1,7 @@
 import 'package:dicertur_quistococha/src/bloc/data_user.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Cuentos/cuentos.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Foro/foro.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Servicios/servicios.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -149,14 +150,10 @@ class _InicioPageState extends State<InicioPage> {
                         ),
                         Expanded(
                           child: (controller.valueBoton == 0)
-                              ? Container(
-                                  child: Text('Inicio'),
-                                )
+                              ? ForoPage()
                               : (controller.valueBoton == 1)
                                   ? CuentosPage()
-                                  : (
-                                     ServiciosPage()
-                                    ),
+                                  : (ServiciosPage()),
                         )
                       ],
                     );
@@ -170,7 +167,7 @@ class _InicioPageState extends State<InicioPage> {
 }
 
 class ItemController extends ChangeNotifier {
-  int valueBoton = 1;
+  int valueBoton = 0;
 
   void changeValueBoton(int v) {
     valueBoton = v;

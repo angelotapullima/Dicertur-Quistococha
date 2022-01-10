@@ -9,7 +9,7 @@ class DatabaseHelper {
   Future<Database> get database async => _database ??= await getDatabase();
 
   Future<Database> getDatabase() async {
-    final String path = join(await getDatabasesPath(), 'quistochav3.db');
+    final String path = join(await getDatabasesPath(), 'quistochav1.db');
     return openDatabase(path, onCreate: (db, version) {
       db.execute(tableEventoSql);
       db.execute(tableEspacioSql);
@@ -18,6 +18,7 @@ class DatabaseHelper {
       db.execute(tableDetalleTicketSql);
       db.execute(tableCuentosSql);
       db.execute(tableServiciosSql);
+      db.execute(tableForoSql);
     }, version: 1, onDowngrade: onDatabaseDowngradeDelete);
   }
 
@@ -89,10 +90,21 @@ class DatabaseHelper {
       'cuentoImagen TEXT,'
       'cuentoEstado TEXT)';
 
-      static const String tableServiciosSql = 'CREATE TABLE Servicios('
+  static const String tableServiciosSql = 'CREATE TABLE Servicios('
       'idServicio TEXT PRIMARY KEY, '
       'servicioTitulo TEXT, '
       'servicioDetalle TEXT, '
       'servicioImagen TEXT,'
       'servicioEstado TEXT)';
+
+  static const String tableForoSql = 'CREATE TABLE Foro('
+      'idForo TEXT PRIMARY KEY, '
+      'idUsuario TEXT, '
+      'foroTitulo TEXT, '
+      'foroDatetime TEXT, ' 
+      'foroDetalle TEXT, '
+      'personaName TEXT,'
+      'personaSurName TEXT,'
+      'foroImagen TEXT,'
+      'foroEstado TEXT)';
 }

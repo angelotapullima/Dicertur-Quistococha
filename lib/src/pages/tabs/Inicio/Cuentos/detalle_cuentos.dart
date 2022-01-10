@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dicertur_quistococha/src/models/cuentos_model.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,13 +25,11 @@ class DetalleCuentos extends StatelessWidget {
                   tag: '$hero',
                   child: CachedNetworkImage(
                     placeholder: (context, url) => Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: Image(
-                        image: AssetImage('assets/img/loading.gif'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: Center(
+                          child: CupertinoActivityIndicator(),
+                        )),
                     errorWidget: (context, url, error) => Container(
                       width: double.infinity,
                       height: double.infinity,
@@ -62,7 +61,7 @@ class DetalleCuentos extends StatelessWidget {
                       '${cuentos.cuentoTitulo}',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: ScreenUtil().setSp(18),
+                        fontSize: ScreenUtil().setSp(24),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -72,8 +71,8 @@ class DetalleCuentos extends StatelessWidget {
                     Text(
                       '${cuentos.cuentoDetalle}',
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: ScreenUtil().setSp(18),
+                        color: Colors.black54,
+                        fontSize: ScreenUtil().setSp(15),
                         fontWeight: FontWeight.w400,
                       ),
                     ),
