@@ -1,7 +1,10 @@
 import 'package:dicertur_quistococha/src/bloc/bottom_navigation_bloc.dart';
+import 'package:dicertur_quistococha/src/bloc/cuentos_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/data_user.dart';
 import 'package:dicertur_quistococha/src/bloc/evento_bloc.dart';
+import 'package:dicertur_quistococha/src/bloc/foro_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/nuevo_metodo_pago_bloc.dart';
+import 'package:dicertur_quistococha/src/bloc/servicio_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/ticket_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +15,9 @@ class ProviderBloc extends InheritedWidget {
   final nuevoMetodoBloc = NuevoMetodoPagoBloc();
   final ticketBloc = TicketBloc();
   final dataUserBloc = DataUserBloc();
+  final cuentosBloc = CuentosBloc();
+  final servicioBloc = ServicioBloc();
+  final foroBloc = ForoBloc();
 
   ProviderBloc({required Widget child}) : super(child: child);
 
@@ -36,6 +42,18 @@ class ProviderBloc extends InheritedWidget {
 
   static DataUserBloc data(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!.dataUserBloc;
+  }
+
+  static CuentosBloc cuentos(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!.cuentosBloc;
+  }
+
+  static ServicioBloc servi(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!.servicioBloc;
+  }
+
+  static ForoBloc foro(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!.foroBloc;
   }
 
 }

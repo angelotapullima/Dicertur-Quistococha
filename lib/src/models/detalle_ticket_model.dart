@@ -6,7 +6,8 @@ class DetalleTicketModel {
   String? tarifaDetalleCantidad;
   String? idTarifa;
   String? tarifaDetalleSubTotal;
-  String? tarifaDetalleEstado;
+  String? ticketDetalleUsados;
+  String? detalleTicketEstado;
 
   DetalleTicketModel({
     this.idDetalleTicket,
@@ -16,7 +17,8 @@ class DetalleTicketModel {
     this.tarifaDetalleCantidad,
     this.idTarifa,
     this.tarifaDetalleSubTotal,
-    this.tarifaDetalleEstado,
+    this.ticketDetalleUsados,
+    this.detalleTicketEstado,
   });
 
   static List<DetalleTicketModel> fromJsonList(List<dynamic> json) => json.map((i) => DetalleTicketModel.fromJson(i)).toList();
@@ -29,7 +31,8 @@ class DetalleTicketModel {
         "tarifaDetalleCantidad": tarifaDetalleCantidad,
         "idTarifa": idTarifa,
         "tarifaDetalleSubTotal": tarifaDetalleSubTotal,
-        "tarifaDetalleEstado": tarifaDetalleEstado,
+        "ticketDetalleUsados": ticketDetalleUsados,
+        "detalleTicketEstado": detalleTicketEstado,
       };
   factory DetalleTicketModel.fromJson(Map<String, dynamic> json) => DetalleTicketModel(
         idDetalleTicket: json["idDetalleTicket"],
@@ -39,6 +42,7 @@ class DetalleTicketModel {
         tarifaDetalleCantidad: json["tarifaDetalleCantidad"],
         idTarifa: json["idTarifa"],
         tarifaDetalleSubTotal: json["tarifaDetalleSubTotal"],
-        tarifaDetalleEstado: json["tarifaDetalleEstado"],
+        ticketDetalleUsados: json["ticketDetalleUsados"],
+        detalleTicketEstado: json["detalleTicketEstado"],
       );
 }

@@ -93,7 +93,7 @@ class TicketBloc {
             detalleTicketModel.tarifaPrecio = detalleData[x].tarifaPrecio;
             detalleTicketModel.tarifaDetalleCantidad = detalleData[x].tarifaDetalleCantidad;
             detalleTicketModel.tarifaDetalleSubTotal = detalleData[x].tarifaDetalleSubTotal;
-            detalleTicketModel.tarifaDetalleEstado = detalleData[x].tarifaDetalleEstado;
+            detalleTicketModel.detalleTicketEstado = detalleData[x].detalleTicketEstado;
             detalleTicketModel.idTarifa = detalleData[x].idTarifa;
             listDetalleFinal.add(detalleTicketModel);
           }
@@ -105,5 +105,18 @@ class TicketBloc {
       }
     }
     return listFinal;
+  }
+
+  void getTicketsPorCobrar(String id) async {
+    _cargandoController.sink.add(true);
+    List<TicketModel> finalList = [];
+
+    var listTemporal = await ticketApi.getTicketsForIdApi(id);
+    if (listTemporal.length > 0) {
+      finalList = listTemporal;
+    }
+
+    _ticketIdController.sink.add(finalList);
+    _cargandoController.sink.add(false);
   }
 }

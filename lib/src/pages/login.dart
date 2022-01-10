@@ -275,12 +275,17 @@ class _LoginState extends State<Login> {
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            signInGoogle(context),
+                            signInGoogle(context, responsive),
                           ],
                         )
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [signInGoogle(context), signInApple(context, responsive)],
+                          children: [
+                            signInGoogle(context, responsive),
+                            signInApple(
+                              context,
+                            )
+                          ],
                         ),
                 ],
               ),
@@ -314,7 +319,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget signInApple(BuildContext context, Responsive responsive) {
+  Widget signInApple(BuildContext context) {
     return InkWell(
       onTap: () async {
         final user = await Auth.instance.signInWithApple(context);
@@ -395,17 +400,22 @@ class _LoginState extends State<Login> {
         }
       },
       child: CircleAvatar(
-        radius: responsive.ip(3),
-        backgroundColor: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: Image.asset('assets/img/google.png'),
+        radius: ScreenUtil().setSp(22),
+        backgroundColor: Colors.black,
+        child: SizedBox(
+          height: ScreenUtil().setSp(25),
+          child: AspectRatio(
+            aspectRatio: 25 / 31,
+            child: CustomPaint(
+              painter: AppleLogoPainter(color: Colors.white),
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget signInGoogle(BuildContext context) {
+  Widget signInGoogle(BuildContext context, Responsive responsive) {
     return InkWell(
       onTap: () async {
         final user = await Auth.instance.signInWithGoogle(context);
@@ -487,10 +497,10 @@ class _LoginState extends State<Login> {
         }
       },
       child: CircleAvatar(
-        radius: ScreenUtil().setSp(25),
+        radius: responsive.ip(3.2),
         backgroundColor: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.all(2.0),
+          padding: const EdgeInsets.all(1.0),
           child: Image.asset('assets/img/google.png'),
         ),
       ),

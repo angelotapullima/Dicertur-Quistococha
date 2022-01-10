@@ -1,7 +1,7 @@
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/ticket_model.dart';
 import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
-import 'package:dicertur_quistococha/src/pages/tabs/inicio.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/Inicio/inicio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -80,7 +80,7 @@ class Tickets extends StatelessWidget {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                'Próximo',
+                                                'Vigentes',
                                                 style: GoogleFonts.poppins(
                                                   color: (_controller.valueBoton == 1) ? Color(0XFF505050) : Color(0XFFAFB6DB),
                                                   fontWeight: FontWeight.w500,
@@ -111,7 +111,7 @@ class Tickets extends StatelessWidget {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                'Anteriores',
+                                                'Usados',
                                                 style: GoogleFonts.poppins(
                                                   color: (_controller.valueBoton == 2) ? Color(0XFF505050) : Color(0XFFAFB6DB),
                                                   fontWeight: FontWeight.w500,
@@ -244,7 +244,7 @@ class Tickets extends StatelessWidget {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                'Próximo',
+                                                'Vigentes',
                                                 style: GoogleFonts.poppins(
                                                   color: (_controller.valueBoton == 1) ? Color(0XFF505050) : Color(0XFFAFB6DB),
                                                   fontWeight: FontWeight.w500,
@@ -275,7 +275,7 @@ class Tickets extends StatelessWidget {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                'Anteriores',
+                                                'Usados',
                                                 style: GoogleFonts.poppins(
                                                   color: (_controller.valueBoton == 2) ? Color(0XFF505050) : Color(0XFFAFB6DB),
                                                   fontWeight: FontWeight.w500,
@@ -300,7 +300,11 @@ class Tickets extends StatelessWidget {
                                             ? Center(
                                                 child: CupertinoActivityIndicator(),
                                               )
-                                            : Container();
+                                            : Container(
+                                                child: Center(
+                                                  child: Text('No tiene tickets '),
+                                                ),
+                                              );
                                       } else {
                                         return Container();
                                       }
@@ -433,7 +437,7 @@ class Tickets extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(
-                          '${model.ticketCodigoApp}',
+                          '${model.ticketCodigoApp}- ${model.idTicket}',
                           style: GoogleFonts.poppins(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
@@ -442,7 +446,7 @@ class Tickets extends StatelessWidget {
                         ),
                       ],
                     ),
-                    (model.ticketEstado == '0')
+                    (model.ticketEstado == '0' || model.ticketEstado == '1')
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -465,7 +469,7 @@ class Tickets extends StatelessWidget {
                               Text(
                                 'Salida',
                                 style: GoogleFonts.poppins(
-                                  color: Color(0XFFA8A8A8),
+                                  color: Color(0xffA8A8A8),
                                   fontWeight: FontWeight.w400,
                                   fontSize: ScreenUtil().setSp(14),
                                 ),
@@ -477,7 +481,7 @@ class Tickets extends StatelessWidget {
                               Text(
                                 'Fecha:  ',
                                 style: GoogleFonts.poppins(
-                                  color: Color(0XFFA8A8A8),
+                                  color: Color(0xffA8A8A8),
                                   fontWeight: FontWeight.w400,
                                   fontSize: ScreenUtil().setSp(14),
                                 ),
@@ -501,7 +505,7 @@ class Tickets extends StatelessWidget {
                         Text(
                           '${model.eventoHoraInicio}',
                           style: GoogleFonts.poppins(
-                            color: (model.ticketEstado == '0') ? Color(0XFF7DBE6D) : Color(0XFF505050),
+                            color: (model.ticketEstado == '0' || model.ticketEstado == '1') ? Color(0xff7DBE6D) : Color(0xff505050),
                             fontWeight: FontWeight.w700,
                             fontSize: ScreenUtil().setSp(18),
                           ),
@@ -517,7 +521,7 @@ class Tickets extends StatelessWidget {
                         Text(
                           '${model.eventoHoraFin}',
                           style: GoogleFonts.poppins(
-                            color: (model.ticketEstado == '0') ? Color(0XFFEA5555) : Color(0XFF505050),
+                            color: (model.ticketEstado == '0' || model.ticketEstado == '1') ? Color(0xffEA5555) : Color(0xff505050),
                             fontWeight: FontWeight.w700,
                             fontSize: ScreenUtil().setSp(18),
                           ),
@@ -642,6 +646,69 @@ class Tickets extends StatelessWidget {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: ScreenUtil().setHeight(12),
+                    ),
+                    Row(
+                      children: [
+                        ('${model.ticketEstado}' == '0')
+                            ? Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: ScreenUtil().setWidth(5),
+                                  vertical: ScreenUtil().setHeight(1),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Text(
+                                  'Boleto sin usar',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            : ('${model.ticketEstado}' == '1')
+                                ? Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: ScreenUtil().setWidth(5),
+                                      vertical: ScreenUtil().setHeight(1),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.yellow[800],
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Boleto parcialmente usado',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ))
+                                : Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: ScreenUtil().setWidth(5),
+                                      vertical: ScreenUtil().setHeight(1),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Text(
+                                      'Boleto completamente usado',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                      ],
+                    )
                   ],
                 ),
               ),
