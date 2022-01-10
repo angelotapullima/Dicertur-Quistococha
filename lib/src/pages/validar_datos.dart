@@ -460,7 +460,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                       children: [
                                         Expanded(
                                           child: Container(
-                                            height: ScreenUtil().setHeight(35),
+                                            height: ScreenUtil().setHeight(45),
                                             child: TextField(
                                               controller: _dniController,
                                               maxLines: 1,
@@ -502,7 +502,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                       children: [
                                         Expanded(
                                           child: Container(
-                                            height: ScreenUtil().setHeight(35),
+                                            height: ScreenUtil().setHeight(45),
                                             child: TextField(
                                               controller: _nombreController,
                                               maxLines: 1,
@@ -540,7 +540,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                       children: [
                                         Expanded(
                                           child: Container(
-                                            height: ScreenUtil().setHeight(35),
+                                            height: ScreenUtil().setHeight(45),
                                             child: TextField(
                                               controller: _telController,
                                               maxLines: 1,

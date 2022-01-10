@@ -1,16 +1,20 @@
+import 'dart:io';
 import 'package:dicertur_quistococha/src/bloc/bottom_navigation_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/data_user.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/account.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/bloc_contador_qr.dart';
-import 'package:dicertur_quistococha/src/pages/tabs/inicio.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/Inicio/inicio.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/scan_qr.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/tickets.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
+import 'package:dicertur_quistococha/src/utils/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -40,8 +44,10 @@ class _HomePageState extends State<HomePage> {
     dataBloc.obtenerUser();
     final bottomBloc = ProviderBloc.bottom(context);
 
-    bottomBloc.changePage(1);
+    bottomBloc.changePage(0);
 
+
+final responsive = Responsive.of(context);  
     return Scaffold(
       body: StreamBuilder(
         stream: bottomBloc.selectPageStream,
@@ -51,6 +57,9 @@ class _HomePageState extends State<HomePage> {
                 stream: dataBloc.userStream,
                 builder: (context, AsyncSnapshot<UserModel> datos) {
                   if (datos.hasData) {
+                    
+ 
+                     
                     return Stack(
                       children: [
                         (datos.data!.idRoleUser == '2' || datos.data!.idRoleUser == '3')
@@ -73,6 +82,65 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                         (datos.data!.idRoleUser == '2' || datos.data!.idRoleUser == '3') ? posi4(bottomBloc, context) : posi3(bottomBloc, context),
+                      
+                     
+                    (int.parse(datos.data!.versionApp!) > int.parse(versionApp2)
+                        ? Container(
+                            height: double.infinity,
+                            width: double.infinity,
+                            color: Colors.white,
+                            child: Container(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: responsive.wp(2),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                        padding: EdgeInsets.all(
+                                          responsive.ip(.5),
+                                        ),
+                                        height: responsive.ip(10),
+                                        child: SvgPicture.asset('assets/svg/LOGO_CAPITAN.svg') //Image.asset('assets/logo_largo.svg'),
+                                        ),
+                                    SizedBox(
+                                      height: responsive.hp(2),
+                                    ),
+                                    Text(
+                                      'Tenemos una nueva versión disponible para tí, descargala ahora !',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: responsive.ip(2),
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    MaterialButton(
+                                      onPressed: () {
+                                        //LaunchReview.launch(androidAppId: "com.bufeotec.capitanRemake", iOSAppId: "1568924604");
+
+                                        if (Platform.isAndroid) {
+                                          _launchInBrowser('https://play.google.com/store/apps/details?id=com.bufeotec.capitanRemake');
+                                        } else {
+                                          _launchInBrowser('https://apps.apple.com/us/app/capit%C3%A1n/id1590896023');
+                                        }
+                                      },
+                                      child: Text(
+                                        'Actualizar',
+                                        style: TextStyle(
+                                          fontSize: responsive.ip(2.5),
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container()) 
+                      
                       ],
                     );
                   } else {
@@ -354,5 +422,21 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+
+
+
+
+  Future<void> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: true,
+        //headers: <String, String>{'my_header_key': 'my_headser_value'},
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

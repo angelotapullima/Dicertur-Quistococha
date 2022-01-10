@@ -39,31 +39,25 @@ class _CobroTicketState extends State<CobroTicket> {
         Navigator.pop(context);
         return false;
       },
-      child: StreamBuilder(
-        stream: ticketBloc.ticketIdStream,
-        builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data!.length > 0) {
-              return ValueListenableBuilder(
-                  valueListenable: _cargando,
-                  builder: (BuildContext context, bool data, Widget? child) {
-                    return Stack(
-                      children: [
-                        Scaffold(
-                          appBar: AppBar(
-                            elevation: 0,
-                            title: Text(
-                              'Ticket ${snapshot.data![0].ticketCodigoApp}',
-                              style: TextStyle(
-                                fontSize: ScreenUtil().setSp(18),
-                              ),
-                            ),
-                            backgroundColor: Colors.white,
-                            iconTheme: IconThemeData(
-                              color: Colors.black,
-                            ),
-                          ),
-                          body: Padding(
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
+        ),
+        body: StreamBuilder(
+          stream: ticketBloc.ticketIdStream,
+          builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.length > 0) {
+                return ValueListenableBuilder(
+                    valueListenable: _cargando,
+                    builder: (BuildContext context, bool data, Widget? child) {
+                      return Stack(
+                        children: [
+                          Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: ScreenUtil().setWidth(16),
                               vertical: ScreenUtil().setHeight(10),
@@ -106,7 +100,36 @@ class _CobroTicketState extends State<CobroTicket> {
                                         ),
                                       ],
                                     ),
+                                  ),  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: ScreenUtil().setWidth(24),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Código: ',
+                                          style: GoogleFonts.poppins(
+                                            color: Color(0XFFA8A8A8),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: ScreenUtil().setSp(14),
+                                          ),
+                                        ),
+                                        Text(
+                                          '${snapshot.data![0].ticketCodigoApp}',
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: ScreenUtil().setSp(14),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
+                                 
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -391,86 +414,88 @@ class _CobroTicketState extends State<CobroTicket> {
                                   SizedBox(
                                     height: ScreenUtil().setHeight(20),
                                   ),
-                                  (snapshot.data![0].ticketEstado == '2')?Container():SizedBox(
-                                    width: double.infinity,
-                                    child: MaterialButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      color: Color(0xffffb240),
-                                      onPressed: () async {
-                                        _cargando.value = true;
-                                        int cont = 0;
+                                  (snapshot.data![0].ticketEstado == '2')
+                                      ? Container()
+                                      : SizedBox(
+                                          width: double.infinity,
+                                          child: MaterialButton(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            color: Color(0xffffb240),
+                                            onPressed: () async {
+                                              _cargando.value = true;
+                                              int cont = 0;
 
-                                        for (var i = 0; i < _controllerCobro.array.length; i++) {
-                                          if (_controllerCobro.array[i] > 0) {
-                                            cont++;
-                                          }
-                                        }
+                                              for (var i = 0; i < _controllerCobro.array.length; i++) {
+                                                if (_controllerCobro.array[i] > 0) {
+                                                  cont++;
+                                                }
+                                              }
 
-                                        if (cont > 0) {
-                                          String detalle = '';
-                                          num tarifaSeleccionado = 0;
-                                          for (var i = 0; i < _controllerCobro.array.length; i++) {
-                                            tarifaSeleccionado = tarifaSeleccionado + _controllerCobro.array[i];
-                                            if (_controllerCobro.array[i] > 0) {
-                                              detalle +=
-                                                  '${_controllerCobro.tarifas[i].idDetalleTicket},,,${_controllerCobro.array[i].toString()}//--';
-                                            }
-                                          }
-                                          final ticketApi = TicketApi();
+                                              if (cont > 0) {
+                                                String detalle = '';
+                                                num tarifaSeleccionado = 0;
+                                                for (var i = 0; i < _controllerCobro.array.length; i++) {
+                                                  tarifaSeleccionado = tarifaSeleccionado + _controllerCobro.array[i];
+                                                  if (_controllerCobro.array[i] > 0) {
+                                                    detalle +=
+                                                        '${_controllerCobro.tarifas[i].idDetalleTicket},,,${_controllerCobro.array[i].toString()}//--';
+                                                  }
+                                                }
+                                                final ticketApi = TicketApi();
 
-                                          final res = await ticketApi.cobrarTicket('${snapshot.data![0].idTicket}', detalle);
+                                                final res = await ticketApi.cobrarTicket('${snapshot.data![0].idTicket}', detalle);
 
-                                          if (res.code == '1') {
-                                            showToast2('operación realizada correctamente', Colors.green);
+                                                if (res.code == '1') {
+                                                  showToast2('operación realizada correctamente', Colors.green);
 
-                                            Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
-                                          } else {
-                                            showToast2('Operación fallida', Colors.red);
-                                          }
-                                        } else {
-                                          showToast2('Por favor seleccione la cantidad de entradas a cobrar', Colors.red);
-                                        }
+                                                  Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+                                                } else {
+                                                  showToast2('Operación fallida', Colors.red);
+                                                }
+                                              } else {
+                                                showToast2('Por favor seleccione la cantidad de entradas a cobrar', Colors.red);
+                                              }
 
-                                        _cargando.value = false;
-                                      },
-                                      child: Text(
-                                        'Guardar',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  )
+                                              _cargando.value = false;
+                                            },
+                                            child: Text(
+                                              'Guardar',
+                                              style: TextStyle(color: Colors.white),
+                                            ),
+                                          ),
+                                        )
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        (snapshot.data![0].ticketEstado == '2')
-                            ? Center(
-                              child: Container(
-                                  child: SvgPicture.asset('assets/svg/utilizado.svg'),
-                                ),
-                            )
-                            : Container(),
-                        (data) ? Center(child: CupertinoActivityIndicator()) : Container()
-                      ],
-                    );
-                  });
+                          (snapshot.data![0].ticketEstado == '2')
+                              ? Center(
+                                  child: Container(
+                                    child: SvgPicture.asset('assets/svg/utilizado.svg'),
+                                  ),
+                                )
+                              : Container(),
+                          (data) ? Center(child: CupertinoActivityIndicator()) : Container()
+                        ],
+                      );
+                    });
+              } else {
+                return Scaffold(
+                  appBar: AppBar(),
+                  body: Center(
+                    child: Text('No existen Tickets'),
+                  ),
+                );
+              }
             } else {
-              return Scaffold(
-                appBar: AppBar(),
-                body: Center(
-                  child: Text('No existen Tickets'),
-                ),
+              return Center(
+                child: CupertinoActivityIndicator(),
               );
             }
-          } else {
-            return Center(
-              child: CupertinoActivityIndicator(),
-            );
-          }
-        },
+          },
+        ),
       ),
     );
   }

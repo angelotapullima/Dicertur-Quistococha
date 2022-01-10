@@ -1,4 +1,5 @@
 import 'package:dicertur_quistococha/core/sharedpreferences/storage_manager.dart';
+import 'package:dicertur_quistococha/src/api/config_api.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,14 +16,20 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2), () async {
+      final configApi = ConfigApi();
+
+      
+
       String? token = await StorageManager.readData('token');
 
       final bottomBloc = ProviderBloc.bottom(context);
 
       bottomBloc.changePage(0);
       if (token == null || token.isEmpty) {
+        await configApi.obtenerConfig();
         Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
       } else {
+         configApi.obtenerConfig();
         Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
       }
     });
@@ -62,7 +69,7 @@ class _SplashState extends State<Splash> {
               width: ScreenUtil().setWidth(350),
               height: ScreenUtil().setHeight(350),
               child: Image(
-                image: AssetImage('assets/svg/gore2.png'),
+                image: AssetImage('assets/img/logo.png'),
               ),
             ),
           ),

@@ -21,6 +21,7 @@ class DataUserBloc {
     userModel.personSurname = await StorageManager.readData('personSurname');
     userModel.idRoleUser = await StorageManager.readData('idRoleUser');
     userModel.roleName = await StorageManager.readData('roleName');
+    userModel.versionApp = await StorageManager.readData('versionApp');
     _dataUserController.sink.add(userModel);
   }
 }
@@ -35,6 +36,7 @@ class UserModel {
   String? personSurname;
   String? idRoleUser;
   String? roleName;
+  String? versionApp;
 
   UserModel({
     this.idUser,
@@ -46,5 +48,6 @@ class UserModel {
     this.personSurname,
     this.idRoleUser,
     this.roleName,
+    this.versionApp,
   });
 }

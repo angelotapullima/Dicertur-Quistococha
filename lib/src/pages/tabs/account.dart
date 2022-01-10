@@ -7,6 +7,7 @@ import 'package:dicertur_quistococha/database/ticket_database.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/politicas_de_privacidad.dart';
 import 'package:dicertur_quistococha/src/pages/terminos_y_condiciones.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -164,6 +165,8 @@ class UserPage extends StatelessWidget {
                         await eventoDatabase.deleteEvento();
                         await tarifaDatabase.deleteTarifas();
                         await ticketDatabase.deleteTicket();
+
+                        StorageManager.saveData('versionApp', '$versionApp2');
 
                         Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
                       },

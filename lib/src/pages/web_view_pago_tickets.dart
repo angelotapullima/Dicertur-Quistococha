@@ -51,7 +51,7 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
                         width: ScreenUtil().setWidth(150),
                         height: ScreenUtil().setHeight(70),
                         child: Image.asset(
-                          'assets/svg/gore2.png',
+                          'assets/img/logo.png',
                         ), //Image.asset('assets/logo_largo.svg'),
                       ),
                     ],
