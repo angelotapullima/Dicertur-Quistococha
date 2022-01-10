@@ -150,22 +150,114 @@ class UserPage extends StatelessWidget {
                       height: ScreenUtil().setHeight(46),
                     ),
                     InkWell(
-                      onTap: () async {
-                        final detalleTicketDatabase = DetalleTicketDatabase();
-                        final espacioDatabase = EspacioDatabase();
-                        final eventoDatabase = EventoDatabase();
-                        final tarifaDatabase = TarifaDatabase();
-                        final ticketDatabase = TicketDatabase();
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (c) => Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ), //this right here
+                            child: Container(
+                              height: ScreenUtil().setHeight(300),
+                              width: ScreenUtil().setWidth(400),
+                              child: Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          width: ScreenUtil().setWidth(150),
+                                          height: ScreenUtil().setHeight(70),
+                                          child: Image.asset(
+                                            'assets/img/logo_bufeo.png',
+                                          ), //Image.asset('assets/logo_largo.svg'),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: ScreenUtil().setHeight(16),
+                                    ),
+                                    Text(
+                                      'Cerrar sesión',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(0XFFA8A8A8),
+                                        fontSize: ScreenUtil().setSp(18),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: ScreenUtil().setHeight(16),
+                                    ),
+                                    Text(
+                                      '¿Estas seguro de salir?',
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.red,
+                                        fontSize: ScreenUtil().setSp(18),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: ScreenUtil().setHeight(30),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        SizedBox(
+                                          width: ScreenUtil().setWidth(100),
+                                          child: MaterialButton(
+                                            color: Colors.red,
+                                            textColor: Colors.white,
+                                            child: Text(
+                                              'Si',
+                                              style: TextStyle(
+                                                fontSize: ScreenUtil().setSp(16),
+                                              ),
+                                            ),
+                                            onPressed: () async {
+                                              final detalleTicketDatabase = DetalleTicketDatabase();
+                                              final espacioDatabase = EspacioDatabase();
+                                              final eventoDatabase = EventoDatabase();
+                                              final tarifaDatabase = TarifaDatabase();
+                                              final ticketDatabase = TicketDatabase();
 
-                        await StorageManager.deleteAllData();
+                                              await StorageManager.deleteAllData();
 
-                        await detalleTicketDatabase.deleteDetalleTicket();
-                        await espacioDatabase.deleteEspacio();
-                        await eventoDatabase.deleteEvento();
-                        await tarifaDatabase.deleteTarifas();
-                        await ticketDatabase.deleteTicket();
+                                              await detalleTicketDatabase.deleteDetalleTicket();
+                                              await espacioDatabase.deleteEspacio();
+                                              await eventoDatabase.deleteEvento();
+                                              await tarifaDatabase.deleteTarifas();
+                                              await ticketDatabase.deleteTicket();
 
-                        Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+                                              Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: ScreenUtil().setWidth(100),
+                                          child: MaterialButton(
+                                            child: Text(
+                                              'No',
+                                              style: TextStyle(
+                                                fontSize: ScreenUtil().setSp(16),
+                                              ),
+                                            ),
+                                            color: Colors.orange,
+                                            textColor: Colors.white,
+                                            onPressed: () => Navigator.pop(c),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(75)),
