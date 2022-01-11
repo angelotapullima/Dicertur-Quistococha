@@ -3,7 +3,6 @@ import 'package:dicertur_quistococha/src/bloc/ticket_bloc.dart';
 import 'package:dicertur_quistococha/src/models/ticket_model.dart';
 import 'package:dicertur_quistococha/src/pages/compra_tickets.dart';
 import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
-import 'package:dicertur_quistococha/src/pages/tabs/Inicio/inicio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,220 +18,224 @@ class Tickets extends StatelessWidget {
     ticketBloc.getTicketsForUser('0');
 
     return Scaffold(
-      backgroundColor:Colors.white,
+      backgroundColor: Colors.white,
       body: StreamBuilder(
-          stream: ticketBloc.ticketStream,
-          builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data!.length > 0) {
-                return AnimatedBuilder(
-                    animation: _controller,
-                    builder: (context, t) {
-                      return Stack(
+        stream: ticketBloc.ticketStream,
+        builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data!.length > 0) {
+              return AnimatedBuilder(
+                animation: _controller,
+                builder: (context, t) {
+                  return Stack(
+                    children: [
+                      Column(
                         children: [
-                          Column(
-                            children: [
-                              AppBar(
-                                title: Text(
-                                  'Mis tickets',
-                                  style: GoogleFonts.poppins(
-                                    color: Color(0XFFFFB240),
-                                    fontWeight: FontWeight.w700,
-                                    //fontSize: ScreenUtil().setSp(18),
-                                    letterSpacing: 1.5,
-                                  ),
-                                ),
-                                centerTitle: true,
-                                elevation: 0,
-                                backgroundColor: Colors.white,
-                              ),
-                              SizedBox(
-                                height: ScreenUtil().setHeight(12),
-                              ),
-                              banner(),
-                              tabAnimated(ticketBloc),
-                              SizedBox(
-                                height: ScreenUtil().setHeight(32),
-                              ),
-                              Expanded(
-                                child: ListView.builder(
-                                  padding: EdgeInsets.only(
-                                    left: ScreenUtil().setWidth(20),
-                                    right: ScreenUtil().setWidth(20),
-                                    bottom: ScreenUtil().setHeight(65),
-                                  ),
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (_, index) {
-                                    return _itemTicket(context, snapshot.data![index]);
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                         Positioned(
-                            bottom: ScreenUtil().setHeight(10),
-                            right: 0,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, animation, secondaryAnimation) {
-                                      return CompraTicketPage();
-                                    },
-                                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                      var begin = Offset(0.0, 1.0);
-                                      var end = Offset.zero;
-                                      var curve = Curves.ease;
-
-                                      var tween = Tween(begin: begin, end: end).chain(
-                                        CurveTween(curve: curve),
-                                      );
-
-                                      return SlideTransition(
-                                        position: animation.drive(tween),
-                                        child: child,
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: ScreenUtil().setWidth(5),
-                                  vertical: ScreenUtil().setHeight(5),
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Color(0xffFFB240),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Comprar Tickets  ',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Icon(Icons.add, color: Colors.white)
-                                  ],
-                                ),
+                          AppBar(
+                            title: Text(
+                              'Mis tickets',
+                              style: GoogleFonts.poppins(
+                                color: Color(0XFFFFB240),
+                                fontWeight: FontWeight.w700,
+                                //fontSize: ScreenUtil().setSp(18),
+                                letterSpacing: 1.5,
                               ),
                             ),
-                          )
-                         ],
-                      );
-                    });
-              } else {
-                return AnimatedBuilder(
-                    animation: _controller,
-                    builder: (context, t) {
-                      return Stack(
-                        children: [
-                          Column(
-                            children: [
-                              AppBar(
-                                title: Text(
-                                  'Mis tickets',
-                                  style: GoogleFonts.poppins(
-                                    color: Color(0XFFFFB240),
-                                    fontWeight: FontWeight.w700,
-                                    //fontSize: ScreenUtil().setSp(18),
-                                    letterSpacing: 1.5,
-                                  ),
-                                ),
-                                centerTitle: true,
-                                elevation: 0,
-                                backgroundColor: Colors.white,
-                              ),
-                              SizedBox(
-                                height: ScreenUtil().setHeight(12),
-                              ),
-                              banner(),
-                              tabAnimated(ticketBloc),
-                              SizedBox(
-                                height: ScreenUtil().setHeight(32),
-                              ),
-                              StreamBuilder(
-                                  stream: ticketBloc.cargando,
-                                  builder: (context, AsyncSnapshot<bool> snapshot) {
-                                    if (snapshot.hasData) {
-                                      return (snapshot.data!)
-                                          ? Center(
-                                              child: CupertinoActivityIndicator(),
-                                            )
-                                          : Container(
-                                              child: Center(
-                                                child: Text('No tiene tickets '),
-                                              ),
-                                            );
-                                    } else {
-                                      return Container();
-                                    }
-                                  })
-                            ],
+                            centerTitle: true,
+                            elevation: 0,
+                            backgroundColor: Colors.white,
                           ),
-                          Positioned(
-                            bottom: ScreenUtil().setHeight(10),
-                            right: 0,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, animation, secondaryAnimation) {
-                                      return CompraTicketPage();
-                                    },
-                                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                      var begin = Offset(0.0, 1.0);
-                                      var end = Offset.zero;
-                                      var curve = Curves.ease;
-
-                                      var tween = Tween(begin: begin, end: end).chain(
-                                        CurveTween(curve: curve),
-                                      );
-
-                                      return SlideTransition(
-                                        position: animation.drive(tween),
-                                        child: child,
-                                      );
-                                    },
-                                  ),
-                                );
+                          SizedBox(
+                            height: ScreenUtil().setHeight(12),
+                          ),
+                          banner(),
+                          tabAnimated(ticketBloc),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(32),
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              padding: EdgeInsets.only(
+                                left: ScreenUtil().setWidth(20),
+                                right: ScreenUtil().setWidth(20),
+                                bottom: ScreenUtil().setHeight(65),
+                              ),
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (_, index) {
+                                return _itemTicket(context, snapshot.data![index]);
                               },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: ScreenUtil().setWidth(5),
-                                  vertical: ScreenUtil().setHeight(5),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                        bottom: ScreenUtil().setHeight(10),
+                        right: 0,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation, secondaryAnimation) {
+                                  return CompraTicketPage();
+                                },
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  var begin = Offset(0.0, 1.0);
+                                  var end = Offset.zero;
+                                  var curve = Curves.ease;
+
+                                  var tween = Tween(begin: begin, end: end).chain(
+                                    CurveTween(curve: curve),
+                                  );
+
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: ScreenUtil().setWidth(5),
+                              vertical: ScreenUtil().setHeight(5),
+                            ),
+                            decoration: BoxDecoration(
+                              color: Color(0xffFFB240),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Comprar Tickets  ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
                                 ),
-                                decoration: BoxDecoration(
-                                  color: Color(0xffFFB240),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Comprar Tickets  ',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Icon(Icons.add, color: Colors.white)
-                                  ],
-                                ),
+                                Icon(Icons.add, color: Colors.white)
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                },
+              );
+            } else {
+              return AnimatedBuilder(
+                animation: _controller,
+                builder: (context, t) {
+                  return Stack(
+                    children: [
+                      Column(
+                        children: [
+                          AppBar(
+                            title: Text(
+                              'Mis tickets',
+                              style: GoogleFonts.poppins(
+                                color: Color(0XFFFFB240),
+                                fontWeight: FontWeight.w700,
+                                //fontSize: ScreenUtil().setSp(18),
+                                letterSpacing: 1.5,
                               ),
                             ),
+                            centerTitle: true,
+                            elevation: 0,
+                            backgroundColor: Colors.white,
+                          ),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(12),
+                          ),
+                          banner(),
+                          tabAnimated(ticketBloc),
+                          SizedBox(
+                            height: ScreenUtil().setHeight(32),
+                          ),
+                          StreamBuilder(
+                            stream: ticketBloc.cargando,
+                            builder: (context, AsyncSnapshot<bool> snapshot) {
+                              if (snapshot.hasData) {
+                                return (snapshot.data!)
+                                    ? Center(
+                                        child: CupertinoActivityIndicator(),
+                                      )
+                                    : Container(
+                                        child: Center(
+                                          child: Text('No tiene tickets '),
+                                        ),
+                                      );
+                              } else {
+                                return Container();
+                              }
+                            },
                           )
                         ],
-                      );
-                    });
-              }
-            } else {
-              return Center(
-                child: CupertinoActivityIndicator(),
+                      ),
+                      Positioned(
+                        bottom: ScreenUtil().setHeight(10),
+                        right: 0,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation, secondaryAnimation) {
+                                  return CompraTicketPage();
+                                },
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  var begin = Offset(0.0, 1.0);
+                                  var end = Offset.zero;
+                                  var curve = Curves.ease;
+
+                                  var tween = Tween(begin: begin, end: end).chain(
+                                    CurveTween(curve: curve),
+                                  );
+
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: ScreenUtil().setWidth(5),
+                              vertical: ScreenUtil().setHeight(5),
+                            ),
+                            decoration: BoxDecoration(
+                              color: Color(0xffFFB240),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Comprar Tickets  ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Icon(Icons.add, color: Colors.white)
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                },
               );
             }
-          }),
+          } else {
+            return Center(
+              child: CupertinoActivityIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 
