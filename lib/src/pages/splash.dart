@@ -69,7 +69,7 @@ class _SplashState extends State<Splash> {
               width: ScreenUtil().setWidth(350),
               height: ScreenUtil().setHeight(350),
               child: Image(
-                image: AssetImage('assets/img/logo.png'),
+                image: AssetImage('assets/img/CTQ.png'),
               ),
             ),
           ),

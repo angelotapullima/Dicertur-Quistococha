@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -156,7 +157,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
               localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
                 //print("change language");
                 return locale;
-              },
+              },theme: ThemeData(
+                primarySwatch: Colors.green,
+                scaffoldBackgroundColor: Color(0xFFF2F7F5),
+                canvasColor: Colors.transparent,
+                textTheme: GoogleFonts.poppinsTextTheme(),
+              ),
             initialRoute: 'splash',
             routes: {
               'splash': (BuildContext context) => Splash(),

@@ -44,10 +44,9 @@ class _HomePageState extends State<HomePage> {
     dataBloc.obtenerUser();
     final bottomBloc = ProviderBloc.bottom(context);
 
-    bottomBloc.changePage(0);
+    bottomBloc.changePage(1);
 
-
-final responsive = Responsive.of(context);  
+    final responsive = Responsive.of(context);
     return Scaffold(
       body: StreamBuilder(
         stream: bottomBloc.selectPageStream,
@@ -57,9 +56,6 @@ final responsive = Responsive.of(context);
                 stream: dataBloc.userStream,
                 builder: (context, AsyncSnapshot<UserModel> datos) {
                   if (datos.hasData) {
-                    
- 
-                     
                     return Stack(
                       children: [
                         (datos.data!.idRoleUser == '2' || datos.data!.idRoleUser == '3')
@@ -82,65 +78,62 @@ final responsive = Responsive.of(context);
                                 ),
                               ),
                         (datos.data!.idRoleUser == '2' || datos.data!.idRoleUser == '3') ? posi4(bottomBloc, context) : posi3(bottomBloc, context),
-                      
-                     
-                    (int.parse(datos.data!.versionApp!) > int.parse(versionApp2)
-                        ? Container(
-                            height: double.infinity,
-                            width: double.infinity,
-                            color: Colors.white,
-                            child: Container(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: responsive.wp(2),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                        padding: EdgeInsets.all(
-                                          responsive.ip(.5),
-                                        ),
-                                        height: responsive.ip(10),
-                                        child: SvgPicture.asset('assets/svg/LOGO_CAPITAN.svg') //Image.asset('assets/logo_largo.svg'),
-                                        ),
-                                    SizedBox(
-                                      height: responsive.hp(2),
+                        (int.parse(datos.data!.versionApp!) > int.parse(versionApp2)
+                            ? Container(
+                                height: double.infinity,
+                                width: double.infinity,
+                                color: Colors.white,
+                                child: Container(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: responsive.wp(2),
                                     ),
-                                    Text(
-                                      'Tenemos una nueva versión disponible para tí, descargala ahora !',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: responsive.ip(2),
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    MaterialButton(
-                                      onPressed: () {
-                                        //LaunchReview.launch(androidAppId: "com.bufeotec.capitanRemake", iOSAppId: "1568924604");
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                            padding: EdgeInsets.all(
+                                              responsive.ip(.5),
+                                            ),
+                                            height: responsive.ip(10),
+                                            child: SvgPicture.asset('assets/svg/LOGO_CAPITAN.svg') //Image.asset('assets/logo_largo.svg'),
+                                            ),
+                                        SizedBox(
+                                          height: responsive.hp(2),
+                                        ),
+                                        Text(
+                                          'Tenemos una nueva versión disponible para tí, descargala ahora !',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: responsive.ip(2),
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        MaterialButton(
+                                          onPressed: () {
+                                            //LaunchReview.launch(androidAppId: "com.bufeotec.capitanRemake", iOSAppId: "1568924604");
 
-                                        if (Platform.isAndroid) {
-                                          _launchInBrowser('https://play.google.com/store/apps/details?id=com.bufeotec.capitanRemake');
-                                        } else {
-                                          _launchInBrowser('https://apps.apple.com/us/app/capit%C3%A1n/id1590896023');
-                                        }
-                                      },
-                                      child: Text(
-                                        'Actualizar',
-                                        style: TextStyle(
-                                          fontSize: responsive.ip(2.5),
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    )
-                                  ],
+                                            if (Platform.isAndroid) {
+                                              _launchInBrowser('https://play.google.com/store/apps/details?id=com.bufeotec.capitanRemake');
+                                            } else {
+                                              _launchInBrowser('https://apps.apple.com/us/app/capit%C3%A1n/id1590896023');
+                                            }
+                                          },
+                                          child: Text(
+                                            'Actualizar',
+                                            style: TextStyle(
+                                              fontSize: responsive.ip(2.5),
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          )
-                        : Container()) 
-                      
+                              )
+                            : Container())
                       ],
                     );
                   } else {
@@ -197,22 +190,30 @@ final responsive = Responsive.of(context);
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CircleAvatar(
+                    radius: ScreenUtil().setHeight(5),
+                    backgroundColor: (bottomBloc.page == 0) ? Color(0xFF65C715) : Colors.transparent,
+                  ),
                   Container(
                     height: ScreenUtil().setSp(30),
                     width: ScreenUtil().setSp(30),
                     child: (bottomBloc.page == 0)
                         ? SvgPicture.asset(
                             'assets/svg/tabs/home_tab.svg',
-                            color: Color(0xffffb240),
+                            color: Color(0xFF65C715),
                           )
                         : SvgPicture.asset(
                             'assets/svg/tabs/home_tab.svg',
                             color: Color(0xffafafaf),
                           ), //Image.asset('assets/logo_largo.svg'),
                   ),
-                  CircleAvatar(
-                    radius: ScreenUtil().setHeight(5),
-                    backgroundColor: (bottomBloc.page == 0) ? Color(0xffffb240) : Colors.transparent,
+                  Text(
+                    'Inicio',
+                    style: TextStyle(
+                      fontSize: ScreenUtil().setSp(13),
+                      fontWeight: FontWeight.w600,
+                      color: (bottomBloc.page == 0) ? Color(0xFF65C715) : Colors.grey,
+                    ),
                   )
                 ],
               ),
@@ -224,22 +225,30 @@ final responsive = Responsive.of(context);
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CircleAvatar(
+                    radius: ScreenUtil().setHeight(5),
+                    backgroundColor: (bottomBloc.page == 1) ? Color(0xFF65C715) : Colors.transparent,
+                  ),
                   Container(
                     height: ScreenUtil().setSp(30),
                     width: ScreenUtil().setSp(30),
                     child: (bottomBloc.page == 1)
                         ? SvgPicture.asset(
                             'assets/svg/tabs/ticket_tab.svg',
-                            color: Color(0xffffb240),
+                            color: Color(0xFF65C715),
                           )
                         : SvgPicture.asset(
                             'assets/svg/tabs/ticket_tab.svg',
                             color: Color(0xffafafaf),
                           ), //Image.assagsset('assets/logo_largo.svg'),
                   ),
-                  CircleAvatar(
-                    radius: ScreenUtil().setHeight(5),
-                    backgroundColor: (bottomBloc.page == 1) ? Color(0xffffb240) : Colors.transparent,
+                  Text(
+                    'Comprar',
+                    style: TextStyle(
+                      fontSize: ScreenUtil().setSp(13),
+                      fontWeight: FontWeight.w600,
+                      color: (bottomBloc.page == 1) ? Color(0xFF65C715) : Colors.grey,
+                    ),
                   )
                 ],
               ),
@@ -253,22 +262,31 @@ final responsive = Responsive.of(context);
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CircleAvatar(
+                    radius: ScreenUtil().setHeight(5),
+                    backgroundColor: (bottomBloc.page == 2) ? Color(0xFF65C715) : Colors.transparent,
+                  ),
                   Container(
+                    padding: EdgeInsets.all(1),
                     height: ScreenUtil().setSp(30),
                     width: ScreenUtil().setSp(30),
                     child: (bottomBloc.page == 2)
                         ? SvgPicture.asset(
                             'assets/svg/tabs/qr.svg',
-                            color: Color(0xffffb240),
+                            color: Color(0xFF65C715),
                           )
                         : SvgPicture.asset(
                             'assets/svg/tabs/qr.svg',
                             color: Color(0xffafafaf),
                           ), //Image.ass//Imagsset('assets/logo_largo.svg'),
                   ),
-                  CircleAvatar(
-                    radius: ScreenUtil().setHeight(5),
-                    backgroundColor: (bottomBloc.page == 2) ? Color(0xffffb240) : Colors.transparent,
+                  Text(
+                    'Escanear',
+                    style: TextStyle(
+                      fontSize: ScreenUtil().setSp(13),
+                      fontWeight: FontWeight.w600,
+                      color: (bottomBloc.page == 2) ? Color(0xFF65C715) : Colors.grey,
+                    ),
                   )
                 ],
               ),
@@ -280,22 +298,31 @@ final responsive = Responsive.of(context);
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CircleAvatar(
+                    radius: ScreenUtil().setHeight(5),
+                    backgroundColor: (bottomBloc.page == 3) ? Color(0xFF65C715) : Colors.transparent,
+                  ),
                   Container(
-                    height: ScreenUtil().setSp(30),
-                    width: ScreenUtil().setSp(30),
+                    height: ScreenUtil().setSp(28),
+                    width: ScreenUtil().setSp(28),
                     child: (bottomBloc.page == 3)
                         ? SvgPicture.asset(
                             'assets/svg/tabs/user_tab.svg',
-                            color: Color(0xffffb240),
+                            color: Color(0xFF65C715),
                           )
                         : SvgPicture.asset(
                             'assets/svg/tabs/user_tab.svg',
                             color: Color(0xffafafaf),
                           ), //Image.ass//Imagsset('assets/logo_largo.svg'),
                   ),
-                  CircleAvatar(
-                    radius: ScreenUtil().setHeight(5),
-                    backgroundColor: (bottomBloc.page == 3) ? Color(0xffffb240) : Colors.transparent,
+                  
+                  Text(
+                    'Cuenta',
+                    style: TextStyle(
+                      fontSize: ScreenUtil().setSp(12),
+                      fontWeight: FontWeight.w600,
+                      color: (bottomBloc.page == 3) ? Color(0xFF65C715) : Colors.grey,
+                    ),
                   )
                 ],
               ),
@@ -344,6 +371,10 @@ final responsive = Responsive.of(context);
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CircleAvatar(
+                    radius: ScreenUtil().setHeight(5),
+                    backgroundColor: (bottomBloc.page == 0) ? Color(0xffffb240) : Colors.transparent,
+                  ),
                   Container(
                     height: ScreenUtil().setSp(30),
                     width: ScreenUtil().setSp(30),
@@ -357,9 +388,13 @@ final responsive = Responsive.of(context);
                             color: Color(0xffafafaf),
                           ), //Image.asset('assets/logo_largo.svg'),
                   ),
-                  CircleAvatar(
-                    radius: ScreenUtil().setHeight(5),
-                    backgroundColor: (bottomBloc.page == 0) ? Color(0xffffb240) : Colors.transparent,
+                  Text(
+                    'Inicio',
+                    style: TextStyle(
+                      fontSize: ScreenUtil().setSp(13),
+                      fontWeight: FontWeight.w600,
+                      color: (bottomBloc.page == 0) ? Color(0xffffb240) : Colors.grey,
+                    ),
                   )
                 ],
               ),
@@ -371,6 +406,10 @@ final responsive = Responsive.of(context);
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CircleAvatar(
+                    radius: ScreenUtil().setHeight(5),
+                    backgroundColor: (bottomBloc.page == 1) ? Color(0xffffb240) : Colors.transparent,
+                  ),
                   Container(
                     height: ScreenUtil().setSp(30),
                     width: ScreenUtil().setSp(30),
@@ -384,9 +423,13 @@ final responsive = Responsive.of(context);
                             color: Color(0xffafafaf),
                           ), //Image.assagsset('assets/logo_largo.svg'),
                   ),
-                  CircleAvatar(
-                    radius: ScreenUtil().setHeight(5),
-                    backgroundColor: (bottomBloc.page == 1) ? Color(0xffffb240) : Colors.transparent,
+                  Text(
+                    'Comprar',
+                    style: TextStyle(
+                      fontSize: ScreenUtil().setSp(13),
+                      fontWeight: FontWeight.w600,
+                      color: (bottomBloc.page == 1) ? Color(0xffffb240) : Colors.grey,
+                    ),
                   )
                 ],
               ),
@@ -398,10 +441,14 @@ final responsive = Responsive.of(context);
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  CircleAvatar(
+                    radius: ScreenUtil().setHeight(5),
+                    backgroundColor: (bottomBloc.page == 2) ? Color(0xffffb240) : Colors.transparent,
+                  ),
                   Container(
                     height: ScreenUtil().setSp(30),
                     width: ScreenUtil().setSp(30),
-                    child: (bottomBloc.page == 3)
+                    child: (bottomBloc.page == 2)
                         ? SvgPicture.asset(
                             'assets/svg/tabs/user_tab.svg',
                             color: Color(0xffffb240),
@@ -411,9 +458,13 @@ final responsive = Responsive.of(context);
                             color: Color(0xffafafaf),
                           ), //Image.ass//Imagsset('assets/logo_largo.svg'),
                   ),
-                  CircleAvatar(
-                    radius: ScreenUtil().setHeight(5),
-                    backgroundColor: (bottomBloc.page == 3) ? Color(0xffffb240) : Colors.transparent,
+                  Text(
+                    'Cuenta',
+                    style: TextStyle(
+                      fontSize: ScreenUtil().setSp(13),
+                      fontWeight: FontWeight.w600,
+                      color: (bottomBloc.page == 2) ? Color(0xffffb240) : Colors.grey,
+                    ),
                   )
                 ],
               ),
@@ -423,10 +474,6 @@ final responsive = Responsive.of(context);
       ),
     );
   }
-
-
-
-
 
   Future<void> _launchInBrowser(String url) async {
     if (await canLaunch(url)) {

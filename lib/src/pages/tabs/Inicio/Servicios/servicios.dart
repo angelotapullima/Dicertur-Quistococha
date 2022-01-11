@@ -68,10 +68,10 @@ class ServiciosPage extends StatelessWidget {
                                 horizontal: ScreenUtil().setWidth(5),
                                 vertical: ScreenUtil().setHeight(5),
                               ),
-                              padding: EdgeInsets.symmetric(
+                              /* padding: EdgeInsets.symmetric(
                                 horizontal: ScreenUtil().setWidth(5),
                                 vertical: ScreenUtil().setHeight(10),
-                              ),
+                              ), */
                               child: Hero(
                                 tag: '$valorHero2',
                                 child: CachedNetworkImage(
@@ -100,18 +100,7 @@ class ServiciosPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                horizontal: ScreenUtil().setWidth(10),
-                                vertical: ScreenUtil().setHeight(5),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: ScreenUtil().setWidth(5),
-                                vertical: ScreenUtil().setHeight(10),
-                              ),
-                              height: ScreenUtil().setHeight(200),
-                              color: Colors.black.withOpacity(.2),
-                            ),
+                            
                             (valorHero)
                                 ? Positioned(
                                     left: 10,

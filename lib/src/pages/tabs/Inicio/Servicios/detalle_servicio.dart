@@ -71,9 +71,9 @@ class DetalleServicio extends StatelessWidget {
                     ),
                     Text(
                       '${servicio.servicioDetalle}',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: ScreenUtil().setSp(18),
+                       style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: ScreenUtil().setSp(15),
                         fontWeight: FontWeight.w400,
                       ),
                     ),

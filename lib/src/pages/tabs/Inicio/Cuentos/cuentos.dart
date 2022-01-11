@@ -60,9 +60,9 @@ class CuentosPage extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(
                               color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(0.3),
-                              spreadRadius: 2,
+                              spreadRadius: 4,
                               blurRadius: 8,
-                              offset: Offset(1, 5), // changes position of shadow
+                              offset: Offset(1, 2), // changes position of shadow
                             ),
                           ],
                         ),
@@ -70,55 +70,43 @@ class CuentosPage extends StatelessWidget {
                           horizontal: ScreenUtil().setWidth(0),
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(15.0),
                           child: Stack(
                             children: [
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(5), vertical: ScreenUtil().setHeight(10)),
                                 child: Hero(
                                   tag: '$valorHero',
-                                  child: CachedNetworkImage(
-                                    placeholder: (context, url) => Container(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: CachedNetworkImage(
+                                      placeholder: (context, url) => Container(
                                         width: double.infinity,
                                         height: double.infinity,
                                         child: Center(
                                           child: CupertinoActivityIndicator(),
-                                        )),
-                                    errorWidget: (context, url, error) => Container(
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      child: Center(
-                                        child: Icon(Icons.error),
+                                        ),
                                       ),
-                                    ),
-                                    imageUrl: '$apiBaseURL/${snapshot.data![x].cuentoImagen}',
-                                    imageBuilder: (context, imageProvider) => Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
+                                      errorWidget: (context, url, error) => Container(
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        child: Center(
+                                          child: Icon(Icons.error),
+                                        ),
+                                      ),
+                                      imageUrl: '$apiBaseURL/${snapshot.data![x].cuentoImagen}',
+                                      imageBuilder: (context, imageProvider) => Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              /* Positioned(
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: ScreenUtil().setWidth(10),
-                                    vertical: ScreenUtil().setHeight(10),
-                                  ),
-                                  color: Colors.black.withOpacity(0.5),
-                                  child: Text(
-                                    '${snapshot.data![x].cuentoTitulo}',
-                                    style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(15)),
-                                  ),
-                                ),
-                              ) */
                             ],
                           ),
                         ),
