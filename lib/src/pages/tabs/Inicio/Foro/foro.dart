@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/foro_model.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
+import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,11 +23,13 @@ class ForoPage extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
+
+                  var fechix = obtenerFecha('${snapshot.data![index].foroDatetime}');
                   return Container(
                     color: Colors.white,
                     margin: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
                     child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           padding: EdgeInsets.symmetric(
@@ -35,7 +38,36 @@ class ForoPage extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              CircleAvatar(),
+                              CircleAvatar(
+                                radius: ScreenUtil().setSp(19),
+                                child: ClipOval(
+                                  child: CachedNetworkImage(
+                                    placeholder: (context, url) => Container(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      child: Center(
+                                        child: CupertinoActivityIndicator(),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) => Container(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      child: Center(
+                                        child: Icon(Icons.error),
+                                      ),
+                                    ),
+                                    imageUrl: '$apiBaseURL/${snapshot.data![index].usuarioImagen}',
+                                    imageBuilder: (context, imageProvider) => Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                               SizedBox(
                                 width: ScreenUtil().setWidth(5),
                               ),
@@ -51,7 +83,7 @@ class ForoPage extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '${snapshot.data![index].foroDatetime}',
+                                    '$fechix',
                                     style: TextStyle(
                                       fontSize: ScreenUtil().setSp(14),
                                       color: Color(0xffa1a1a1),

@@ -6,6 +6,7 @@ class ForoModel {
   String? foroDetalle;
   String? personaName;
   String? personaSurName;
+  String? usuarioImagen;
   String? foroImagen;
   String? foroEstado;
 
@@ -17,6 +18,7 @@ class ForoModel {
     this.foroDetalle,
     this.personaName,
     this.personaSurName,
+    this.usuarioImagen,
     this.foroImagen,
     this.foroEstado,
   });
@@ -31,6 +33,7 @@ class ForoModel {
         "foroDetalle": foroDetalle,
         "personaName": personaName,
         "personaSurName": personaSurName,
+        "usuarioImagen": usuarioImagen,
         "foroImagen": foroImagen,
         "foroEstado": foroEstado,
       };
@@ -42,6 +45,7 @@ class ForoModel {
         foroDetalle: json["foroDetalle"],
         personaName: json["personaName"],
         personaSurName: json["personaSurName"],
+        usuarioImagen: json["usuarioImagen"],
         foroImagen: json["foroImagen"],
         foroEstado: json["foroEstado"],
       );

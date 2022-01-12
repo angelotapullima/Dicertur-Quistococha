@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/ticket_model.dart';
+import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,6 +44,10 @@ class _DetalleTicketPageOnlineState extends State<DetalleTicketPageOnline> {
             builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data!.length > 0) {
+
+
+              var fechix = obtenerFecha('${snapshot.data![0].eventoFecha}');
+              
                   return Scaffold(
                     backgroundColor: Color(0XFFFAFAFA),
                     appBar: AppBar(
@@ -109,7 +114,7 @@ class _DetalleTicketPageOnlineState extends State<DetalleTicketPageOnline> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    '${snapshot.data![0].eventoFecha}',
+                                                    '$fechix',
                                                     style: GoogleFonts.poppins(
                                                       color: Color(0XFFA8A8A8),
                                                       fontWeight: FontWeight.w400,
@@ -587,14 +592,14 @@ class _DetalleTicketPageOnlineState extends State<DetalleTicketPageOnline> {
                                           ),
                                           child: Center(
                                             child: Container(
-                                              height: ScreenUtil().setHeight(200),
-                                              width: ScreenUtil().setWidth(200),
+                                              height: ScreenUtil().setWidth(250),
+                                              width: ScreenUtil().setWidth(250),
                                               child: PrettyQr(
                                                 data:
                                                     '${snapshot.data![0].rucQR}|${snapshot.data![0].ventaTipoQR}|${snapshot.data![0].ventaSerieQR}|${snapshot.data![0].ventaCorrelativoQR}|${snapshot.data![0].ventaTotalIGVQR}|${snapshot.data![0].ventaTotalQR}|${snapshot.data![0].ventaFechaQR}|${snapshot.data![0].clienteTipoDocumetoCodigoQR}|${snapshot.data![0].clienteNumeroQR}|${snapshot.data![0].idTicket}',
-                                                size: ScreenUtil().setSp(60),
-                                                image: AssetImage('assets/img/logo_bufeo.png'),
-                                                errorCorrectLevel: QrErrorCorrectLevel.H,
+                                                size: ScreenUtil().setSp(80),
+                                                image: AssetImage('assets/img/1000x1000.png'),
+                                                errorCorrectLevel: QrErrorCorrectLevel.Q,
                                               ),
                                             ),
                                           ),

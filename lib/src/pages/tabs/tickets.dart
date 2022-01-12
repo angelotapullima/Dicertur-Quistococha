@@ -68,57 +68,7 @@ class Tickets extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Positioned(
-                        bottom: ScreenUtil().setHeight(10),
-                        right: 0,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder: (context, animation, secondaryAnimation) {
-                                  return CompraTicketPage();
-                                },
-                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                  var begin = Offset(0.0, 1.0);
-                                  var end = Offset.zero;
-                                  var curve = Curves.ease;
-
-                                  var tween = Tween(begin: begin, end: end).chain(
-                                    CurveTween(curve: curve),
-                                  );
-
-                                  return SlideTransition(
-                                    position: animation.drive(tween),
-                                    child: child,
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: ScreenUtil().setWidth(5),
-                              vertical: ScreenUtil().setHeight(5),
-                            ),
-                            decoration: BoxDecoration(
-                              color: Color(0xffFFB240),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Comprar Tickets  ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Icon(Icons.add, color: Colors.white)
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
+                      ticketsAdd(context)
                     ],
                   );
                 },
@@ -173,57 +123,7 @@ class Tickets extends StatelessWidget {
                           )
                         ],
                       ),
-                      Positioned(
-                        bottom: ScreenUtil().setHeight(10),
-                        right: 0,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder: (context, animation, secondaryAnimation) {
-                                  return CompraTicketPage();
-                                },
-                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                  var begin = Offset(0.0, 1.0);
-                                  var end = Offset.zero;
-                                  var curve = Curves.ease;
-
-                                  var tween = Tween(begin: begin, end: end).chain(
-                                    CurveTween(curve: curve),
-                                  );
-
-                                  return SlideTransition(
-                                    position: animation.drive(tween),
-                                    child: child,
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: ScreenUtil().setWidth(5),
-                              vertical: ScreenUtil().setHeight(5),
-                            ),
-                            decoration: BoxDecoration(
-                              color: Color(0xffFFB240),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Comprar Tickets  ',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Icon(Icons.add, color: Colors.white)
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
+                      ticketsAdd(context)
                     ],
                   );
                 },
@@ -235,6 +135,60 @@ class Tickets extends StatelessWidget {
             );
           }
         },
+      ),
+    );
+  }
+
+  Widget ticketsAdd(BuildContext context) {
+    return Positioned(
+      bottom: ScreenUtil().setHeight(10),
+      right: 10,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) {
+                return CompraTicketPage();
+              },
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                var begin = Offset(0.0, 1.0);
+                var end = Offset.zero;
+                var curve = Curves.ease;
+
+                var tween = Tween(begin: begin, end: end).chain(
+                  CurveTween(curve: curve),
+                );
+
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            ),
+          );
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: ScreenUtil().setWidth(5),
+            vertical: ScreenUtil().setHeight(5),
+          ),
+          decoration: BoxDecoration(
+            color: Color(0xffFFB240),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Text(
+                'Comprar Tickets  ',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              Icon(Icons.add, color: Colors.white)
+            ],
+          ),
+        ),
       ),
     );
   }

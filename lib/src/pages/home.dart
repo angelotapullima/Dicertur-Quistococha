@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     dataBloc.obtenerUser();
     final bottomBloc = ProviderBloc.bottom(context);
 
-    bottomBloc.changePage(1);
+    bottomBloc.changePage(0);
 
     final responsive = Responsive.of(context);
     return Scaffold(

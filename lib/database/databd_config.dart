@@ -9,7 +9,7 @@ class DatabaseHelper {
   Future<Database> get database async => _database ??= await getDatabase();
 
   Future<Database> getDatabase() async {
-    final String path = join(await getDatabasesPath(), 'quistochav1.db');
+    final String path = join(await getDatabasesPath(), 'quistocha.db');
     return openDatabase(path, onCreate: (db, version) {
       db.execute(tableEventoSql);
       db.execute(tableEspacioSql);
@@ -105,6 +105,7 @@ class DatabaseHelper {
       'foroDetalle TEXT, '
       'personaName TEXT,'
       'personaSurName TEXT,'
+      'usuarioImagen TEXT,'
       'foroImagen TEXT,'
       'foroEstado TEXT)';
 }

@@ -101,7 +101,6 @@ class TicketBloc {
         ticketModel.detalle = listDetalleFinal;
 
         listFinal.add(ticketModel);
-        print('gdgf');
       }
     }
     return listFinal;

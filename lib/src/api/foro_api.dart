@@ -39,6 +39,7 @@ class ForoApi {
             foroModel.personaSurName = decodedData["result"]['data'][i]['persona_apellido_paterno'];
             foroModel.foroImagen = decodedData["result"]['data'][i]['foro_foto'];
             foroModel.foroEstado = decodedData["result"]['data'][i]['foro_estado'];
+            foroModel.usuarioImagen = decodedData["result"]['data'][i]['usuario_imagen'];
             await foroDatabase.insertarForo(foroModel);
           }
         }

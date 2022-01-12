@@ -119,7 +119,7 @@ class _CompraTicketPageState extends State<CompraTicketPage> {
                         child: Column(
                           children: [
                             Container(
-                              height: ScreenUtil().setHeight(22),
+                              height: ScreenUtil().setHeight(35),
                               child: InkWell(
                                 onTap: () {
                                   _selectdate(context);
