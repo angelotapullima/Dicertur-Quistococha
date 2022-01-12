@@ -3,6 +3,7 @@ import 'package:dicertur_quistococha/src/bloc/cuentos_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/data_user.dart';
 import 'package:dicertur_quistococha/src/bloc/evento_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/foro_bloc.dart';
+import 'package:dicertur_quistococha/src/bloc/galeria_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/nuevo_metodo_pago_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/servicio_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/ticket_bloc.dart';
@@ -18,6 +19,7 @@ class ProviderBloc extends InheritedWidget {
   final cuentosBloc = CuentosBloc();
   final servicioBloc = ServicioBloc();
   final foroBloc = ForoBloc();
+  final galeriaBloc = GaleriaBloc();
 
   ProviderBloc({required Widget child}) : super(child: child);
 
@@ -54,6 +56,11 @@ class ProviderBloc extends InheritedWidget {
 
   static ForoBloc foro(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!.foroBloc;
+  }
+  
+
+  static GaleriaBloc galeria(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!.galeriaBloc;
   }
 
 }

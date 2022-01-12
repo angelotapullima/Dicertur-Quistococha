@@ -19,6 +19,7 @@ class DatabaseHelper {
       db.execute(tableCuentosSql);
       db.execute(tableServiciosSql);
       db.execute(tableForoSql);
+      db.execute(tableGaleriaSql);
     }, version: 1, onDowngrade: onDatabaseDowngradeDelete);
   }
 
@@ -90,6 +91,11 @@ class DatabaseHelper {
       'cuentoImagen TEXT,'
       'cuentoEstado TEXT)';
 
+  static const String tableGaleriaSql = 'CREATE TABLE Galeria('
+      'idGaleria TEXT PRIMARY KEY, '
+      'galeriaFoto TEXT, '
+      'galeriaEstado TEXT)';
+
   static const String tableServiciosSql = 'CREATE TABLE Servicios('
       'idServicio TEXT PRIMARY KEY, '
       'servicioTitulo TEXT, '
@@ -101,7 +107,7 @@ class DatabaseHelper {
       'idForo TEXT PRIMARY KEY, '
       'idUsuario TEXT, '
       'foroTitulo TEXT, '
-      'foroDatetime TEXT, ' 
+      'foroDatetime TEXT, '
       'foroDetalle TEXT, '
       'personaName TEXT,'
       'personaSurName TEXT,'

@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:dicertur_quistococha/core/sharedpreferences/storage_manager.dart';
 import 'package:dicertur_quistococha/database/cuentos_database.dart';
+import 'package:dicertur_quistococha/database/galeria_database.dart';
 import 'package:dicertur_quistococha/database/servicio_database.dart';
 import 'package:dicertur_quistococha/src/models/cuentos_model.dart';
+import 'package:dicertur_quistococha/src/models/galeria_model.dart';
 import 'package:dicertur_quistococha/src/models/servicios_model.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +12,7 @@ import 'package:http/http.dart' as http;
 class ConfigApi {
   final cuentosDatabase = CuentosDatabase();
   final servicioDatabase = ServicioDatabase();
+  final galeriaDatabase = GaleriaDatabase();
   Future<bool> obtenerConfig() async {
     try {
       final url = Uri.parse('$apiBaseURL/api/Login/config_inicial');
@@ -37,6 +40,17 @@ class ConfigApi {
           cuentosModel.cuentoImagen = decodedData['cuentos'][i]['cuento_imagen'];
           cuentosModel.cuentoEstado = decodedData['cuentos'][i]['cuento_estado'];
           await cuentosDatabase.insertarCuentos(cuentosModel);
+        }
+      }
+
+      if (decodedData['galeria'].length > 0) {
+        for (var i = 0; i < decodedData['galeria'].length; i++) {
+          GaleriaModel galeriaModel = GaleriaModel();
+
+          galeriaModel.idGaleria = decodedData['galeria'][i]['id_galeria'];
+          galeriaModel.galeriaFoto = decodedData['galeria'][i]['galeria_foto'];
+          galeriaModel.galeriaEstado = decodedData['galeria'][i]['galeria_estado'];
+          await galeriaDatabase.insertarGaleria(galeriaModel);
         }
       }
 

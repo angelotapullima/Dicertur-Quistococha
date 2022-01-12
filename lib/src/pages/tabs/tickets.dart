@@ -31,8 +31,7 @@ class Tickets extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          AppBar(
-                            title: Text(
+                           Text(
                               'Mis tickets',
                               style: GoogleFonts.poppins(
                                 color: Color(0XFFFFB240),
@@ -41,13 +40,7 @@ class Tickets extends StatelessWidget {
                                 letterSpacing: 1.5,
                               ),
                             ),
-                            centerTitle: true,
-                            elevation: 0,
-                            backgroundColor: Colors.white,
-                          ),
-                          SizedBox(
-                            height: ScreenUtil().setHeight(12),
-                          ),
+                         
                           banner(),
                           tabAnimated(ticketBloc),
                           SizedBox(
@@ -81,23 +74,21 @@ class Tickets extends StatelessWidget {
                     children: [
                       Column(
                         children: [
-                          AppBar(
-                            title: Text(
-                              'Mis tickets',
-                              style: GoogleFonts.poppins(
-                                color: Color(0XFFFFB240),
-                                fontWeight: FontWeight.w700,
-                                //fontSize: ScreenUtil().setSp(18),
-                                letterSpacing: 1.5,
-                              ),
-                            ),
-                            centerTitle: true,
-                            elevation: 0,
-                            backgroundColor: Colors.white,
-                          ),
-                          SizedBox(
-                            height: ScreenUtil().setHeight(12),
-                          ),
+                           SafeArea(
+                             child: Container(
+                               padding:EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
+                               child: Text(
+                                  'Mis tickets',
+                                  style: GoogleFonts.poppins(
+                                    color: Color(0XFFFFB240),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: ScreenUtil().setSp(19),
+                                    letterSpacing: 1.5,
+                                  ),
+                                ),
+                             ),
+                           ),
+                         
                           banner(),
                           tabAnimated(ticketBloc),
                           SizedBox(
@@ -284,7 +275,15 @@ class Tickets extends StatelessWidget {
   }
 
   Widget banner() {
-    return Container();
+    return Container(
+      margin: EdgeInsets.only(
+        bottom: ScreenUtil().setHeight(5),
+      ),
+      color: Colors.red,
+      height: ScreenUtil().setHeight(100),
+      width: double.infinity,
+      child: Image.asset('assets/img/quistococha_2.jpg', fit: BoxFit.fitWidth),
+    );
   }
 
   Widget _itemTicket(BuildContext context, TicketModel model) {
