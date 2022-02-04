@@ -9,7 +9,7 @@ class DatabaseHelper {
   Future<Database> get database async => _database ??= await getDatabase();
 
   Future<Database> getDatabase() async {
-    final String path = join(await getDatabasesPath(), 'quistochav5.db');
+    final String path = join(await getDatabasesPath(), 'quistocha.db');
     return openDatabase(path, onCreate: (db, version) {
       db.execute(tableEventoSql);
       db.execute(tableEspacioSql);
@@ -21,6 +21,7 @@ class DatabaseHelper {
       db.execute(tableForoSql);
       db.execute(tableGaleriaSql);
       db.execute(tableCartSql);
+      db.execute(tableSouvenirSql);
     }, version: 1, onDowngrade: onDatabaseDowngradeDelete);
   }
 
@@ -104,6 +105,13 @@ class DatabaseHelper {
       'servicioImagen TEXT,'
       'servicioPrecio TEXT,'
       'servicioEstado TEXT)';
+  static const String tableSouvenirSql = 'CREATE TABLE Souvenir('
+      'idProduct TEXT PRIMARY KEY, '
+      'productTitle TEXT, '
+      'productDetail TEXT, '
+      'productImagen TEXT,'
+      'productPrecio TEXT,'
+      'productEstado TEXT)';
 
   static const String tableForoSql = 'CREATE TABLE Foro('
       'idForo TEXT PRIMARY KEY , '

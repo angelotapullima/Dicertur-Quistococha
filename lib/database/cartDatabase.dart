@@ -63,12 +63,18 @@ class CartDatabase {
 
     return res;
   }
+
   deleteCartForIdCart(String idCart) async {
-    final db = await dbprovider.database;
+    try {
+      final db = await dbprovider.database;
 
-    final res = await db.rawDelete("DELETE FROM Cart WHERE idCart='$idCart' ");
+      final res = await db.rawDelete("DELETE FROM Cart WHERE idCart='$idCart' ");
 
-    return res;
+      return res;
+    } catch (e) {
+      print(" $e Error en la  tabla Cart");
+      return [];
+    }
   }
 /* 
   deleteCartForId(String idProduct) async {

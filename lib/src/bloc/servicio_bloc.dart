@@ -15,7 +15,7 @@ class ServicioBloc {
     _servicioController.close();
   }
 
-  void getCuentos() async {
+  void getServices() async {
     _servicioController.sink.add(await servicioDatabase.getServicio());
     await configApi.obtenerConfig();
     _servicioController.sink.add(await servicioDatabase.getServicio());

@@ -3,9 +3,11 @@ import 'package:dicertur_quistococha/core/sharedpreferences/storage_manager.dart
 import 'package:dicertur_quistococha/database/cuentos_database.dart';
 import 'package:dicertur_quistococha/database/galeria_database.dart';
 import 'package:dicertur_quistococha/database/servicio_database.dart';
+import 'package:dicertur_quistococha/database/souvenir_database.dart';
 import 'package:dicertur_quistococha/src/models/cuentos_model.dart';
 import 'package:dicertur_quistococha/src/models/galeria_model.dart';
 import 'package:dicertur_quistococha/src/models/servicios_model.dart';
+import 'package:dicertur_quistococha/src/models/souvenir_model.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,6 +15,7 @@ class ConfigApi {
   final cuentosDatabase = CuentosDatabase();
   final servicioDatabase = ServicioDatabase();
   final galeriaDatabase = GaleriaDatabase();
+  final souvenirDatabase = SouvenirDatabase();
   Future<bool> obtenerConfig() async {
     try {
       final url = Uri.parse('$apiBaseURL/api/Login/config_inicial');
@@ -65,6 +68,21 @@ class ConfigApi {
           servicioModel.servicioPrecio = decodedData['servicios'][x]['servicio_precio'];
           servicioModel.servicioEstado = decodedData['servicios'][x]['servicio_estado'];
           await servicioDatabase.insertarServicio(servicioModel);
+        }
+      }
+
+
+      if (decodedData['productos'].length > 0) {
+        for (var x = 0; x < decodedData['productos'].length; x++) {
+          SourvenirModel sourvenirModel = SourvenirModel();
+
+          sourvenirModel.idProduct = decodedData['productos'][x]['id_producto'];
+          sourvenirModel.productTitle = decodedData['productos'][x]['producto_titulo'];
+          sourvenirModel.productDetail = decodedData['productos'][x]['producto_detalle'];
+          sourvenirModel.productImagen = decodedData['productos'][x]['producto_imagen'];
+          sourvenirModel.productPrecio = decodedData['productos'][x]['producto_precio'];
+          sourvenirModel.productEstado = decodedData['productos'][x]['producto_estado'];
+          await souvenirDatabase.insertarSouvenir(sourvenirModel);
         }
       }
 

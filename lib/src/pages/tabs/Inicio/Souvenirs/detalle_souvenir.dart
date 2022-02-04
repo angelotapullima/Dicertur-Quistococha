@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dicertur_quistococha/database/cartDatabase.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/cart_model.dart';
-import 'package:dicertur_quistococha/src/models/servicios_model.dart';
+import 'package:dicertur_quistococha/src/models/souvenir_model.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/utils/responsive.dart';
 import 'package:dicertur_quistococha/src/utils/translate_animation.dart';
@@ -14,17 +14,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class DetalleServicio extends StatefulWidget {
-  DetalleServicio({Key? key, required this.servicio, required this.hero}) : super(key: key);
+class DetailSouvenir extends StatefulWidget {
+  DetailSouvenir({Key? key, required this.sourvenirModel}) : super(key: key);
 
-  final ServicioModel servicio;
-  final String hero;
+  final SourvenirModel sourvenirModel; 
 
   @override
-  State<DetalleServicio> createState() => _DetalleServicioState();
+  State<DetailSouvenir> createState() => _DetailSouvenirState();
 }
 
-class _DetalleServicioState extends State<DetalleServicio> {
+class _DetailSouvenirState extends State<DetailSouvenir> {
   final _controller = Controller();
   late double _panelHeightOpen;
   PanelController panelController = new PanelController();
@@ -71,7 +70,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          '${widget.servicio.servicioTitulo}',
+                                          '${widget.sourvenirModel.productTitle}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: ScreenUtil().setSp(18),
@@ -83,7 +82,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
                                         width: ScreenUtil().setWidth(10),
                                       ),
                                       Text(
-                                        'S/${widget.servicio.servicioPrecio}',
+                                        'S/${widget.sourvenirModel.productPrecio}',
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: ScreenUtil().setSp(18),
@@ -96,7 +95,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
                                     height: ScreenUtil().setHeight(12),
                                   ),
                                   Text(
-                                    '${widget.servicio.servicioDetalle}',
+                                    '${widget.sourvenirModel.productDetail}',
                                     style: TextStyle(
                                       color: Colors.black54,
                                       fontSize: ScreenUtil().setSp(15),
@@ -113,15 +112,16 @@ class _DetalleServicioState extends State<DetalleServicio> {
                   },
                   body: Stack(
                     children: [
-                      GestureDetector(onVerticalDragUpdate: (drag) {
-        if (drag.primaryDelta! > 7) {
-          Navigator.pop(context);
-        }
-      },
+                      GestureDetector(
+                        onVerticalDragUpdate: (drag) {
+                          if (drag.primaryDelta! > 7) {
+                            Navigator.pop(context);
+                          }
+                        },
                         child: Container(
                           height: ScreenUtil().setHeight(350),
                           child: Hero(
-                            tag: '${widget.hero}',
+                            tag: '${widget.sourvenirModel.idProduct}-2',
                             child: CachedNetworkImage(
                               placeholder: (context, url) => Container(
                                 width: double.infinity,
@@ -137,7 +137,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
                                   child: Icon(Icons.error),
                                 ),
                               ),
-                              imageUrl: '$apiBaseURL/${widget.servicio.servicioImagen}',
+                              imageUrl: '$apiBaseURL/${widget.sourvenirModel.productImagen}',
                               imageBuilder: (context, imageProvider) => Container(
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
@@ -264,7 +264,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
                               dialiogCart(
                                 context,
                                 responsive,
-                                widget.servicio,
+                                widget.sourvenirModel,
                                 _controller.cantidad.toString(),
                               );
                             },
@@ -303,7 +303,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
   Future<dynamic> dialiogCart(
     BuildContext context,
     Responsive responsive,
-    ServicioModel servicioModel,
+    SourvenirModel sourvenirModel,
     String cantidad,
   ) {
     return showDialog(
@@ -338,24 +338,24 @@ class _DetalleServicioState extends State<DetalleServicio> {
                     onTap: () async {
                       final cartDatabase = CartDatabase();
 
-                      final list = await cartDatabase.getCartForIdRelatedAndType(servicioModel.idServicio.toString(), '1');
+                      final list = await cartDatabase.getCartForIdRelatedAndType(sourvenirModel.idProduct.toString(), '2');
                       if (list.length > 0) {
-                        var subtotalex = (double.parse(cantidad) + double.parse(list[0].amount.toString())) *
-                            double.parse(servicioModel.servicioPrecio.toString());
+                        var subtotalex =
+                            (double.parse(cantidad) + double.parse(list[0].amount.toString())) * double.parse(sourvenirModel.productPrecio.toString());
                         CartModel cartModel = CartModel();
                         cartModel.idCart = list[0].idCart;
-                        cartModel.idRelated = servicioModel.idServicio;
-                        cartModel.type = '1';
+                        cartModel.idRelated = sourvenirModel.idProduct;
+                        cartModel.type = '2';
                         cartModel.amount = (int.parse(cantidad) + int.parse(list[0].amount.toString())).toString();
                         cartModel.subtotal = subtotalex.toString();
 
                         await cartDatabase.updateCart(cartModel);
                       } else {
-                        var subtotalex = double.parse(cantidad) * double.parse(servicioModel.servicioPrecio.toString());
+                        var subtotalex = double.parse(cantidad) * double.parse(sourvenirModel.productPrecio.toString());
                         CartModel cartModel = CartModel();
-                        cartModel.idRelated = servicioModel.idServicio;
+                        cartModel.idRelated = sourvenirModel.idProduct;
                         cartModel.amount = cantidad;
-                        cartModel.type = '1';
+                        cartModel.type = '2';
                         cartModel.subtotal = subtotalex.toString();
 
                         await cartDatabase.insertCart(cartModel);
@@ -422,7 +422,7 @@ class _DetalleServicioState extends State<DetalleServicio> {
                   SizedBox(
                     height: ScreenUtil().setHeight(5),
                   ),
-                  ],
+                ],
               ),
             ),
           ),

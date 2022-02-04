@@ -4,6 +4,7 @@ import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Cuentos/cuentos.dart'
 import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Foro/foro.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Galeria/galeria.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Servicios/servicios.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Souvenirs/sourvenir.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/widget/cart_widget.dart';
 import 'package:flutter/material.dart';
@@ -171,7 +172,7 @@ class _InicioPageState extends State<InicioPage> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        'Galería',
+                                        'Souvenirs',
                                         style: TextStyle(
                                           fontSize: ScreenUtil().setSp(12),
                                           fontWeight: FontWeight.w600,
@@ -190,8 +191,32 @@ class _InicioPageState extends State<InicioPage> {
                                   ),
                                 ),
                               ),
-                              Divider(
-                                thickness: .1,
+                              InkWell(
+                                onTap: () {
+                                  controller.changeValueBoton(4);
+                                },
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Galería',
+                                        style: TextStyle(
+                                          fontSize: ScreenUtil().setSp(12),
+                                          fontWeight: FontWeight.w600,
+                                          color: (controller.valueBoton == 4) ? colorPrimary : Color(0xff808080),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.symmetric(
+                                          vertical: ScreenUtil().setHeight(2),
+                                        ),
+                                        height: ScreenUtil().setHeight(2),
+                                        width: ScreenUtil().setWidth(70),
+                                        color: (controller.valueBoton == 4) ? colorPrimary : Colors.transparent,
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
                               SizedBox(
                                 width: ScreenUtil().setWidth(20),
@@ -206,7 +231,9 @@ class _InicioPageState extends State<InicioPage> {
                                   ? CuentosPage()
                                   : (controller.valueBoton == 2)
                                       ? ServiciosPage()
-                                      : GaleriaPage(),
+                                      : (controller.valueBoton == 3)
+                                          ? SourvenirPage()
+                                          : GaleriaPage(),
                         )
                       ],
                     ),

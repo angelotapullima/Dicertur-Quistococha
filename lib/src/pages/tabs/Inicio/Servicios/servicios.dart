@@ -22,7 +22,7 @@ class _ServiciosPageState extends State<ServiciosPage> {
   @override
   Widget build(BuildContext context) {
     final serviciosBloc = ProviderBloc.servi(context);
-    serviciosBloc.getCuentos();
+    serviciosBloc.getServices();
 
     return StreamBuilder(
         stream: serviciosBloc.servicioStream,

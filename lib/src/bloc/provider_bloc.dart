@@ -7,6 +7,7 @@ import 'package:dicertur_quistococha/src/bloc/foro_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/galeria_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/nuevo_metodo_pago_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/servicio_bloc.dart';
+import 'package:dicertur_quistococha/src/bloc/souvenir_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/ticket_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class ProviderBloc extends InheritedWidget {
   final foroBloc = ForoBloc();
   final galeriaBloc = GaleriaBloc();
   final cartBloc = CartBloc();
+  final souvenirBloc = SouvenirBloc();
 
   ProviderBloc({required Widget child}) : super(child: child);
 
@@ -67,6 +69,10 @@ class ProviderBloc extends InheritedWidget {
 
   static CartBloc cart(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!.cartBloc;
+  }
+
+  static SouvenirBloc sou(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!.souvenirBloc;
   }
 
 }

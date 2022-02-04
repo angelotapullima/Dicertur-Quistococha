@@ -4,6 +4,7 @@ import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/ReceivedNotification.dart';
 import 'package:dicertur_quistococha/src/pages/home.dart';
 import 'package:dicertur_quistococha/src/pages/login.dart';
+import 'package:dicertur_quistococha/src/pages/new_account.dart';
 import 'package:dicertur_quistococha/src/pages/splash.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/qr/bloc_contador_qr.dart';
 import 'package:dicertur_quistococha/src/pushProvider/push_notifications.dart';
@@ -52,8 +53,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
-
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final GlobalKey<NavigatorState> navigatorkey = new GlobalKey<NavigatorState>();
 
   @override
@@ -119,8 +119,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -135,37 +133,39 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
           builder: () => MaterialApp(
             title: 'Dicertur',
             debugShowCheckedModeBanner: false,
-            builder: (BuildContext context, Widget ? child) {
-                final MediaQueryData data = MediaQuery.of(context);
-                return MediaQuery(
-                  data: data.copyWith(textScaleFactor: data.textScaleFactor > 2.0 ? 1.2 : data.textScaleFactor),
-                  child: child!,
-                );
-              },
-              localizationsDelegates: [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: [
-                const Locale('es'),
-                const Locale('es', 'ES'), // Spanish, no country code
-                //const Locale('en', 'EN'), // English, no country code
-              ],
-              localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
-                //print("change language");
-                return locale;
-              },theme: ThemeData(
-                primarySwatch: Colors.green,
-                scaffoldBackgroundColor: Color(0xFFF2F7F5),
-                canvasColor: Colors.transparent,
-                textTheme: GoogleFonts.poppinsTextTheme(),
-              ),
+            builder: (BuildContext context, Widget? child) {
+              final MediaQueryData data = MediaQuery.of(context);
+              return MediaQuery(
+                data: data.copyWith(textScaleFactor: data.textScaleFactor > 2.0 ? 1.2 : data.textScaleFactor),
+                child: child!,
+              );
+            },
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('es'),
+              const Locale('es', 'ES'), // Spanish, no country code
+              //const Locale('en', 'EN'), // English, no country code
+            ],
+            localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
+              //print("change language");
+              return locale;
+            },
+            theme: ThemeData(
+              primarySwatch: Colors.green,
+              scaffoldBackgroundColor: Color(0xFFF2F7F5),
+              canvasColor: Colors.transparent,
+              textTheme: GoogleFonts.poppinsTextTheme(),
+            ),
             initialRoute: 'splash',
             routes: {
               'splash': (BuildContext context) => Splash(),
               'login': (BuildContext context) => Login(),
-              
+              'newAccount': (BuildContext context) => NewAccount(),
+
               'home': (BuildContext context) => HomePage(),
               //'MetodoPago': (BuildContext context) => MetodoPago(),
             },

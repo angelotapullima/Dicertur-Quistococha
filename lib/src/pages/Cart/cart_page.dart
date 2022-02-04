@@ -115,7 +115,10 @@ class _CartPageState extends State<CartPage> {
                                           context,
                                           PageRouteBuilder(
                                             pageBuilder: (context, animation, secondaryAnimation) {
-                                              return PayServices(monto: total.toString(),cartList: snapshot.data!,);
+                                              return PayServices(
+                                                monto: total.toString(),
+                                                cartList: snapshot.data!,
+                                              );
                                             },
                                             transitionsBuilder: (context, animation, secondaryAnimation, child) {
                                               var begin = Offset(0.0, 1.0);
@@ -196,7 +199,9 @@ class _CartPageState extends State<CartPage> {
                             if (snapshot.data!.length > 0) {
                               return Expanded(
                                 child: ListView.builder(
-                                  padding: EdgeInsets.only(bottom: responsive.hp(25)),
+                                  padding: EdgeInsets.only(
+                                    bottom: responsive.hp(25),
+                                  ),
                                   itemCount: snapshot.data!.length,
                                   itemBuilder: (context, index) {
                                     return Column(
@@ -264,7 +269,7 @@ class _CartPageState extends State<CartPage> {
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
                                                         Text(
-                                                          'S/.${snapshot.data![index].subtotal}',
+                                                          'S/.${snapshot.data![index].subtotal}0',
                                                           style: TextStyle(
                                                             color: Colors.red,
                                                             fontSize: ScreenUtil().setSp(16),
@@ -284,7 +289,7 @@ class _CartPageState extends State<CartPage> {
                                                                 children: [
                                                                   InkWell(
                                                                     onTap: () async {
-                                                                      if ('${snapshot.data![index].idRelated}' == '1') {
+                                                                      if ('${snapshot.data![index].amount}' == '1') {
                                                                         final cartDatabase = CartDatabase();
 
                                                                         await cartDatabase.deleteCartForIdCart('${snapshot.data![index].idCart}');
@@ -296,13 +301,13 @@ class _CartPageState extends State<CartPage> {
                                                                         final list = await cartDatabase.getCartForIdRelatedAndType(
                                                                             '${snapshot.data![index].idRelated}', '${snapshot.data![index].type}');
                                                                         if (list.length > 0) {
-                                                                          var subtotalex = (1 + int.parse(list[0].amount.toString())) *
+                                                                          var subtotalex = (int.parse(list[0].amount.toString()) - 1) *
                                                                               double.parse('${snapshot.data![index].price}');
                                                                           CartModel cartModel = CartModel();
                                                                           cartModel.idCart = list[0].idCart;
                                                                           cartModel.idRelated = '${snapshot.data![index].idRelated}';
-                                                                          cartModel.type = '1';
-                                                                          cartModel.amount = (1 + int.parse(list[0].amount.toString())).toString();
+                                                                          cartModel.type = list[0].type;
+                                                                          cartModel.amount = (int.parse(list[0].amount.toString()) - 1).toString();
                                                                           cartModel.subtotal = subtotalex.toString();
 
                                                                           await cartDatabase.updateCart(cartModel);
@@ -346,7 +351,7 @@ class _CartPageState extends State<CartPage> {
                                                                         CartModel cartModel = CartModel();
                                                                         cartModel.idCart = list[0].idCart;
                                                                         cartModel.idRelated = '${snapshot.data![index].idRelated}';
-                                                                        cartModel.type = '1';
+                                                                        cartModel.type = list[0].type;
                                                                         cartModel.amount = (1 + int.parse(list[0].amount.toString())).toString();
                                                                         cartModel.subtotal = subtotalex.toString();
 
@@ -407,10 +412,78 @@ class _CartPageState extends State<CartPage> {
                   )),
                 );
               } else {
-                return CupertinoActivityIndicator();
+                return Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: ScreenUtil().setWidth(10),
+                        vertical: ScreenUtil().setHeight(5),
+                      ),
+                      color: Colors.white,
+                      child: Row(
+                        children: [
+                          BackButton(
+                            color: Color(0xff00a2ff),
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Carrito',
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: ScreenUtil().setSp(18),
+                                color: colorPrimary,
+                              ),
+                            ),
+                          ),
+                          BackButton(
+                            color: Colors.white,
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text('No hay productos'),
+                  ],
+                );
               }
             } else {
-              return CupertinoActivityIndicator();
+              return Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: ScreenUtil().setWidth(10),
+                      vertical: ScreenUtil().setHeight(5),
+                    ),
+                    color: Colors.white,
+                    child: Row(
+                      children: [
+                        BackButton(
+                          color: Color(0xff00a2ff),
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Carrito',
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: ScreenUtil().setSp(18),
+                              color: colorPrimary,
+                            ),
+                          ),
+                        ),
+                        BackButton(
+                          color: Colors.white,
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                  CupertinoActivityIndicator(),
+                ],
+              );
             }
           }),
     );

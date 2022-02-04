@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 class NewAccount extends StatefulWidget {
   final String? email;
   final String? name;
-  const NewAccount({Key? key, required this.email, required this.name}) : super(key: key);
+  const NewAccount({Key? key,  this.email = '',  this.name = ''}) : super(key: key);
 
   @override
   _NewAccountState createState() => _NewAccountState();
