@@ -57,8 +57,8 @@ class TicketApi {
             ticketModel.clienteNumeroQR = decodedData['result']['data'][i]['data_qr']["cliente_numero"];
 
             final horsFormat = decodedData['result']['data'][i]['evento_hora']!.split("-");
-            var horaInicio = horsFormat[0].trim();
-            var horaFin = horsFormat[1].trim();
+            var horaInicio = (horsFormat.length>0)?horsFormat[0].trim():'0';
+            var horaFin = (horsFormat.length>1)? horsFormat[1].trim():'0';
             ticketModel.eventoHoraInicio = horaInicio;
             ticketModel.eventoHoraFin = horaFin;
 
@@ -200,6 +200,58 @@ class TicketApi {
       final resp = await http.post(url, body: {
         'nombre': nombre,
         'id_evento': idEvento,
+        'telefono': telefono,
+        'dni': dni,
+        'total': total,
+        'tipo_pago': '1',
+        'detalle': detalle,
+        'id_tipodocumento': idTipoDocumento,
+        'tipo_venta': tipoVenta,
+        'domicilio': domicilio,
+        'app': 'true',
+        'tn': token,
+      });
+
+      final decodedData = json.decode(resp.body);
+      print(decodedData);
+
+      final int code = decodedData['result']['code'];
+      TicketUrlApiModel apiModel = TicketUrlApiModel();
+      apiModel.code = code.toString();
+
+      if (code == 1) {
+        apiModel.idTicket = decodedData['result']['id_ticket'];
+        apiModel.estado = decodedData['result']['pago_online']['estado'];
+        apiModel.url = decodedData['result']['pago_online']['link'];
+        apiModel.message = decodedData['result']['pago_online']['mensaje'];
+      }
+
+      return apiModel;
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      TicketUrlApiModel apiModel = TicketUrlApiModel();
+      apiModel.code = '2';
+      apiModel.message = 'Error en la petición';
+      return apiModel;
+    }
+  }
+
+  Future<TicketUrlApiModel> guardarServices(
+    String total,
+    String detalle,
+    String nombre,
+    String telefono,
+    String dni,
+    String idTipoDocumento,
+    String domicilio,
+    String tipoVenta,
+  ) async {
+    try {
+      final url = Uri.parse('$apiBaseURL/api/Empresa/guardar_servicios');
+      String? token = await StorageManager.readData('token');
+
+      final resp = await http.post(url, body: {
+        'nombre': nombre,
         'telefono': telefono,
         'dni': dni,
         'total': total,

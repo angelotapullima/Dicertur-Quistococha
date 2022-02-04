@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dicertur_quistococha/src/api/login_api.dart';
 import 'package:dicertur_quistococha/src/pages/new_account.dart';
 import 'package:dicertur_quistococha/src/utils/auth.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/utils/responsive.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:dicertur_quistococha/src/widget/show_loading.dart';
@@ -71,7 +72,7 @@ class _LoginState extends State<Login> {
                           child: Text(
                             'Bienvenido de vuelta ',
                             style: TextStyle(
-                              color: Color(0xffFFB240),
+                              color: colorPrimary,
                               fontSize: ScreenUtil().setSp(28),
                               fontWeight: FontWeight.bold,
                             ),
@@ -198,7 +199,7 @@ class _LoginState extends State<Login> {
                       Text(
                         '¿Olvidaste tu contraseña?',
                         style: TextStyle(
-                          color: Color(0xffFFB240),
+                          color: colorPrimary,
                           fontSize: ScreenUtil().setSp(15),
                         ),
                       ),
@@ -233,7 +234,7 @@ class _LoginState extends State<Login> {
                           showToast2('Ingrese su usuario', Colors.black);
                         }
                       },
-                      color: Color(0xffffb240),
+                      color: colorPrimary,
                       child: Text('Ingresar'),
                       textColor: Colors.white,
                     ),
@@ -250,7 +251,7 @@ class _LoginState extends State<Login> {
                       onPressed: () async {
                         Navigator.pushNamed(context, 'newAccount');
                       },
-                      color: Color(0xffffb240),
+                      color: colorPrimary,
                       child: Text('No tengo una cuenta'),
                       textColor: Colors.white,
                     ),

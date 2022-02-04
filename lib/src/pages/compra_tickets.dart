@@ -4,6 +4,7 @@ import 'package:dicertur_quistococha/src/bloc/data_user.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/banner.dart';
 import 'package:dicertur_quistococha/src/pages/mostrar_tarifas.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:dicertur_quistococha/src/widget/show_loading.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class _CompraTicketPageState extends State<CompraTicketPage> {
                         title: Text(
                           'Hola ${snapshot.data!.personName}',
                           style: TextStyle(
-                            color: Color(0xffffb240),
+                            color: colorPrimary,
                           ),
                         ),
                       ),
@@ -140,14 +141,14 @@ class _CompraTicketPageState extends State<CompraTicketPage> {
                                     ),
                                     Icon(
                                       Icons.calendar_today,
-                                      color: Color(0xffffb240),
+                                      color: colorPrimary,
                                     ),
                                   ],
                                 ),
                               ),
                             ),
                             Divider(
-                              color: Color(0xffffb240),
+                              color: colorPrimary,
                             )
                           ],
                         ),
@@ -197,11 +198,11 @@ class _CompraTicketPageState extends State<CompraTicketPage> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xffffb240),
+                            color: colorPrimary,
                             borderRadius: BorderRadius.circular(15),
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xffffb240).withOpacity(0.3),
+                                color: colorPrimary.withOpacity(0.3),
                                 spreadRadius: 5,
                                 blurRadius: 12,
                                 offset: Offset(0, 8), // changes position of shadow

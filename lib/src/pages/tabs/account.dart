@@ -267,7 +267,7 @@ class UserPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(50), vertical: ScreenUtil().setHeight(10)),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(22),
-                          color: Color(0xffffb240),
+                          color: colorPrimary,
                         ),
                         child: Text(
                           'Cerrar sesión',

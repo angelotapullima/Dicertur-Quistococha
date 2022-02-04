@@ -4,6 +4,8 @@ import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Cuentos/cuentos.dart'
 import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Foro/foro.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Galeria/galeria.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Servicios/servicios.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
+import 'package:dicertur_quistococha/src/widget/cart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,6 +32,7 @@ class _InicioPageState extends State<InicioPage> {
           if (snapshot.hasData) {
             var dato = snapshot.data;
             return Scaffold(
+              backgroundColor: Colors.white,
               body: AnimatedBuilder(
                 animation: controller,
                 builder: (context, snapshot) {
@@ -55,15 +58,13 @@ class _InicioPageState extends State<InicioPage> {
                                   textAlign: TextAlign.center,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    fontSize: ScreenUtil().setSp(19),
-                                    color: Color(0xffffb240),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: ScreenUtil().setSp(18),
+                                    color: colorPrimary,
                                   ),
                                 ),
                               ),
-                              CircleAvatar(
-                                radius: ScreenUtil().setSp(19),
-                                backgroundColor: Colors.transparent,
-                              ),
+                              CartWidget()
                             ],
                           ),
                         ),
@@ -91,9 +92,9 @@ class _InicioPageState extends State<InicioPage> {
                                       Text(
                                         'Inicio',
                                         style: TextStyle(
-                                          fontSize: ScreenUtil().setSp(16),
-                                          fontWeight: FontWeight.w500,
-                                          color: (controller.valueBoton == 0) ? Color(0xffffb240) : Color(0xff808080),
+                                          fontSize: ScreenUtil().setSp(12),
+                                          fontWeight: FontWeight.w600,
+                                          color: (controller.valueBoton == 0) ? colorPrimary : Color(0xff808080),
                                         ),
                                       ),
                                       Container(
@@ -102,7 +103,7 @@ class _InicioPageState extends State<InicioPage> {
                                         ),
                                         height: ScreenUtil().setHeight(2),
                                         width: ScreenUtil().setWidth(40),
-                                        color: (controller.valueBoton == 0) ? Color(0xffffb240) : Colors.transparent,
+                                        color: (controller.valueBoton == 0) ? colorPrimary : Colors.transparent,
                                       )
                                     ],
                                   ),
@@ -118,9 +119,9 @@ class _InicioPageState extends State<InicioPage> {
                                       Text(
                                         'Cuentos',
                                         style: TextStyle(
-                                          fontSize: ScreenUtil().setSp(16),
-                                          fontWeight: FontWeight.w500,
-                                          color: (controller.valueBoton == 1) ? Color(0xffffb240) : Color(0xff808080),
+                                          fontSize: ScreenUtil().setSp(12),
+                                          fontWeight: FontWeight.w600,
+                                          color: (controller.valueBoton == 1) ? colorPrimary : Color(0xff808080),
                                         ),
                                       ),
                                       Container(
@@ -129,7 +130,7 @@ class _InicioPageState extends State<InicioPage> {
                                         ),
                                         height: ScreenUtil().setHeight(2),
                                         width: ScreenUtil().setWidth(70),
-                                        color: (controller.valueBoton == 1) ? Color(0xffffb240) : Colors.transparent,
+                                        color: (controller.valueBoton == 1) ? colorPrimary : Colors.transparent,
                                       )
                                     ],
                                   ),
@@ -145,9 +146,9 @@ class _InicioPageState extends State<InicioPage> {
                                       Text(
                                         'Servicios',
                                         style: TextStyle(
-                                          fontSize: ScreenUtil().setSp(16),
-                                          fontWeight: FontWeight.w500,
-                                          color: (controller.valueBoton == 2) ? Color(0xffffb240) : Color(0xff808080),
+                                          fontSize: ScreenUtil().setSp(12),
+                                          fontWeight: FontWeight.w600,
+                                          color: (controller.valueBoton == 2) ? colorPrimary : Color(0xff808080),
                                         ),
                                       ),
                                       Container(
@@ -156,7 +157,7 @@ class _InicioPageState extends State<InicioPage> {
                                         ),
                                         height: ScreenUtil().setHeight(2),
                                         width: ScreenUtil().setWidth(70),
-                                        color: (controller.valueBoton == 2) ? Color(0xffffb240) : Colors.transparent,
+                                        color: (controller.valueBoton == 2) ? colorPrimary : Colors.transparent,
                                       )
                                     ],
                                   ),
@@ -172,9 +173,9 @@ class _InicioPageState extends State<InicioPage> {
                                       Text(
                                         'Galería',
                                         style: TextStyle(
-                                          fontSize: ScreenUtil().setSp(16),
-                                          fontWeight: FontWeight.w500,
-                                          color: (controller.valueBoton == 3) ? Color(0xffffb240) : Color(0xff808080),
+                                          fontSize: ScreenUtil().setSp(12),
+                                          fontWeight: FontWeight.w600,
+                                          color: (controller.valueBoton == 3) ? colorPrimary : Color(0xff808080),
                                         ),
                                       ),
                                       Container(
@@ -183,7 +184,7 @@ class _InicioPageState extends State<InicioPage> {
                                         ),
                                         height: ScreenUtil().setHeight(2),
                                         width: ScreenUtil().setWidth(70),
-                                        color: (controller.valueBoton == 3) ? Color(0xffffb240) : Colors.transparent,
+                                        color: (controller.valueBoton == 3) ? colorPrimary : Colors.transparent,
                                       )
                                     ],
                                   ),

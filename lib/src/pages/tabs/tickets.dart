@@ -3,6 +3,8 @@ import 'package:dicertur_quistococha/src/bloc/ticket_bloc.dart';
 import 'package:dicertur_quistococha/src/models/ticket_model.dart';
 import 'package:dicertur_quistococha/src/pages/compra_tickets.dart';
 import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
+import 'package:dicertur_quistococha/src/widget/cart_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,113 +21,135 @@ class Tickets extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: StreamBuilder(
-        stream: ticketBloc.ticketStream,
-        builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data!.length > 0) {
-              return AnimatedBuilder(
-                animation: _controller,
-                builder: (context, t) {
-                  return Stack(
-                    children: [
-                      Column(
-                        children: [
-                           Text(
-                              'Mis tickets',
-                              style: GoogleFonts.poppins(
-                                color: Color(0XFFFFB240),
-                                fontWeight: FontWeight.w700,
-                                //fontSize: ScreenUtil().setSp(18),
-                                letterSpacing: 1.5,
-                              ),
-                            ),
-                         
-                          banner(),
-                          tabAnimated(ticketBloc),
-                          SizedBox(
-                            height: ScreenUtil().setHeight(32),
+      body: SafeArea(bottom: false,
+        child: StreamBuilder(
+          stream: ticketBloc.ticketStream,
+          builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.length > 0) {
+                return AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, t) {
+                    return Stack(
+                      children: [
+                        Column(
+                          children: [
+                             Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(10),
+                            vertical: ScreenUtil().setHeight(5),
                           ),
-                          Expanded(
-                            child: ListView.builder(
-                              padding: EdgeInsets.only(
-                                left: ScreenUtil().setWidth(20),
-                                right: ScreenUtil().setWidth(20),
-                                bottom: ScreenUtil().setHeight(65),
+                          color: Colors.white,
+                          child: Row(
+                            children: [
+                              Container(
+                                height: ScreenUtil().setSp(50),
+                                child: Image.asset('assets/img/1000x1000.png'),
                               ),
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (_, index) {
-                                return _itemTicket(context, snapshot.data![index]);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      ticketsAdd(context)
-                    ],
-                  );
-                },
-              );
-            } else {
-              return AnimatedBuilder(
-                animation: _controller,
-                builder: (context, t) {
-                  return Stack(
-                    children: [
-                      Column(
-                        children: [
-                           SafeArea(
-                             child: Container(
-                               padding:EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
-                               child: Text(
-                                  'Mis tickets',
-                                  style: GoogleFonts.poppins(
-                                    color: Color(0XFFFFB240),
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: ScreenUtil().setSp(19),
-                                    letterSpacing: 1.5,
+                              Expanded(
+                                child: Text(
+                                    'Mis tickets',
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: ScreenUtil().setSp(18),
+                                    color: colorPrimary,
                                   ),
                                 ),
-                             ),
-                           ),
-                         
-                          banner(),
-                          tabAnimated(ticketBloc),
-                          SizedBox(
-                            height: ScreenUtil().setHeight(32),
+                              ),
+                              CartWidget()],
                           ),
-                          StreamBuilder(
-                            stream: ticketBloc.cargando,
-                            builder: (context, AsyncSnapshot<bool> snapshot) {
-                              if (snapshot.hasData) {
-                                return (snapshot.data!)
-                                    ? Center(
-                                        child: CupertinoActivityIndicator(),
-                                      )
-                                    : Container(
-                                        child: Center(
-                                          child: Text('No tiene tickets '),
-                                        ),
-                                      );
-                              } else {
-                                return Container();
-                              }
-                            },
-                          )
-                        ],
-                      ),
-                      ticketsAdd(context)
-                    ],
-                  );
-                },
+                        ),
+                       
+                              
+                           
+                            banner(),
+                            tabAnimated(ticketBloc),
+                            SizedBox(
+                              height: ScreenUtil().setHeight(32),
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                padding: EdgeInsets.only(
+                                  left: ScreenUtil().setWidth(20),
+                                  right: ScreenUtil().setWidth(20),
+                                  bottom: ScreenUtil().setHeight(65),
+                                ),
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (_, index) {
+                                  return _itemTicket(context, snapshot.data![index]);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        ticketsAdd(context)
+                      ],
+                    );
+                  },
+                );
+              } else {
+                return AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, t) {
+                    return Stack(
+                      children: [
+                        Column(
+                          children: [
+                             SafeArea(
+                               child: Container(
+                                 padding:EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
+                                 child: Text(
+                                    'Mis tickets',
+                                    style: GoogleFonts.poppins(
+                                      color: colorPrimary,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: ScreenUtil().setSp(19),
+                                      letterSpacing: 1.5,
+                                    ),
+                                  ),
+                               ),
+                             ),
+                           
+                            banner(),
+                            tabAnimated(ticketBloc),
+                            SizedBox(
+                              height: ScreenUtil().setHeight(32),
+                            ),
+                            StreamBuilder(
+                              stream: ticketBloc.cargando,
+                              builder: (context, AsyncSnapshot<bool> snapshot) {
+                                if (snapshot.hasData) {
+                                  return (snapshot.data!)
+                                      ? Center(
+                                          child: CupertinoActivityIndicator(),
+                                        )
+                                      : Container(
+                                          child: Center(
+                                            child: Text('No tiene tickets '),
+                                          ),
+                                        );
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            )
+                          ],
+                        ),
+                        ticketsAdd(context)
+                      ],
+                    );
+                  },
+                );
+              }
+            } else {
+              return Center(
+                child: CupertinoActivityIndicator(),
               );
             }
-          } else {
-            return Center(
-              child: CupertinoActivityIndicator(),
-            );
-          }
-        },
+          },
+        ),
       ),
     );
   }
@@ -165,7 +189,7 @@ class Tickets extends StatelessWidget {
             vertical: ScreenUtil().setHeight(5),
           ),
           decoration: BoxDecoration(
-            color: Color(0xffFFB240),
+            color: colorPrimary,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -219,7 +243,7 @@ class Tickets extends StatelessWidget {
                   horizontal: ScreenUtil().setWidth(2),
                 ),
                 decoration: BoxDecoration(
-                  color: (_controller.valueBoton == 1) ? Color(0xffffb240) : Color(0XFFECF4FF),
+                  color: (_controller.valueBoton == 1) ? colorPrimary : Color(0XFFECF4FF),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
                     bottomLeft: Radius.circular(20),
@@ -250,7 +274,7 @@ class Tickets extends StatelessWidget {
                   horizontal: ScreenUtil().setWidth(2),
                 ),
                 decoration: BoxDecoration(
-                  color: (_controller.valueBoton == 2) ? Color(0xffffb240) : Color(0XFFECF4FF),
+                  color: (_controller.valueBoton == 2) ? colorPrimary : Color(0XFFECF4FF),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
                     bottomRight: Radius.circular(20),

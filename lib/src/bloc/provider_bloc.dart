@@ -1,4 +1,5 @@
 import 'package:dicertur_quistococha/src/bloc/bottom_navigation_bloc.dart';
+import 'package:dicertur_quistococha/src/bloc/cart_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/cuentos_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/data_user.dart';
 import 'package:dicertur_quistococha/src/bloc/evento_bloc.dart';
@@ -20,6 +21,7 @@ class ProviderBloc extends InheritedWidget {
   final servicioBloc = ServicioBloc();
   final foroBloc = ForoBloc();
   final galeriaBloc = GaleriaBloc();
+  final cartBloc = CartBloc();
 
   ProviderBloc({required Widget child}) : super(child: child);
 
@@ -61,6 +63,10 @@ class ProviderBloc extends InheritedWidget {
 
   static GaleriaBloc galeria(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!.galeriaBloc;
+  }
+
+  static CartBloc cart(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>())!.cartBloc;
   }
 
 }

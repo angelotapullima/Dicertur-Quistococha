@@ -62,6 +62,7 @@ class ConfigApi {
           servicioModel.servicioTitulo = decodedData['servicios'][x]['servicio_titulo'];
           servicioModel.servicioDetalle = decodedData['servicios'][x]['servicio_detalle'];
           servicioModel.servicioImagen = decodedData['servicios'][x]['servicio_imagen'];
+          servicioModel.servicioPrecio = decodedData['servicios'][x]['servicio_precio'];
           servicioModel.servicioEstado = decodedData['servicios'][x]['servicio_estado'];
           await servicioDatabase.insertarServicio(servicioModel);
         }

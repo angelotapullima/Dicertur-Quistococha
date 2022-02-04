@@ -2,7 +2,8 @@ import 'package:dicertur_quistococha/src/api/ticket_api.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/detalle_ticket_model.dart';
 import 'package:dicertur_quistococha/src/models/ticket_model.dart';
-import 'package:dicertur_quistococha/src/pages/tabs/bloc_contador_qr.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/qr/bloc_contador_qr.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -422,7 +423,7 @@ class _CobroTicketState extends State<CobroTicket> {
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(10),
                                             ),
-                                            color: Color(0xffffb240),
+                                            color:colorPrimary,
                                             onPressed: () async {
                                               _cargando.value = true;
                                               int cont = 0;
@@ -520,7 +521,7 @@ class _CobroTicketState extends State<CobroTicket> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0xffffb240),
+                    color: colorPrimary,
                     borderRadius: BorderRadius.circular(100),
                   ),
                   height: double.infinity,
@@ -565,7 +566,7 @@ class _CobroTicketState extends State<CobroTicket> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0xffffb240),
+                    color: colorPrimary,
                     borderRadius: BorderRadius.circular(100),
                   ),
                   height: double.infinity,

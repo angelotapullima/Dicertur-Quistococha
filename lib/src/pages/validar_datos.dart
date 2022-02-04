@@ -2,6 +2,7 @@ import 'package:dicertur_quistococha/src/api/ticket_api.dart';
 import 'package:dicertur_quistococha/src/models/evento_model.dart';
 import 'package:dicertur_quistococha/src/models/tarifas_monto_precio_model.dart';
 import 'package:dicertur_quistococha/src/pages/web_view_pago_tickets.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:dicertur_quistococha/src/widget/show_loading.dart';
 import 'package:flutter/material.dart';
@@ -156,7 +157,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                   Center(
                                     child: CircleAvatar(
                                       radius: ScreenUtil().setHeight(15),
-                                      backgroundColor: Color(0xffffb240),
+                                      backgroundColor: colorPrimary,
                                     ),
                                   ),
                                   Center(
@@ -168,7 +169,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                   Center(
                                     child: CircleAvatar(
                                       radius: ScreenUtil().setHeight(9),
-                                      backgroundColor: Color(0xffffb240),
+                                      backgroundColor: colorPrimary,
                                     ),
                                   )
                                 ],
@@ -331,7 +332,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                           width: ScreenUtil().setWidth(20),
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: (_controller.tipoDoc == '03') ? const Color(0XFFFFB240) : const Color(0XFFf7f7f7),
+                                            color: (_controller.tipoDoc == '03') ?  colorPrimary : const Color(0XFFf7f7f7),
                                             border: Border.all(
                                               color: const Color(0XFFF7F7F7),
                                               width: ScreenUtil().setWidth(4),
@@ -367,7 +368,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                           width: ScreenUtil().setWidth(20),
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: (_controller.tipoDoc == '01') ? const Color(0XFFFFB240) : const Color(0XFFF7F7F7),
+                                            color: (_controller.tipoDoc == '01') ?  colorPrimary : const Color(0XFFF7F7F7),
                                             border: Border.all(
                                               color: const Color(0XFFF7F7F7),
                                               width: ScreenUtil().setWidth(4),
@@ -435,7 +436,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: DropdownButton<String>(
+                                          child: DropdownButton<String>( dropdownColor: Colors.white,
                                             isExpanded: true,
                                             value: _controller.tipoDocIdentificacion,
                                             items: items.map(crearItems).toList(),

@@ -5,7 +5,7 @@ import 'package:dicertur_quistococha/src/models/ReceivedNotification.dart';
 import 'package:dicertur_quistococha/src/pages/home.dart';
 import 'package:dicertur_quistococha/src/pages/login.dart';
 import 'package:dicertur_quistococha/src/pages/splash.dart';
-import 'package:dicertur_quistococha/src/pages/tabs/bloc_contador_qr.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/qr/bloc_contador_qr.dart';
 import 'package:dicertur_quistococha/src/pushProvider/push_notifications.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -142,9 +142,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
                   child: child!,
                 );
               },
-
               localizationsDelegates: [
-                 
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,

@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_options.dart';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/cuentos_model.dart';
@@ -59,7 +59,7 @@ class CuentosPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10.0),
                           boxShadow: [
                             BoxShadow(
-                              color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(0.3),
+                              color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(0.5),
                               spreadRadius: 4,
                               blurRadius: 8,
                               offset: Offset(1, 2), // changes position of shadow

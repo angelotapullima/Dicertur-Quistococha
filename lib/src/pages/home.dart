@@ -3,9 +3,9 @@ import 'package:dicertur_quistococha/src/bloc/bottom_navigation_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/data_user.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/account.dart';
-import 'package:dicertur_quistococha/src/pages/tabs/bloc_contador_qr.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/Inicio/inicio.dart';
-import 'package:dicertur_quistococha/src/pages/tabs/scan_qr.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/qr/bloc_contador_qr.dart';
+import 'package:dicertur_quistococha/src/pages/tabs/qr/scan_qr.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/tickets.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/utils/responsive.dart';
@@ -373,7 +373,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: ScreenUtil().setHeight(5),
-                    backgroundColor: (bottomBloc.page == 0) ? Color(0xffffb240) : Colors.transparent,
+                    backgroundColor: (bottomBloc.page == 0) ? colorPrimary : Colors.transparent,
                   ),
                   Container(
                     height: ScreenUtil().setSp(30),
@@ -381,7 +381,7 @@ class _HomePageState extends State<HomePage> {
                     child: (bottomBloc.page == 0)
                         ? SvgPicture.asset(
                             'assets/svg/tabs/home_tab.svg',
-                            color: Color(0xffffb240),
+                            color: colorPrimary,
                           )
                         : SvgPicture.asset(
                             'assets/svg/tabs/home_tab.svg',
@@ -393,7 +393,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontSize: ScreenUtil().setSp(13),
                       fontWeight: FontWeight.w600,
-                      color: (bottomBloc.page == 0) ? Color(0xffffb240) : Colors.grey,
+                      color: (bottomBloc.page == 0) ? colorPrimary : Colors.grey,
                     ),
                   )
                 ],
@@ -408,7 +408,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: ScreenUtil().setHeight(5),
-                    backgroundColor: (bottomBloc.page == 1) ? Color(0xffffb240) : Colors.transparent,
+                    backgroundColor: (bottomBloc.page == 1) ? colorPrimary : Colors.transparent,
                   ),
                   Container(
                     height: ScreenUtil().setSp(30),
@@ -416,7 +416,7 @@ class _HomePageState extends State<HomePage> {
                     child: (bottomBloc.page == 1)
                         ? SvgPicture.asset(
                             'assets/svg/tabs/ticket_tab.svg',
-                            color: Color(0xffffb240),
+                            color: colorPrimary,
                           )
                         : SvgPicture.asset(
                             'assets/svg/tabs/ticket_tab.svg',
@@ -428,7 +428,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontSize: ScreenUtil().setSp(13),
                       fontWeight: FontWeight.w600,
-                      color: (bottomBloc.page == 1) ? Color(0xffffb240) : Colors.grey,
+                      color: (bottomBloc.page == 1) ? colorPrimary : Colors.grey,
                     ),
                   )
                 ],
@@ -443,7 +443,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   CircleAvatar(
                     radius: ScreenUtil().setHeight(5),
-                    backgroundColor: (bottomBloc.page == 2) ? Color(0xffffb240) : Colors.transparent,
+                    backgroundColor: (bottomBloc.page == 2) ? colorPrimary : Colors.transparent,
                   ),
                   Container(
                     height: ScreenUtil().setSp(30),
@@ -451,7 +451,7 @@ class _HomePageState extends State<HomePage> {
                     child: (bottomBloc.page == 2)
                         ? SvgPicture.asset(
                             'assets/svg/tabs/user_tab.svg',
-                            color: Color(0xffffb240),
+                            color: colorPrimary,
                           )
                         : SvgPicture.asset(
                             'assets/svg/tabs/user_tab.svg',
@@ -463,7 +463,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontSize: ScreenUtil().setSp(13),
                       fontWeight: FontWeight.w600,
-                      color: (bottomBloc.page == 2) ? Color(0xffffb240) : Colors.grey,
+                      color: (bottomBloc.page == 2) ? colorPrimary : Colors.grey,
                     ),
                   )
                 ],

@@ -1,5 +1,6 @@
 import 'package:dicertur_quistococha/src/api/login_api.dart';
 import 'package:dicertur_quistococha/src/pages/terminos_y_condiciones.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,7 +77,7 @@ class _NewAccountState extends State<NewAccount> {
                           child: Text(
                             'Crear una nueva cuenta',
                             style: TextStyle(
-                              color: Color(0xffFFB240),
+                              color: colorPrimary,
                               fontSize: ScreenUtil().setSp(28),
                               fontWeight: FontWeight.bold,
                             ),
@@ -273,7 +274,7 @@ class _NewAccountState extends State<NewAccount> {
                               },
                               child: Icon(
                                 (_controller.confirmCheck) ? Icons.check_box : Icons.check_box_outline_blank,
-                                color: Color(0xffffb240),
+                                color: colorPrimary,
                                 size: ScreenUtil().setWidth(20),
                               ),
                             ),
@@ -319,7 +320,7 @@ class _NewAccountState extends State<NewAccount> {
                                       TextSpan(
                                         text: 'Términos y condiciones',
                                         style: GoogleFonts.poppins(
-                                          color: Color(0xffffb240),
+                                          color: colorPrimary,
                                           fontWeight: FontWeight.w500,
                                           fontSize: ScreenUtil().setSp(12),
                                           fontStyle: FontStyle.normal,
@@ -337,7 +338,7 @@ class _NewAccountState extends State<NewAccount> {
                                             TextSpan(
                                               text: 'politicas de privacidad',
                                               style: GoogleFonts.poppins(
-                                                color: Color(0xffffb240),
+                                                color: colorPrimary,
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: ScreenUtil().setSp(12),
                                                 fontStyle: FontStyle.normal,
@@ -405,7 +406,7 @@ class _NewAccountState extends State<NewAccount> {
                                 showToast2('Por favor ingrese su nombre', Colors.red);
                               }
                             },
-                            color: Color(0xffffb240),
+                            color: colorPrimary,
                             child: Text('Crear Cuenta'),
                             textColor: Colors.white,
                           ),

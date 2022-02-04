@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:dicertur_quistococha/src/pages/cobro_ticket.dart';
-import 'package:dicertur_quistococha/src/pages/tabs/bloc_contador_qr.dart';
-import 'package:dicertur_quistococha/src/utils/utils.dart';
+import 'package:dicertur_quistococha/src/pages/cobro_ticket.dart'; 
+import 'package:dicertur_quistococha/src/pages/tabs/qr/bloc_contador_qr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';

@@ -3,6 +3,7 @@ import 'package:dicertur_quistococha/src/models/evento_model.dart';
 import 'package:dicertur_quistococha/src/models/tarifa_model.dart';
 import 'package:dicertur_quistococha/src/models/tarifas_monto_precio_model.dart';
 import 'package:dicertur_quistococha/src/pages/validar_datos.dart';
+import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:dicertur_quistococha/src/widget/show_loading.dart';
 import 'package:flutter/material.dart';
@@ -48,15 +49,17 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                             SizedBox(
                               width: ScreenUtil().setWidth(0),
                             ),
-                            Text(
-                              '${evento.eventoNombre!.toUpperCase()} - ${evento.espacio![0].espacioNombre!.toUpperCase()}',
-                              style: GoogleFonts.poppins(
-                                fontSize: ScreenUtil().setSp(16),
-                                fontWeight: FontWeight.w500,
-                                color: Color(0XFF707070),
+                            Expanded(
+                              child: Text(
+                                '${evento.eventoNombre!.toUpperCase()} - ${evento.espacio![0].espacioNombre!.toUpperCase()}',
+                                style: GoogleFonts.poppins(
+                                  fontSize: ScreenUtil().setSp(16),
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0XFF707070),
+                                ),
                               ),
                             ),
-                            Spacer(),
+                             
                             IconButton(
                               onPressed: () {
                                 Navigator.pop(context);
@@ -160,7 +163,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                                 }
                               }),
                         ),
-                        Spacer(),
+                       
                         InkWell(
                           onTap: () {
                             int disponile = int.parse(evento.espacio![0].espacioAforo.toString());
@@ -222,11 +225,11 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Color(0xffffb240),
+                              color: colorPrimary,
                               borderRadius: BorderRadius.circular(15),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Color(0xffffb240).withOpacity(0.3),
+                                  color: colorPrimary.withOpacity(0.3),
                                   spreadRadius: 5,
                                   blurRadius: 12,
                                   offset: Offset(0, 8), // changes position of shadow
@@ -311,7 +314,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                   _controller.changeCatidad(-1, index);
                 },
                 child: Container(
-                  decoration: BoxDecoration(color: Color(0xffffb240), borderRadius: BorderRadius.circular(100)),
+                  decoration: BoxDecoration(color: colorPrimary, borderRadius: BorderRadius.circular(100)),
                   height: double.infinity,
                   child: Center(
                     child: Text(
@@ -353,7 +356,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                   _controller.changeCatidad(1, index);
                 },
                 child: Container(
-                  decoration: BoxDecoration(color: Color(0xffffb240), borderRadius: BorderRadius.circular(100)),
+                  decoration: BoxDecoration(color: colorPrimary, borderRadius: BorderRadius.circular(100)),
                   height: double.infinity,
                   child: Center(
                     child: Text(

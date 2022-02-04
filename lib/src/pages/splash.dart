@@ -18,8 +18,6 @@ class _SplashState extends State<Splash> {
     Future.delayed(const Duration(seconds: 2), () async {
       final configApi = ConfigApi();
 
-      
-
       String? token = await StorageManager.readData('token');
 
       final bottomBloc = ProviderBloc.bottom(context);
@@ -29,7 +27,7 @@ class _SplashState extends State<Splash> {
         await configApi.obtenerConfig();
         Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
       } else {
-         configApi.obtenerConfig();
+        configApi.obtenerConfig();
         Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
       }
     });

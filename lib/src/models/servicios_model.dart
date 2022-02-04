@@ -3,6 +3,7 @@ class ServicioModel {
   String? servicioTitulo;
   String? servicioDetalle;
   String? servicioImagen;
+  String? servicioPrecio;
   String? servicioEstado;
 
   ServicioModel({
@@ -10,6 +11,7 @@ class ServicioModel {
     this.servicioTitulo,
     this.servicioDetalle,
     this.servicioImagen,
+    this.servicioPrecio,
     this.servicioEstado,
   });
 
@@ -20,6 +22,7 @@ class ServicioModel {
         "servicioTitulo": servicioTitulo,
         "servicioDetalle": servicioDetalle,
         "servicioImagen": servicioImagen,
+        "servicioPrecio": servicioPrecio,
         "servicioEstado": servicioEstado,
       };
   factory ServicioModel.fromJson(Map<String, dynamic> json) => ServicioModel(
@@ -27,6 +30,7 @@ class ServicioModel {
         servicioTitulo: json["servicioTitulo"],
         servicioDetalle: json["servicioDetalle"],
         servicioImagen: json["servicioImagen"],
+        servicioPrecio: json["servicioPrecio"],
         servicioEstado: json["servicioEstado"],
       );
 }

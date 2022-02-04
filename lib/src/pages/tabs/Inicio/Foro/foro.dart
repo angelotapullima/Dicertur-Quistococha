@@ -23,7 +23,6 @@ class ForoPage extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-
                   var fechix = obtenerFecha('${snapshot.data![index].foroDatetime}');
                   return Container(
                     color: Colors.white,
@@ -77,7 +76,7 @@ class ForoPage extends StatelessWidget {
                                   Text(
                                     '${snapshot.data![index].personaName} ${snapshot.data![index].personaSurName}',
                                     style: TextStyle(
-                                      fontSize: ScreenUtil().setSp(16),
+                                      fontSize: ScreenUtil().setSp(14),
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff505050),
                                     ),
@@ -85,7 +84,7 @@ class ForoPage extends StatelessWidget {
                                   Text(
                                     '$fechix',
                                     style: TextStyle(
-                                      fontSize: ScreenUtil().setSp(14),
+                                      fontSize: ScreenUtil().setSp(11),
                                       color: Color(0xffa1a1a1),
                                     ),
                                   ),
@@ -126,7 +125,13 @@ class ForoPage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                             horizontal: ScreenUtil().setWidth(10),
                           ),
-                          child: Text('${snapshot.data![index].foroDetalle}'),
+                          child: Text(
+                            '${snapshot.data![index].foroDetalle}',
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(14),
+                              color: Color(0xff404040),
+                            ),
+                          ),
                         ),
                       ],
                     ),
