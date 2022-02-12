@@ -189,7 +189,9 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
             print('Page started loading: $url');
             nuevoMetodoPagoBloc.changeEstadoWebview(true);
 
-            if (url == '$apiBaseURL/Empresa/respuesta_pasarela/CORRECTO') {
+//https://careturloreto.com/quistococha/Empresa/respuesta_pasarela/CORRECTO/
+
+            if (url == '$apiBaseURL/Empresa/respuesta_pasarela/CORRECTO/') {
               Navigator.push(
                 context,
                 PageRouteBuilder(

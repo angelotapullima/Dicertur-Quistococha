@@ -38,7 +38,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
             if (snapshot.hasData) {
               if (snapshot.data!.length > 0) {
                 var evento = snapshot.data![0];
-                eventoBloc.obtenerTarifas(evento.espacio![0].idEspacio.toString());
+                eventoBloc.obtenerTarifas(evento.espacio![0].idEspacio.toString(), widget.fecha);
                 return SafeArea(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20)),
@@ -59,7 +59,6 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                                 ),
                               ),
                             ),
-                             
                             IconButton(
                               onPressed: () {
                                 Navigator.pop(context);
@@ -86,7 +85,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                               ),
                             ),
                             Text(
-                              'Disponible: ${evento.espacio![0].espacioAforo}',
+                              'Disponible: ${evento.espacio![0].espacioStock}',
                               style: GoogleFonts.poppins(
                                 fontSize: ScreenUtil().setSp(14),
                                 fontWeight: FontWeight.w400,
@@ -137,10 +136,10 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                                                           color: Color(0XFF505050),
                                                         ),
                                                       ),
-                                                    ], 
+                                                    ],
                                                   ),
                                                   Spacer(),
-                                                  _cantidad( index)
+                                                  _cantidad(index)
                                                 ],
                                               ),
                                               Divider(),
@@ -163,7 +162,6 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                                 }
                               }),
                         ),
-                       
                         InkWell(
                           onTap: () {
                             int disponile = int.parse(evento.espacio![0].espacioAforo.toString());
@@ -171,7 +169,6 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                             double total = 0;
                             List<TarifasMontoPrecioModel> tarifasseleccionadas = [];
                             for (var i = 0; i < _controller.array.length; i++) {
-                              tarifaSeleccionado = tarifaSeleccionado + _controller.array[i];
                               if (_controller.array[i] > 0) {
                                 TarifasMontoPrecioModel tarifita = TarifasMontoPrecioModel();
                                 tarifita.idTarifa = _controller.tarifas[i].idTarifa;
@@ -182,7 +179,10 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                                 tarifita.tarifaTotal = (double.parse(tarifita.tarifaPrecio.toString()) * _controller.array[i]).toStringAsFixed(2);
                                 tarifasseleccionadas.add(tarifita);
 
-                                total = total + (double.parse(tarifita.tarifaPrecio.toString()) * _controller.array[i]);
+                                if (_controller.tarifas[i].tarifaNombre != 'Adultos Mayor') {
+                                  tarifaSeleccionado = tarifaSeleccionado + _controller.array[i];
+                                  total = total + (double.parse(tarifita.tarifaPrecio.toString()) * _controller.array[i]);
+                                }
                               }
                             }
                             if (tarifaSeleccionado == 0) {
@@ -295,7 +295,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
     );
   }
 
-  Widget _cantidad( int index) {
+  Widget _cantidad(int index) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
       child: Container(

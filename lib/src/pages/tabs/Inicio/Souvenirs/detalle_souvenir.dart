@@ -120,7 +120,7 @@ class _DetailSouvenirState extends State<DetailSouvenir> {
                         },
                         child: Container(
                           height: ScreenUtil().setHeight(350),
-                          child: Hero(
+                          child: Hero( 
                             tag: '${widget.sourvenirModel.idProduct}-2',
                             child: CachedNetworkImage(
                               placeholder: (context, url) => Container(

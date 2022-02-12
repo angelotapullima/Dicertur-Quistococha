@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -9,20 +12,32 @@ class DatabaseHelper {
   Future<Database> get database async => _database ??= await getDatabase();
 
   Future<Database> getDatabase() async {
-    final String path = join(await getDatabasesPath(), 'quistocha.db');
-    return openDatabase(path, onCreate: (db, version) {
-      db.execute(tableEventoSql);
-      db.execute(tableEspacioSql);
-      db.execute(tableTarifasSql);
-      db.execute(tableTicketSql);
-      db.execute(tableDetalleTicketSql);
-      db.execute(tableCuentosSql);
-      db.execute(tableServiciosSql);
-      db.execute(tableForoSql);
-      db.execute(tableGaleriaSql);
-      db.execute(tableCartSql);
-      db.execute(tableSouvenirSql);
-    }, version: 1, onDowngrade: onDatabaseDowngradeDelete);
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+
+    final path = join(documentsDirectory.path, 'quistocha.db');
+    Future _onConfigure(Database db) async {
+      await db.execute('PRAGMA foreign_keys = ON');
+    }
+
+    //final String path = join(await getDatabasesPath(), 'quistocha.db');
+    return openDatabase(
+      path,
+      onCreate: (db, version) {
+        db.execute(tableEventoSql);
+        db.execute(tableEspacioSql);
+        db.execute(tableTarifasSql);
+        db.execute(tableTicketSql);
+        db.execute(tableDetalleTicketSql);
+        db.execute(tableCuentosSql);
+        db.execute(tableServiciosSql);
+        db.execute(tableForoSql);
+        db.execute(tableGaleriaSql);
+        db.execute(tableCartSql);
+        db.execute(tableSouvenirSql);
+      },
+      version: 1,
+      onConfigure: _onConfigure,
+    );
   }
 
   static const String tableEventoSql = 'CREATE TABLE Evento('
@@ -38,6 +53,7 @@ class DatabaseHelper {
       'idEvento TEXT, '
       'espacioNombre TEXT, '
       'espacioAforo TEXT,'
+      'espacioStock TEXT,'
       'espacioEstado TEXT)';
 
   static const String tableTarifasSql = 'CREATE TABLE Tarifas('

@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     WidgetsBinding.instance!.addObserver(this);
 
-    //linea de notificacion , descomentar para compilar
+    //linea de notificación , descomentar para compilar
     PushNotificationService.messagesStream.listen((event) {
       print('cuando la app esta abierta');
       //navigatorkey.currentState.pushNamed('notificationPage', arguments: event);

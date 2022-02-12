@@ -22,9 +22,15 @@ class EventoBloc {
     _eventoController.sink.add(await getEventoEspacioPorFecha(fecha));
   }
 
-  void obtenerTarifas(String idEspacio) async {
+  void obtenerTarifas(String idEspacio, String fecha) async {
     _tarifasController.sink.add([]);
-    _tarifasController.sink.add(await tarifaApi.tarifaDatabase.getTarifaForIdEspacio(idEspacio));
+    final res = await tarifaApi.obtenerTarifas(fecha);
+
+    if (res.code == '1') {
+      _tarifasController.sink.add(await tarifaApi.tarifaDatabase.getTarifaForIdEspacio(idEspacio));
+    } else {
+      _tarifasController.sink.add([]);
+    }
   }
 
   Future<List<EventoModel>> getEventoEspacioPorFecha(String fecha) async {

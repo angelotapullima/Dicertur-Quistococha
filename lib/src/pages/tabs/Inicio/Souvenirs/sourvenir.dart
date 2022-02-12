@@ -25,147 +25,149 @@ class SourvenirPage extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   itemCount: snapshot.data!.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: 2, 
                     childAspectRatio: 0.8,
                   ),
                   scrollDirection: Axis.vertical,
                   itemBuilder: (BuildContext context, int index) {
-                    return LayoutBuilder(builder: (context, constrain) {
-                      return InkWell(
-                        onTap: (){ Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (context, animation, secondaryAnimation) {
-                                    return DetailSouvenir(
-                                      sourvenirModel: snapshot.data![index], 
-                                    );
-                                  },
-                                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                    var begin = Offset(0.0, 1.0);
-                                    var end = Offset.zero;
-                                    var curve = Curves.ease;
+                    return LayoutBuilder(
+                      builder: (context, constrain) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation, secondaryAnimation) {
+                                  return DetailSouvenir(
+                                    sourvenirModel: snapshot.data![index],
+                                  );
+                                },
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  var begin = Offset(0.0, 1.0);
+                                  var end = Offset.zero;
+                                  var curve = Curves.ease;
 
-                                    var tween = Tween(begin: begin, end: end).chain(
-                                      CurveTween(curve: curve),
-                                    );
+                                  var tween = Tween(begin: begin, end: end).chain(
+                                    CurveTween(curve: curve),
+                                  );
 
-                                    return SlideTransition(
-                                      position: animation.drive(tween),
-                                      child: child,
-                                    );
-                                  },
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Hero(
+                            tag: '${snapshot.data![index].idProduct}-2',
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 5,
+                                      blurRadius: 12,
+                                      offset: Offset(-5, 8), // changes position of shadow
+                                    ),
+                                  ],
                                 ),
-                              );
-                              
-                              
-                              },
-                        child: Hero(tag: '${snapshot.data![index].idProduct}-2',
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.2),
-                                    spreadRadius: 5,
-                                    blurRadius: 12,
-                                    offset: Offset(-5, 8), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              margin: EdgeInsets.symmetric(
-                                horizontal: ScreenUtil().setWidth(5),
-                                vertical: ScreenUtil().setHeight(5),
-                              ),
-                              height: constrain.minHeight,
-                              width: constrain.maxWidth,
-                              child: Stack(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: constrain.minHeight * .65,
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: CachedNetworkImage(
-                                            placeholder: (context, url) => Container(
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              child: Center(
-                                                child: CupertinoActivityIndicator(),
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: ScreenUtil().setWidth(5),
+                                  vertical: ScreenUtil().setHeight(5),
+                                ),
+                                height: constrain.minHeight,
+                                width: constrain.maxWidth,
+                                child: Stack(
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: constrain.minHeight * .65,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10),
+                                            child: CachedNetworkImage(
+                                              placeholder: (context, url) => Container(
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                child: Center(
+                                                  child: CupertinoActivityIndicator(),
+                                                ),
                                               ),
-                                            ),
-                                            errorWidget: (context, url, error) => Container(
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              child: Center(
-                                                child: Icon(Icons.error),
+                                              errorWidget: (context, url, error) => Container(
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                child: Center(
+                                                  child: Icon(Icons.error),
+                                                ),
                                               ),
-                                            ),
-                                            imageUrl: '$apiBaseURL/${snapshot.data![index].productImagen}',
-                                            imageBuilder: (context, imageProvider) => Container(
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
+                                              imageUrl: '$apiBaseURL/${snapshot.data![index].productImagen}',
+                                              imageBuilder: (context, imageProvider) => Container(
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
+                                        Text(
+                                          ' ${snapshot.data![index].productTitle} ',
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: ScreenUtil().setSp(15),
+                                          ),
+                                        ),
+                                        Text(
+                                          ' ${snapshot.data![index].productDetail} ',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: ScreenUtil().setSp(14),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Color(0xff00a2ff),
+                                        borderRadius: BorderRadius.only(topRight: Radius.circular(10)),
                                       ),
-                                      Text(
-                                        ' ${snapshot.data![index].productTitle} ',
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: ScreenUtil().setWidth(5),
+                                      ),
+                                      child: Text(
+                                        'S/.${snapshot.data![index].productPrecio}',
                                         style: TextStyle(
-                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
                                           fontSize: ScreenUtil().setSp(15),
                                         ),
                                       ),
-                                      Text(
-                                        ' ${snapshot.data![index].productDetail} ',
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: ScreenUtil().setSp(14),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0xff00a2ff),
-                                      borderRadius: BorderRadius.only(topRight: Radius.circular(10)),
-                                    ),
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: ScreenUtil().setWidth(5),
-                                    ),
-                                    child: Text(
-                                      'S/.${snapshot.data![index].productPrecio}',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: ScreenUtil().setSp(15),
-                                      ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    });
+                        );
+                      },
+                    );
                   },
                 ),
               );
             } else {
               return Center(
-                child: Text('no existen fotos en la galería'),
+                child: Text('no existen Productos disponibles'),
               );
             }
           } else {

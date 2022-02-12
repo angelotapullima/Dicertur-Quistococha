@@ -50,6 +50,7 @@ class TarifaApi {
             espacioModel.idEvento = decodedData["result"]['data'][i]['id_evento'];
             espacioModel.espacioNombre = decodedData["result"]['data'][i]['espacio_nombre'];
             espacioModel.espacioAforo = decodedData["result"]['data'][i]['espacio_aforo'];
+            espacioModel.espacioStock = decodedData["result"]['data'][i]['espacio_stock'];
             espacioModel.espacioEstado = decodedData["result"]['data'][i]['espacio_estado'];
             await espacioDatabase.insertarEspacio(espacioModel);
 

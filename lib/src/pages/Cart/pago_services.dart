@@ -34,356 +34,358 @@ class _PayServicesState extends State<PayServices> {
       appBar: AppBar(backgroundColor: Colors.white,elevation: 0,iconTheme: IconThemeData(color: Color(0xff00a2ff)),),
       body: Stack(
         children: [
-          Column(
-            children: [ SizedBox(
-                height: ScreenUtil().setHeight(10),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: ScreenUtil().setWidth(20),
+          SingleChildScrollView(
+            child: Column(
+              children: [ SizedBox(
+                  height: ScreenUtil().setHeight(10),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20), vertical: ScreenUtil().setHeight(10)),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xff323232).withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 2,
-                      offset: Offset(0, 0), // changes position of shadow
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Seleccione tipo de comprobante',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: ScreenUtil().setHeight(16),
-                    ),
-                    AnimatedBuilder(
-                        animation: _controller,
-                        builder: (_, t) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () async {
-                                  _controller.changeDoc('03');
-                                  _controller.changeTipoDocumento('DNI');
-                                },
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: ScreenUtil().setHeight(20),
-                                      width: ScreenUtil().setWidth(20),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: (_controller.tipoDoc == '03') ? colorPrimary : const Color(0XFFf7f7f7),
-                                        border: Border.all(
-                                          color: const Color(0XFFF7F7F7),
-                                          width: ScreenUtil().setWidth(4),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: ScreenUtil().setWidth(10),
-                                    ),
-                                    Text(
-                                      'Boleta',
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0XFF585858),
-                                        fontSize: ScreenUtil().setSp(14),
-                                        fontWeight: (_controller.tipoDoc == '03') ? FontWeight.w500 : FontWeight.w300,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: ScreenUtil().setWidth(60),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  _controller.changeDoc('01');
-                                  _controller.changeTipoDocumento('RUC');
-                                },
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: ScreenUtil().setHeight(20),
-                                      width: ScreenUtil().setWidth(20),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: (_controller.tipoDoc == '01') ? colorPrimary : const Color(0XFFF7F7F7),
-                                        border: Border.all(
-                                          color: const Color(0XFFF7F7F7),
-                                          width: ScreenUtil().setWidth(4),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: ScreenUtil().setWidth(10),
-                                    ),
-                                    Text(
-                                      'Factura',
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0XFF585858),
-                                        fontSize: ScreenUtil().setSp(14),
-                                        fontWeight: (_controller.tipoDoc == '01') ? FontWeight.w500 : FontWeight.w300,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        }),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: ScreenUtil().setHeight(20),
-              ),
-              AnimatedBuilder(
-                  animation: _controller,
-                  builder: (_, sd) {
-                    return (_controller.tipoDoc != '')
-                        ? Container(
-                            margin: EdgeInsets.symmetric(
-                              horizontal: ScreenUtil().setWidth(20),
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20), vertical: ScreenUtil().setHeight(10)),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xff323232).withOpacity(0.1),
-                                  spreadRadius: 1,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 0), // changes position of shadow
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: ScreenUtil().setWidth(20),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20), vertical: ScreenUtil().setHeight(10)),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xff323232).withOpacity(0.1),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Seleccione tipo de comprobante',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: ScreenUtil().setHeight(16),
+                      ),
+                      AnimatedBuilder(
+                          animation: _controller,
+                          builder: (_, t) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Complete los campos',
-                                      style: TextStyle(color: Colors.grey),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: ScreenUtil().setHeight(8),
-                                ),
-                                Container(
+                                InkWell(
+                                  onTap: () async {
+                                    _controller.changeDoc('03');
+                                    _controller.changeTipoDocumento('DNI');
+                                  },
                                   child: Row(
                                     children: [
-                                      Expanded(
-                                        child: DropdownButton<String>(dropdownColor: Colors.white,
-                                          isExpanded: true,
-                                          value: _controller.tipoDocIdentificacion,
-                                          items: items.map(crearItems).toList(),
-                                          onChanged: (item) {
-                                            _controller.changeTipoDocumento(item.toString());
-                                          },
-                                          style: GoogleFonts.poppins(
-                                            fontSize: ScreenUtil().setSp(14),
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.black,
-                                            letterSpacing: ScreenUtil().setSp(0.016),
+                                      Container(
+                                        height: ScreenUtil().setHeight(20),
+                                        width: ScreenUtil().setWidth(20),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: (_controller.tipoDoc == '03') ? colorPrimary : const Color(0XFFf7f7f7),
+                                          border: Border.all(
+                                            color: const Color(0XFFF7F7F7),
+                                            width: ScreenUtil().setWidth(4),
                                           ),
-                                          icon: Icon(
-                                            Icons.keyboard_arrow_down,
-                                            color: Colors.grey,
-                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: ScreenUtil().setWidth(10),
+                                      ),
+                                      Text(
+                                        'Boleta',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0XFF585858),
+                                          fontSize: ScreenUtil().setSp(14),
+                                          fontWeight: (_controller.tipoDoc == '03') ? FontWeight.w500 : FontWeight.w300,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        height: ScreenUtil().setHeight(45),
-                                        child: TextField(
-                                          controller: _dniController,
-                                          maxLines: 1,
-                                          keyboardType: (_controller.maxCarateresDoc == 8 || _controller.maxCarateresDoc == 11)
-                                              ? TextInputType.number
-                                              : TextInputType.text,
-                                          maxLength: _controller.maxCarateresDoc,
-                                          decoration: InputDecoration(
-                                            contentPadding: EdgeInsets.all(4),
-                                            suffixIcon: Icon(
-                                              Icons.edit,
-                                              color: Colors.grey,
-                                              size: ScreenUtil().setHeight(18),
-                                            ),
-                                            hintText: 'Nro de documento',
-                                            counterText: '',
-                                            labelText: 'Nro de documento',
-                                            hintStyle: GoogleFonts.poppins(
-                                                fontSize: ScreenUtil().setSp(14),
-                                                fontWeight: FontWeight.w400,
-                                                letterSpacing: ScreenUtil().setSp(0.016),
-                                                fontStyle: FontStyle.normal),
-                                            enabledBorder: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                            border: InputBorder.none,
-                                          ),
-                                          style: GoogleFonts.poppins(
-                                            fontSize: ScreenUtil().setSp(14),
-                                            fontWeight: FontWeight.w400,
-                                            letterSpacing: ScreenUtil().setSp(0.016),
+                                SizedBox(
+                                  width: ScreenUtil().setWidth(60),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    _controller.changeDoc('01');
+                                    _controller.changeTipoDocumento('RUC');
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: ScreenUtil().setHeight(20),
+                                        width: ScreenUtil().setWidth(20),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: (_controller.tipoDoc == '01') ? colorPrimary : const Color(0XFFF7F7F7),
+                                          border: Border.all(
+                                            color: const Color(0XFFF7F7F7),
+                                            width: ScreenUtil().setWidth(4),
                                           ),
                                         ),
                                       ),
-                                    )
-                                  ],
-                                ),
-                                Divider(),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        height: ScreenUtil().setHeight(45),
-                                        child: TextField(
-                                          controller: _nombreController,
-                                          maxLines: 1,
-                                          keyboardType: TextInputType.text,
-                                          decoration: InputDecoration(
-                                            contentPadding: EdgeInsets.all(4),
-                                            suffixIcon: Icon(
-                                              Icons.edit,
-                                              color: Colors.grey,
-                                              size: ScreenUtil().setHeight(18),
-                                            ),
-                                            hintText: 'Nombre',
-                                            labelText: 'Nombre',
-                                            hintStyle: GoogleFonts.poppins(
-                                                fontSize: ScreenUtil().setSp(14),
-                                                fontWeight: FontWeight.w400,
-                                                letterSpacing: ScreenUtil().setSp(0.016),
-                                                fontStyle: FontStyle.normal),
-                                            enabledBorder: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                            border: InputBorder.none,
-                                          ),
-                                          style: GoogleFonts.poppins(
-                                            fontSize: ScreenUtil().setSp(14),
-                                            fontWeight: FontWeight.w400,
-                                            letterSpacing: ScreenUtil().setSp(0.016),
-                                          ),
+                                      SizedBox(
+                                        width: ScreenUtil().setWidth(10),
+                                      ),
+                                      Text(
+                                        'Factura',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0XFF585858),
+                                          fontSize: ScreenUtil().setSp(14),
+                                          fontWeight: (_controller.tipoDoc == '01') ? FontWeight.w500 : FontWeight.w300,
                                         ),
                                       ),
-                                    )
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                                Divider(),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        height: ScreenUtil().setHeight(45),
-                                        child: TextField(
-                                          controller: _telController,
-                                          maxLines: 1,
-                                          maxLength: 9,
-                                          keyboardType: TextInputType.number,
-                                          decoration: InputDecoration(
-                                            contentPadding: EdgeInsets.all(4),
-                                            suffixIcon: Icon(
-                                              Icons.edit,
-                                              color: Colors.grey,
-                                              size: ScreenUtil().setHeight(18),
+                              ],
+                            );
+                          }),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: ScreenUtil().setHeight(20),
+                ),
+                AnimatedBuilder(
+                    animation: _controller,
+                    builder: (_, sd) {
+                      return (_controller.tipoDoc != '')
+                          ? Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: ScreenUtil().setWidth(20),
+                              ),
+                              padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20), vertical: ScreenUtil().setHeight(10)),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xff323232).withOpacity(0.1),
+                                    spreadRadius: 1,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 0), // changes position of shadow
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Complete los campos',
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: ScreenUtil().setHeight(8),
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: DropdownButton<String>(dropdownColor: Colors.white,
+                                            isExpanded: true,
+                                            value: _controller.tipoDocIdentificacion,
+                                            items: items.map(crearItems).toList(),
+                                            onChanged: (item) {
+                                              _controller.changeTipoDocumento(item.toString());
+                                            },
+                                            style: GoogleFonts.poppins(
+                                              fontSize: ScreenUtil().setSp(14),
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.black,
+                                              letterSpacing: ScreenUtil().setSp(0.016),
                                             ),
-                                            hintText: 'Teléfono',
-                                            labelText: 'Teléfono',
-                                            counterText: '',
-                                            hintStyle: GoogleFonts.poppins(
-                                                fontSize: ScreenUtil().setSp(14),
-                                                fontWeight: FontWeight.w400,
-                                                letterSpacing: ScreenUtil().setSp(0.016),
-                                                fontStyle: FontStyle.normal),
-                                            enabledBorder: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                            border: InputBorder.none,
-                                          ),
-                                          style: GoogleFonts.poppins(
-                                            fontSize: ScreenUtil().setSp(14),
-                                            fontWeight: FontWeight.w400,
-                                            letterSpacing: ScreenUtil().setSp(0.016),
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down,
+                                              color: Colors.grey,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Divider(),
-                                (_controller.tipoDoc == '01')
-                                    ? Row(
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              height: ScreenUtil().setHeight(35),
-                                              child: TextField(
-                                                controller: _dirController,
-                                                maxLines: 1,
-                                                keyboardType: TextInputType.text,
-                                                decoration: InputDecoration(
-                                                  contentPadding: EdgeInsets.all(4),
-                                                  suffixIcon: Icon(
-                                                    Icons.edit,
-                                                    color: Colors.grey,
-                                                    size: ScreenUtil().setHeight(18),
-                                                  ),
-                                                  hintText: 'Dirección',
-                                                  counterText: '',
-                                                  labelText: 'Dirección',
-                                                  hintStyle: GoogleFonts.poppins(
-                                                      fontSize: ScreenUtil().setSp(14),
-                                                      fontWeight: FontWeight.w400,
-                                                      letterSpacing: ScreenUtil().setSp(0.016),
-                                                      fontStyle: FontStyle.normal),
-                                                  enabledBorder: InputBorder.none,
-                                                  focusedBorder: InputBorder.none,
-                                                  border: InputBorder.none,
-                                                ),
-                                                style: GoogleFonts.poppins(
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          height: ScreenUtil().setHeight(45),
+                                          child: TextField(
+                                            controller: _dniController,
+                                            maxLines: 1,
+                                            keyboardType: (_controller.maxCarateresDoc == 8 || _controller.maxCarateresDoc == 11)
+                                                ? TextInputType.number
+                                                : TextInputType.text,
+                                            maxLength: _controller.maxCarateresDoc,
+                                            decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.all(4),
+                                              suffixIcon: Icon(
+                                                Icons.edit,
+                                                color: Colors.grey,
+                                                size: ScreenUtil().setHeight(18),
+                                              ),
+                                              hintText: 'Nro de documento',
+                                              counterText: '',
+                                              labelText: 'Nro de documento',
+                                              hintStyle: GoogleFonts.poppins(
                                                   fontSize: ScreenUtil().setSp(14),
                                                   fontWeight: FontWeight.w400,
                                                   letterSpacing: ScreenUtil().setSp(0.016),
+                                                  fontStyle: FontStyle.normal),
+                                              enabledBorder: InputBorder.none,
+                                              focusedBorder: InputBorder.none,
+                                              border: InputBorder.none,
+                                            ),
+                                            style: GoogleFonts.poppins(
+                                              fontSize: ScreenUtil().setSp(14),
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: ScreenUtil().setSp(0.016),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Divider(),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          height: ScreenUtil().setHeight(45),
+                                          child: TextField(
+                                            controller: _nombreController,
+                                            maxLines: 1,
+                                            keyboardType: TextInputType.text,
+                                            decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.all(4),
+                                              suffixIcon: Icon(
+                                                Icons.edit,
+                                                color: Colors.grey,
+                                                size: ScreenUtil().setHeight(18),
+                                              ),
+                                              hintText: 'Nombre',
+                                              labelText: 'Nombre',
+                                              hintStyle: GoogleFonts.poppins(
+                                                  fontSize: ScreenUtil().setSp(14),
+                                                  fontWeight: FontWeight.w400,
+                                                  letterSpacing: ScreenUtil().setSp(0.016),
+                                                  fontStyle: FontStyle.normal),
+                                              enabledBorder: InputBorder.none,
+                                              focusedBorder: InputBorder.none,
+                                              border: InputBorder.none,
+                                            ),
+                                            style: GoogleFonts.poppins(
+                                              fontSize: ScreenUtil().setSp(14),
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: ScreenUtil().setSp(0.016),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Divider(),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          height: ScreenUtil().setHeight(45),
+                                          child: TextField(
+                                            controller: _telController,
+                                            maxLines: 1,
+                                            maxLength: 9,
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.all(4),
+                                              suffixIcon: Icon(
+                                                Icons.edit,
+                                                color: Colors.grey,
+                                                size: ScreenUtil().setHeight(18),
+                                              ),
+                                              hintText: 'Teléfono',
+                                              labelText: 'Teléfono',
+                                              counterText: '',
+                                              hintStyle: GoogleFonts.poppins(
+                                                  fontSize: ScreenUtil().setSp(14),
+                                                  fontWeight: FontWeight.w400,
+                                                  letterSpacing: ScreenUtil().setSp(0.016),
+                                                  fontStyle: FontStyle.normal),
+                                              enabledBorder: InputBorder.none,
+                                              focusedBorder: InputBorder.none,
+                                              border: InputBorder.none,
+                                            ),
+                                            style: GoogleFonts.poppins(
+                                              fontSize: ScreenUtil().setSp(14),
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: ScreenUtil().setSp(0.016),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Divider(),
+                                  (_controller.tipoDoc == '01')
+                                      ? Row(
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                height: ScreenUtil().setHeight(35),
+                                                child: TextField(
+                                                  controller: _dirController,
+                                                  maxLines: 1,
+                                                  keyboardType: TextInputType.text,
+                                                  decoration: InputDecoration(
+                                                    contentPadding: EdgeInsets.all(4),
+                                                    suffixIcon: Icon(
+                                                      Icons.edit,
+                                                      color: Colors.grey,
+                                                      size: ScreenUtil().setHeight(18),
+                                                    ),
+                                                    hintText: 'Dirección',
+                                                    counterText: '',
+                                                    labelText: 'Dirección',
+                                                    hintStyle: GoogleFonts.poppins(
+                                                        fontSize: ScreenUtil().setSp(14),
+                                                        fontWeight: FontWeight.w400,
+                                                        letterSpacing: ScreenUtil().setSp(0.016),
+                                                        fontStyle: FontStyle.normal),
+                                                    enabledBorder: InputBorder.none,
+                                                    focusedBorder: InputBorder.none,
+                                                    border: InputBorder.none,
+                                                  ),
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: ScreenUtil().setSp(14),
+                                                    fontWeight: FontWeight.w400,
+                                                    letterSpacing: ScreenUtil().setSp(0.016),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    : Container(),
-                                (_controller.tipoDoc == '01') ? Divider() : Container(),
-                              ],
-                            ),
-                          )
-                        : Container();
-                  }),
-              SizedBox(
-                height: ScreenUtil().setHeight(100),
-              )
-            ],
+                                            )
+                                          ],
+                                        )
+                                      : Container(),
+                                  (_controller.tipoDoc == '01') ? Divider() : Container(),
+                                ],
+                              ),
+                            )
+                          : Container();
+                    }),
+                SizedBox(
+                  height: ScreenUtil().setHeight(100),
+                )
+              ],
+            ),
           ),
         Positioned(
             left: 0,

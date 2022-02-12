@@ -4,6 +4,7 @@ class EspacioModel {
   String? idEvento;
   String? espacioNombre;
   String? espacioAforo;
+  String? espacioStock;
   String? espacioEstado;
 
   EspacioModel({
@@ -11,6 +12,7 @@ class EspacioModel {
     this.idEvento,
     this.espacioNombre,
     this.espacioAforo,
+    this.espacioStock,
     this.espacioEstado,
   });
   
@@ -24,6 +26,7 @@ class EspacioModel {
     "idEvento": idEvento,
     "espacioNombre": espacioNombre,
     "espacioAforo": espacioAforo,
+    "espacioStock": espacioStock,
     "espacioEstado": espacioEstado,
   };
   factory EspacioModel.fromJson(Map<String, dynamic> json) => EspacioModel(
@@ -31,6 +34,7 @@ class EspacioModel {
         idEvento: json["idEvento"],
         espacioNombre: json["espacioNombre"],
         espacioAforo: json["espacioAforo"],
+        espacioStock: json["espacioStock"],
         espacioEstado: json["espacioEstado"],
       );
 }
