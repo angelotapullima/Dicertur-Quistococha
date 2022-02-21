@@ -21,7 +21,8 @@ class Tickets extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(bottom: false,
+      body: SafeArea(
+        bottom: false,
         child: StreamBuilder(
           stream: ticketBloc.ticketStream,
           builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
@@ -34,36 +35,34 @@ class Tickets extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                             Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(10),
-                            vertical: ScreenUtil().setHeight(5),
-                          ),
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              Container(
-                                height: ScreenUtil().setSp(50),
-                                child: Image.asset('assets/img/1000x1000.png'),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: ScreenUtil().setWidth(10),
+                                vertical: ScreenUtil().setHeight(5),
                               ),
-                              Expanded(
-                                child: Text(
-                                    'Mis tickets',
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: ScreenUtil().setSp(18),
-                                    color: colorPrimary,
+                              color: Colors.white,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: ScreenUtil().setSp(50),
+                                    child: Image.asset('assets/img/1000x1000.png'),
                                   ),
-                                ),
+                                  Expanded(
+                                    child: Text(
+                                      'Mis tickets',
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: ScreenUtil().setSp(18),
+                                        color: colorPrimary,
+                                      ),
+                                    ),
+                                  ),
+                                  CartWidget()
+                                ],
                               ),
-                              CartWidget()],
-                          ),
-                        ),
-                       
-                              
-                           
+                            ),
                             banner(),
                             tabAnimated(ticketBloc),
                             SizedBox(
@@ -97,21 +96,36 @@ class Tickets extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                             SafeArea(
-                               child: Container(
-                                 padding:EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(10)),
-                                 child: Text(
-                                    'Mis tickets',
-                                    style: GoogleFonts.poppins(
-                                      color: colorPrimary,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: ScreenUtil().setSp(19),
-                                      letterSpacing: 1.5,
+                            SafeArea(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: ScreenUtil().setWidth(10),
+                                  vertical: ScreenUtil().setHeight(5),
+                                ),
+                                color: Colors.white,
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: ScreenUtil().setSp(50),
+                                      child: Image.asset('assets/img/1000x1000.png'),
                                     ),
-                                  ),
-                               ),
-                             ),
-                           
+                                    Expanded(
+                                      child: Text(
+                                        'Mis tickets',
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: ScreenUtil().setSp(18),
+                                          color: colorPrimary,
+                                        ),
+                                      ),
+                                    ),
+                                    CartWidget()
+                                  ],
+                                ),
+                              ),
+                            ),
                             banner(),
                             tabAnimated(ticketBloc),
                             SizedBox(
