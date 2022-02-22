@@ -63,4 +63,9 @@ class CartBloc {
     }
     _cartController.sink.add(cartFinal);
   }
+
+  void deleteCart() async {
+    await cartDatabase.deleteCart();
+    _cartController.sink.add([]);
+  }
 }

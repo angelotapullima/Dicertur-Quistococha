@@ -397,7 +397,7 @@ class Tickets extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(
-                          '${model.ticketCodigoApp}- ${model.idTicket}',
+                          '${model.ticketCodigoApp}',
                           style: GoogleFonts.poppins(
                             color: Colors.black,
                             fontWeight: FontWeight.w600,

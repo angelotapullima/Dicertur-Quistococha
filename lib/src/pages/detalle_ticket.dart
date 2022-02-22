@@ -38,7 +38,6 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
         builder: (context, AsyncSnapshot<List<TicketModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.length > 0) {
-
               var fechix = obtenerFecha('${snapshot.data![0].eventoFecha}');
               return Scaffold(
                 backgroundColor: Color(0XFFFAFAFA),
@@ -50,7 +49,7 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                     style: GoogleFonts.poppins(
                       color: Color(0XFF707070),
                       fontWeight: FontWeight.w500,
-                      fontSize: ScreenUtil().setSp(16),
+                      fontSize: ScreenUtil().setSp(14),
                       letterSpacing: 1,
                     ),
                   ),
@@ -109,7 +108,7 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                               Expanded(
                                                 child: Text(
                                                   '$fechix',
-                                                  textAlign:TextAlign.center,
+                                                  textAlign: TextAlign.center,
                                                   style: GoogleFonts.poppins(
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.w400,

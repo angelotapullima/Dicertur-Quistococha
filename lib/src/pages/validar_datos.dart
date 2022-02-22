@@ -332,7 +332,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                           width: ScreenUtil().setWidth(20),
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: (_controller.tipoDoc == '03') ?  colorPrimary : const Color(0XFFf7f7f7),
+                                            color: (_controller.tipoDoc == '03') ? colorPrimary : const Color(0XFFf7f7f7),
                                             border: Border.all(
                                               color: const Color(0XFFF7F7F7),
                                               width: ScreenUtil().setWidth(4),
@@ -368,7 +368,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                           width: ScreenUtil().setWidth(20),
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: (_controller.tipoDoc == '01') ?  colorPrimary : const Color(0XFFF7F7F7),
+                                            color: (_controller.tipoDoc == '01') ? colorPrimary : const Color(0XFFF7F7F7),
                                             border: Border.all(
                                               color: const Color(0XFFF7F7F7),
                                               width: ScreenUtil().setWidth(4),
@@ -436,7 +436,8 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                     Row(
                                       children: [
                                         Expanded(
-                                          child: DropdownButton<String>( dropdownColor: Colors.white,
+                                          child: DropdownButton<String>(
+                                            dropdownColor: Colors.white,
                                             isExpanded: true,
                                             value: _controller.tipoDocIdentificacion,
                                             items: items.map(crearItems).toList(),
@@ -673,6 +674,7 @@ class _ValidarDatosPrepagoState extends State<ValidarDatosPrepago> {
                                     return WebViewPagosTickets(
                                       link: res.url.toString(),
                                       idTicket: res.idTicket.toString(),
+                                      esCarrito: false,
                                     );
                                   },
                                   transitionsBuilder: (context, animation, secondaryAnimation, child) {

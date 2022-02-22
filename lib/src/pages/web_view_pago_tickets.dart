@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dicertur_quistococha/src/bloc/cart_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/nuevo_metodo_pago_bloc.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/pages/detalle_ticket.dart';
@@ -14,10 +15,12 @@ import 'package:webview_flutter/webview_flutter.dart';
 class WebViewPagosTickets extends StatefulWidget {
   final String link;
   final String idTicket;
+  final bool esCarrito;
   const WebViewPagosTickets({
     Key? key,
     required this.link,
     required this.idTicket,
+    required this.esCarrito,
   }) : super(key: key);
   @override
   _WebViewPagosTicketsState createState() => _WebViewPagosTicketsState();
@@ -192,6 +195,11 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
 //https://careturloreto.com/quistococha/Empresa/respuesta_pasarela/CORRECTO/
 
             if (url == '$apiBaseURL/Empresa/respuesta_pasarela/CORRECTO/') {
+              if (widget.esCarrito) {
+                final cart = CartBloc();
+                cart.deleteCart();
+              }
+
               Navigator.push(
                 context,
                 PageRouteBuilder(
@@ -240,7 +248,10 @@ class _WebViewPagosTicketsState extends State<WebViewPagosTickets> {
             print('Page finished loading: $url');
 
             if (url == '$apiBaseURL/Empresa/respuesta_pasarela/CORRECTO/') {
-
+              if (widget.esCarrito) {
+                final cart = CartBloc();
+                cart.deleteCart();
+              }
               Navigator.push(
                 context,
                 PageRouteBuilder(

@@ -1,5 +1,3 @@
-
-
 import 'package:dicertur_quistococha/src/api/ticket_api.dart';
 import 'package:dicertur_quistococha/src/models/cart_model.dart';
 import 'package:dicertur_quistococha/src/pages/web_view_pago_tickets.dart';
@@ -13,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 class PayServices extends StatefulWidget {
   final String monto;
   final List<CartModel> cartList;
-  const PayServices({Key? key,required this.monto,required this.cartList}) : super(key: key);
+  const PayServices({Key? key, required this.monto, required this.cartList}) : super(key: key);
 
   @override
   State<PayServices> createState() => _PayServicesState();
@@ -31,12 +29,17 @@ class _PayServicesState extends State<PayServices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.white,elevation: 0,iconTheme: IconThemeData(color: Color(0xff00a2ff)),),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Color(0xff00a2ff)),
+      ),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: Column(
-              children: [ SizedBox(
+              children: [
+                SizedBox(
                   height: ScreenUtil().setHeight(10),
                 ),
                 Container(
@@ -193,7 +196,8 @@ class _PayServicesState extends State<PayServices> {
                                     child: Row(
                                       children: [
                                         Expanded(
-                                          child: DropdownButton<String>(dropdownColor: Colors.white,
+                                          child: DropdownButton<String>(
+                                            dropdownColor: Colors.white,
                                             isExpanded: true,
                                             value: _controller.tipoDocIdentificacion,
                                             items: items.map(crearItems).toList(),
@@ -387,7 +391,7 @@ class _PayServicesState extends State<PayServices> {
               ],
             ),
           ),
-        Positioned(
+          Positioned(
             left: 0,
             right: 0,
             bottom: 0,
@@ -411,15 +415,8 @@ class _PayServicesState extends State<PayServices> {
                               detalle += '${widget.cartList[i].amount},${widget.cartList[i].price},${widget.cartList[i].name}//--';
                             }
 
-                            final res = await _ticketApi.guardarServices(
-                                widget.monto,
-                                detalle,
-                                _nombreController.text,
-                                _telController.text,
-                                _dniController.text,
-                                _controller.idTipoDocIdentifiacion,
-                                _dirController.text,
-                                _controller.tipoDoc);
+                            final res = await _ticketApi.guardarServices(widget.monto, detalle, _nombreController.text, _telController.text,
+                                _dniController.text, _controller.idTipoDocIdentifiacion, _dirController.text, _controller.tipoDoc);
 
                             if (res.code == '1') {
                               Navigator.push(
@@ -429,6 +426,7 @@ class _PayServicesState extends State<PayServices> {
                                     return WebViewPagosTickets(
                                       link: res.url.toString(),
                                       idTicket: res.idTicket.toString(),
+                                      esCarrito: true,
                                     );
                                   },
                                   transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -450,7 +448,7 @@ class _PayServicesState extends State<PayServices> {
                             } else {
                               showToast2(res.message.toString(), Colors.black);
                             }
-                          } 
+                          }
                         }
                       } else {
                         showToast2('Ingrese teléfono', Colors.black);
@@ -519,7 +517,7 @@ class _PayServicesState extends State<PayServices> {
               ),
             ),
           ),
-        AnimatedBuilder(
+          AnimatedBuilder(
             animation: _controller,
             builder: (context, snapshot) {
               return ShowLoadding(
@@ -530,7 +528,8 @@ class _PayServicesState extends State<PayServices> {
                 active: _controller.loadding,
               );
             },
-          ),  ],
+          ),
+        ],
       ),
     );
   }

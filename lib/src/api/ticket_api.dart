@@ -57,8 +57,8 @@ class TicketApi {
             ticketModel.clienteNumeroQR = decodedData['result']['data'][i]['data_qr']["cliente_numero"];
 
             final horsFormat = decodedData['result']['data'][i]['evento_hora']!.split("-");
-            var horaInicio = (horsFormat.length>0)?horsFormat[0].trim():'0';
-            var horaFin = (horsFormat.length>1)? horsFormat[1].trim():'0';
+            var horaInicio = (horsFormat.length > 0) ? horsFormat[0].trim() : '0';
+            var horaFin = (horsFormat.length > 1) ? horsFormat[1].trim() : '0';
             ticketModel.eventoHoraInicio = horaInicio;
             ticketModel.eventoHoraFin = horaFin;
 
@@ -111,6 +111,7 @@ class TicketApi {
       });
 
       final decodedData = json.decode(resp.body);
+      print(decodedData);
 
       final int code = decodedData['result']['code'];
       ApiModel loginModel = ApiModel();
@@ -212,6 +213,8 @@ class TicketApi {
         'tn': token,
       });
 
+      print(token);
+
       final decodedData = json.decode(resp.body);
       print(decodedData);
 
@@ -272,7 +275,7 @@ class TicketApi {
       apiModel.code = code.toString();
 
       if (code == 1) {
-        apiModel.idTicket = decodedData['result']['id_ticket'];
+        apiModel.idTicket = decodedData['result']['data_qr']['id_ticket'];
         apiModel.estado = decodedData['result']['pago_online']['estado'];
         apiModel.url = decodedData['result']['pago_online']['link'];
         apiModel.message = decodedData['result']['pago_online']['mensaje'];
