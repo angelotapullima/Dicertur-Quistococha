@@ -72,6 +72,7 @@ class DatabaseHelper {
       'idEvento TEXT, '
       'ticketTotal TEXT,'
       'ticketDateTime TEXT,'
+      'ticketTipo TEXT,'
       'eventoFecha TEXT,'
       'eventoHoraInicio TEXT,'
       'eventoHoraFin TEXT,'

@@ -40,6 +40,7 @@ class TicketApi {
             ticketModel.ticketTotal = decodedData['result']['data'][i]['ticket_total'];
             ticketModel.ticketDateTime = decodedData['result']['data'][i]['ticket_datetime'];
             ticketModel.ticketTipoPago = decodedData['result']['data'][i]['ticket_tipo_pago'];
+            ticketModel.ticketTipo = decodedData['result']['data'][i]['id_tipo_ticket'];
             ticketModel.ticketCodigoApp = decodedData['result']['data'][i]['ticket_codigo_app'];
             ticketModel.ticketEstado = decodedData['result']['data'][i]['ticket_estado'];
             ticketModel.eventoFecha = decodedData['result']['data'][i]['evento_fecha'];
@@ -125,6 +126,7 @@ class TicketApi {
         ticketModel.ticketTotal = decodedData['result']['data']['ticket_total'];
         ticketModel.ticketDateTime = decodedData['result']['data']['ticket_datetime'];
         ticketModel.ticketTipoPago = decodedData['result']['data']['ticket_tipo_pago'];
+        ticketModel.ticketTipo = decodedData['result']['data']['id_tipo_ticket'];
         ticketModel.ticketCodigoApp = decodedData['result']['data']['ticket_codigo_app'];
         ticketModel.ticketEstado = decodedData['result']['data']['ticket_estado'];
         ticketModel.eventoFecha = decodedData['result']['data']['evento_fecha'];

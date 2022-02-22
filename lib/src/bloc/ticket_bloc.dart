@@ -62,6 +62,7 @@ class TicketBloc {
         ticketModel.ticketTotal = list[i].ticketTotal;
         ticketModel.ticketDateTime = list[i].ticketDateTime;
         ticketModel.ticketTipoPago = list[i].ticketTipoPago;
+        ticketModel.ticketTipo = list[i].ticketTipo;
         ticketModel.ticketCodigoApp = list[i].ticketCodigoApp;
         ticketModel.ticketEstado = list[i].ticketEstado;
         ticketModel.eventoFecha = list[i].eventoFecha;

@@ -325,6 +325,7 @@ class Tickets extends StatelessWidget {
   }
 
   Widget _itemTicket(BuildContext context, TicketModel model) {
+    print('Tipo ticket: ${model.ticketTipo}');
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: ScreenUtil().setHeight(10),
@@ -610,6 +611,7 @@ class Tickets extends StatelessWidget {
                       height: ScreenUtil().setHeight(12),
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ('${model.ticketEstado}' == '0')
                             ? Container(
@@ -625,7 +627,8 @@ class Tickets extends StatelessWidget {
                                   'Boleto sin usar',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: ScreenUtil().setSp(12),
                                   ),
                                 ),
                               )
@@ -645,7 +648,8 @@ class Tickets extends StatelessWidget {
                                           'Boleto parcialmente usado',
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontWeight: FontWeight.bold,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: ScreenUtil().setSp(10),
                                           ),
                                         ),
                                       ],
@@ -663,10 +667,52 @@ class Tickets extends StatelessWidget {
                                       'Boleto completamente usado',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: ScreenUtil().setSp(10),
                                       ),
                                     ),
                                   ),
+                        ('${model.ticketTipo}' != '2')
+                            ? Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: ScreenUtil().setWidth(5),
+                                  vertical: ScreenUtil().setHeight(1),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: colorPrimary,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Text(
+                                  'Ticket de entrada',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: ('${model.ticketEstado}' != '0') ? ScreenUtil().setSp(10) : ScreenUtil().setSp(12),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: ScreenUtil().setWidth(5),
+                                  vertical: ScreenUtil().setHeight(1),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  //color: Colors.yellow[800],
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Servicios/Productos',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: ('${model.ticketEstado}' != '0') ? ScreenUtil().setSp(10) : ScreenUtil().setSp(12),
+                                      ),
+                                    ),
+                                  ],
+                                ))
                       ],
                     )
                   ],

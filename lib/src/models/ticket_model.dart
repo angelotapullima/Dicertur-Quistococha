@@ -7,6 +7,7 @@ class TicketModel {
   String? ticketTotal;
   String? ticketDateTime;
   String? ticketTipoPago;
+  String? ticketTipo;
   String? eventoFecha;
   String? ticketCodigoApp;
   String? clienteNombre;
@@ -34,6 +35,7 @@ class TicketModel {
     this.ticketTotal,
     this.ticketDateTime,
     this.ticketTipoPago,
+    this.ticketTipo,
     this.eventoFecha,
     this.ticketCodigoApp,
     this.clienteNombre,
@@ -63,6 +65,7 @@ class TicketModel {
         "ticketTotal": ticketTotal,
         "ticketDateTime": ticketDateTime,
         "ticketTipoPago": ticketTipoPago,
+        "ticketTipo": ticketTipo,
         "eventoFecha": eventoFecha,
         "ticketCodigoApp": ticketCodigoApp,
         "clienteNombre": clienteNombre,
@@ -88,6 +91,7 @@ class TicketModel {
         ticketTotal: json["ticketTotal"],
         ticketDateTime: json["ticketDateTime"],
         ticketTipoPago: json["ticketTipoPago"],
+        ticketTipo: json["ticketTipo"],
         eventoFecha: json["eventoFecha"],
         ticketCodigoApp: json["ticketCodigoApp"],
         clienteNombre: json["clienteNombre"],
