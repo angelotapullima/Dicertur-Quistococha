@@ -5,6 +5,7 @@ import 'package:dicertur_quistococha/database/evento_database.dart';
 import 'package:dicertur_quistococha/database/tarifa_database.dart';
 import 'package:dicertur_quistococha/database/ticket_database.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
+import 'package:dicertur_quistococha/src/pages/Account/edit_account.dart';
 import 'package:dicertur_quistococha/src/pages/politicas_de_privacidad.dart';
 import 'package:dicertur_quistococha/src/pages/terminos_y_condiciones.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
@@ -54,7 +55,15 @@ class UserPage extends StatelessWidget {
                       child: Container(
                         width: ScreenUtil().setWidth(100),
                         height: ScreenUtil().setHeight(100),
-                        child: Image.asset('assets/svg/profile.png'),
+                        child: CircleAvatar(
+                          radius: ScreenUtil().radius(100),
+                          child: ClipOval(
+                            child: Image.network(
+                              '${snapshot.data!.userImage}',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -74,7 +83,11 @@ class UserPage extends StatelessWidget {
                     SizedBox(
                       height: ScreenUtil().setHeight(32),
                     ),
-                    InkWell(onTap: () {}, child: _itemsConfig('user', 'Cuenta')),
+                    InkWell(
+                        onTap: () {
+                          _cuenta(context, snapshot.data!);
+                        },
+                        child: _itemsConfig('user', 'Cuenta')),
                     SizedBox(
                       height: ScreenUtil().setHeight(32),
                     ),
@@ -360,6 +373,265 @@ class UserPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  void _cuenta(BuildContext context, UserModel user) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return GestureDetector(
+          child: Container(
+            color: Color.fromRGBO(0, 0, 0, 0.001),
+            child: GestureDetector(
+              onTap: () {},
+              child: DraggableScrollableSheet(
+                initialChildSize: 0.9,
+                minChildSize: 0.3,
+                maxChildSize: 0.9,
+                builder: (_, controller) {
+                  return Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: ScreenUtil().setHeight(50)),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: const Radius.circular(25.0),
+                            topRight: const Radius.circular(25.0),
+                          ),
+                        ),
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: ScreenUtil().setWidth(24),
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(50),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation, secondaryAnimation) {
+                                              return EditAccount(
+                                                user: user,
+                                              );
+                                            },
+                                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                              var begin = Offset(0.0, 1.0);
+                                              var end = Offset.zero;
+                                              var curve = Curves.ease;
+
+                                              var tween = Tween(begin: begin, end: end).chain(
+                                                CurveTween(curve: curve),
+                                              );
+
+                                              return SlideTransition(
+                                                position: animation.drive(tween),
+                                                child: child,
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'Editar',
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.blue,
+                                          fontSize: ScreenUtil().setSp(16),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(8),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '${user.personName}',
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: ScreenUtil().setSp(20),
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(100),
+                                ),
+                                _data(Icons.person, '${user.personName} ${user.personSurname}'),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(12),
+                                ),
+                                _data(Icons.email, '${user.userEmail}'),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(12),
+                                ),
+                                _data(Icons.phone, '${user.telefono}'),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(12),
+                                ),
+                                _data(Icons.cake, '${user.nacimiento}'),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(12),
+                                ),
+                                InkWell(
+                                    onTap: () {},
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.lock,
+                                          color: colorPrimary,
+                                          size: ScreenUtil().setSp(30),
+                                        ),
+                                        SizedBox(
+                                          width: ScreenUtil().setWidth(12),
+                                        ),
+                                        Icon(
+                                          Icons.circle,
+                                          color: colorPrimary,
+                                          size: ScreenUtil().setSp(12),
+                                        ),
+                                        SizedBox(
+                                          width: ScreenUtil().setWidth(6),
+                                        ),
+                                        Icon(
+                                          Icons.circle,
+                                          color: colorPrimary,
+                                          size: ScreenUtil().setSp(12),
+                                        ),
+                                        SizedBox(
+                                          width: ScreenUtil().setWidth(6),
+                                        ),
+                                        Icon(
+                                          Icons.circle,
+                                          color: colorPrimary,
+                                          size: ScreenUtil().setSp(12),
+                                        ),
+                                        SizedBox(
+                                          width: ScreenUtil().setWidth(6),
+                                        ),
+                                        Icon(
+                                          Icons.circle,
+                                          color: colorPrimary,
+                                          size: ScreenUtil().setSp(12),
+                                        ),
+                                        SizedBox(
+                                          width: ScreenUtil().setWidth(6),
+                                        ),
+                                        Icon(
+                                          Icons.circle,
+                                          color: colorPrimary,
+                                          size: ScreenUtil().setSp(12),
+                                        ),
+                                        SizedBox(
+                                          width: ScreenUtil().setWidth(6),
+                                        ),
+                                        Icon(
+                                          Icons.circle,
+                                          color: colorPrimary,
+                                          size: ScreenUtil().setSp(12),
+                                        ),
+                                        SizedBox(
+                                          width: ScreenUtil().setWidth(12),
+                                        ),
+                                        Spacer(),
+                                        Icon(
+                                          Icons.edit_outlined,
+                                          color: Colors.blue,
+                                          size: ScreenUtil().setSp(25),
+                                        ),
+                                      ],
+                                    )),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(50),
+                                ),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(50),
+                                ),
+                                Container(
+                                  height: ScreenUtil().setHeight(150),
+                                  //width: ScreenUtil().setWidth(200),
+                                  child: Image.asset('assets/img/foto perfil.png'),
+                                ),
+                                SizedBox(
+                                  height: ScreenUtil().setHeight(16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: ScreenUtil().setWidth(3)),
+                            ),
+                            width: ScreenUtil().setWidth(120),
+                            height: ScreenUtil().setHeight(120),
+                            child: CircleAvatar(
+                              radius: ScreenUtil().radius(100),
+                              child: ClipOval(
+                                child: Image.network(
+                                  '${user.userImage}',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Row _data(IconData icon, String data) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: colorPrimary,
+          size: ScreenUtil().setSp(30),
+        ),
+        SizedBox(
+          width: ScreenUtil().setWidth(12),
+        ),
+        Text(
+          '$data',
+          style: GoogleFonts.poppins(
+            color: Colors.black,
+            fontSize: ScreenUtil().setSp(16),
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ],
     );
   }
 

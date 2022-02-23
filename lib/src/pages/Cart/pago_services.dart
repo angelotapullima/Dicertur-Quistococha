@@ -412,7 +412,7 @@ class _PayServicesState extends State<PayServices> {
                             final _ticketApi = TicketApi();
                             String detalle = '';
                             for (var i = 0; i < widget.cartList.length; i++) {
-                              detalle += '${widget.cartList[i].amount},${widget.cartList[i].price},${widget.cartList[i].name}//--';
+                              detalle += '${widget.cartList[i].idRelated},${widget.cartList[i].amount}//--';
                             }
 
                             final res = await _ticketApi.guardarServices(widget.monto, detalle, _nombreController.text, _telController.text,
