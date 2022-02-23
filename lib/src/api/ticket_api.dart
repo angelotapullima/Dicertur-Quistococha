@@ -25,6 +25,7 @@ class TicketApi {
       });
 
       final decodedData = json.decode(resp.body);
+      print(decodedData);
 
       final int code = decodedData['result']['code'];
       ApiModel loginModel = ApiModel();

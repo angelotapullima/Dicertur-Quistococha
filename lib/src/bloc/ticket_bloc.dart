@@ -26,19 +26,25 @@ class TicketBloc {
   void getTicketsForUser(String estado) async {
     String? idUser = await StorageManager.readData('idUser');
 
-    if (estado == '2') {
-      _cargandoController.sink.add(true);
-      _ticketController.sink.add(await ticketDatabase.getTicketsForUser(idUser!, estado));
-      await ticketApi.getTicketsAPi();
-      _ticketController.sink.add(await ticketDatabase.getTicketsForUser(idUser, estado));
-      _cargandoController.sink.add(false);
-    } else {
-      _cargandoController.sink.add(true);
-      _ticketController.sink.add(await ticketDatabase.getTicketsForUserActivos(idUser!));
-      await ticketApi.getTicketsAPi();
-      _ticketController.sink.add(await ticketDatabase.getTicketsForUserActivos(idUser));
-      _cargandoController.sink.add(false);
-    }
+    _cargandoController.sink.add(true);
+    _ticketController.sink.add(await ticketDatabase.getTicketsForUser(idUser!, estado));
+    await ticketApi.getTicketsAPi();
+    _ticketController.sink.add(await ticketDatabase.getTicketsForUser(idUser, estado));
+    _cargandoController.sink.add(false);
+
+    // if (estado == '2') {
+    //   _cargandoController.sink.add(true);
+    //   _ticketController.sink.add(await ticketDatabase.getTicketsForUser(idUser!, estado));
+    //   await ticketApi.getTicketsAPi();
+    //   _ticketController.sink.add(await ticketDatabase.getTicketsForUser(idUser, estado));
+    //   _cargandoController.sink.add(false);
+    // } else {
+    //   _cargandoController.sink.add(true);
+    //   _ticketController.sink.add(await ticketDatabase.getTicketsForUserActivos(idUser!));
+    //   await ticketApi.getTicketsAPi();
+    //   _ticketController.sink.add(await ticketDatabase.getTicketsForUserActivos(idUser));
+    //   _cargandoController.sink.add(false);
+    // }
   }
 
   void getTicketsForID(String id) async {

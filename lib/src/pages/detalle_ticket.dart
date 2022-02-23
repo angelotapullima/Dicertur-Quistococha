@@ -396,7 +396,7 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                               ? Container(
                                                   height: (snapshot.data![0].detalle!.length + 1) * ScreenUtil().setHeight(25),
                                                   child: ListView.builder(
-                                                      physics: NeverScrollableScrollPhysics(),
+                                                      //physics: NeverScrollableScrollPhysics(),
                                                       itemCount: snapshot.data![0].detalle!.length,
                                                       itemBuilder: (context, index2) {
                                                         return Row(
@@ -605,32 +605,6 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                   ],
                                 ),
                               ),
-                              /*  Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: ScreenUtil().setHeight(16),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      child: SvgPicture.asset('assets/svg/clock.svg'),
-                                    ),
-                                    SizedBox(
-                                      width: ScreenUtil().setWidth(9),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        'Por favor acuda 30 min antes de su visita, no olvide llevar su identificación',
-                                        style: GoogleFonts.poppins(
-                                          color: Color(0XFF808080),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: ScreenUtil().setSp(14),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                             */
                             ],
                           ),
                           (snapshot.data![0].ticketEstado == '2')

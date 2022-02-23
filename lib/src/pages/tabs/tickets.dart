@@ -280,7 +280,8 @@ class Tickets extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 _controller.changeValueBoton(2);
-                ticketBloc.getTicketsForUser('2');
+
+                ticketBloc.getTicketsForUser('1');
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -289,6 +290,33 @@ class Tickets extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: (_controller.valueBoton == 2) ? colorPrimary : Color(0XFFECF4FF),
+                ),
+                child: Center(
+                  child: Text(
+                    'Parcial',
+                    style: GoogleFonts.poppins(
+                      color: (_controller.valueBoton == 2) ? Colors.white : Color(0XFFAFB6DB),
+                      fontWeight: FontWeight.w500,
+                      fontSize: ScreenUtil().setSp(15),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: InkWell(
+              onTap: () {
+                _controller.changeValueBoton(3);
+                ticketBloc.getTicketsForUser('2');
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: ScreenUtil().setHeight(7),
+                  horizontal: ScreenUtil().setWidth(2),
+                ),
+                decoration: BoxDecoration(
+                  color: (_controller.valueBoton == 3) ? colorPrimary : Color(0XFFECF4FF),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
                     bottomRight: Radius.circular(20),
@@ -298,7 +326,7 @@ class Tickets extends StatelessWidget {
                   child: Text(
                     'Usados',
                     style: GoogleFonts.poppins(
-                      color: (_controller.valueBoton == 2) ? Colors.white : Color(0XFFAFB6DB),
+                      color: (_controller.valueBoton == 3) ? Colors.white : Color(0XFFAFB6DB),
                       fontWeight: FontWeight.w500,
                       fontSize: ScreenUtil().setSp(15),
                     ),
@@ -634,6 +662,7 @@ class Tickets extends StatelessWidget {
                               )
                             : ('${model.ticketEstado}' == '1')
                                 ? Container(
+                                    width: ScreenUtil().setWidth(120),
                                     padding: EdgeInsets.symmetric(
                                       horizontal: ScreenUtil().setWidth(5),
                                       vertical: ScreenUtil().setHeight(1),
@@ -645,16 +674,18 @@ class Tickets extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Text(
-                                          'Boleto parcialmente usado',
+                                          'Parcialmente usado',
+                                          textAlign: TextAlign.center,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600,
-                                            fontSize: ScreenUtil().setSp(10),
+                                            fontSize: ScreenUtil().setSp(12),
                                           ),
                                         ),
                                       ],
                                     ))
                                 : Container(
+                                    width: ScreenUtil().setWidth(120),
                                     padding: EdgeInsets.symmetric(
                                       horizontal: ScreenUtil().setWidth(5),
                                       vertical: ScreenUtil().setHeight(1),
@@ -664,11 +695,12 @@ class Tickets extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: Text(
-                                      'Boleto completamente usado',
+                                      'Completamente usado',
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600,
-                                        fontSize: ScreenUtil().setSp(10),
+                                        fontSize: ScreenUtil().setSp(12),
                                       ),
                                     ),
                                   ),
@@ -687,7 +719,7 @@ class Tickets extends StatelessWidget {
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: ('${model.ticketEstado}' != '0') ? ScreenUtil().setSp(10) : ScreenUtil().setSp(12),
+                                    fontSize: ScreenUtil().setSp(12),
                                   ),
                                 ),
                               )
@@ -708,7 +740,7 @@ class Tickets extends StatelessWidget {
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600,
-                                        fontSize: ('${model.ticketEstado}' != '0') ? ScreenUtil().setSp(10) : ScreenUtil().setSp(12),
+                                        fontSize: ScreenUtil().setSp(12),
                                       ),
                                     ),
                                   ],

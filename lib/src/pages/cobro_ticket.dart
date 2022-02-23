@@ -101,7 +101,8 @@ class _CobroTicketState extends State<CobroTicket> {
                                         ),
                                       ],
                                     ),
-                                  ),  Container(
+                                  ),
+                                  Container(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: ScreenUtil().setWidth(24),
                                     ),
@@ -130,7 +131,6 @@ class _CobroTicketState extends State<CobroTicket> {
                                       ],
                                     ),
                                   ),
-                                 
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -350,7 +350,8 @@ class _CobroTicketState extends State<CobroTicket> {
                                             ? Container(
                                                 height: (snapshot.data![0].detalle!.length + 1) * ScreenUtil().setHeight(80),
                                                 child: ListView.builder(
-                                                    physics: NeverScrollableScrollPhysics(),
+                                                    //shrinkWrap: true,
+                                                    //physics: NeverScrollableScrollPhysics(),
                                                     itemCount: snapshot.data![0].detalle!.length,
                                                     itemBuilder: (context, index2) {
                                                       int usado = 0;
@@ -370,19 +371,22 @@ class _CobroTicketState extends State<CobroTicket> {
                                                           Row(
                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                             children: [
-                                                              Column(
-                                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                                children: [
-                                                                  Text(
-                                                                    '${snapshot.data![0].detalle![index2].tarifaNombre}',
-                                                                    style: GoogleFonts.poppins(
-                                                                      fontSize: ScreenUtil().setSp(16),
-                                                                      fontWeight: FontWeight.w500,
-                                                                      color: Color(0XFF505050),
+                                                              Container(
+                                                                width: ScreenUtil().setWidth(130),
+                                                                child: Column(
+                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text(
+                                                                      '${snapshot.data![0].detalle![index2].tarifaNombre}',
+                                                                      style: GoogleFonts.poppins(
+                                                                        fontSize: ScreenUtil().setSp(16),
+                                                                        fontWeight: FontWeight.w500,
+                                                                        color: Color(0XFF505050),
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
                                                               Spacer(),
                                                               _cantidad(int.parse('${snapshot.data![0].detalle![index2].tarifaDetalleCantidad}'),
@@ -413,7 +417,7 @@ class _CobroTicketState extends State<CobroTicket> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: ScreenUtil().setHeight(20),
+                                    height: ScreenUtil().setHeight(10),
                                   ),
                                   (snapshot.data![0].ticketEstado == '2')
                                       ? Container()
@@ -423,7 +427,7 @@ class _CobroTicketState extends State<CobroTicket> {
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(10),
                                             ),
-                                            color:colorPrimary,
+                                            color: colorPrimary,
                                             onPressed: () async {
                                               _cargando.value = true;
                                               int cont = 0;
