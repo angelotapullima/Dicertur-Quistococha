@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dicertur_quistococha/database/cartDatabase.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/cart_model.dart';
-import 'package:dicertur_quistococha/src/models/souvenir_model.dart';
+import 'package:dicertur_quistococha/src/models/servicios_model.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/utils/responsive.dart';
 import 'package:dicertur_quistococha/src/utils/translate_animation.dart';
@@ -17,7 +17,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 class DetailSouvenir extends StatefulWidget {
   DetailSouvenir({Key? key, required this.sourvenirModel}) : super(key: key);
 
-  final SourvenirModel sourvenirModel; 
+  final ServicioModel sourvenirModel;
 
   @override
   State<DetailSouvenir> createState() => _DetailSouvenirState();
@@ -70,7 +70,7 @@ class _DetailSouvenirState extends State<DetailSouvenir> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          '${widget.sourvenirModel.productTitle}',
+                                          '${widget.sourvenirModel.servicioTitulo}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: ScreenUtil().setSp(18),
@@ -82,7 +82,7 @@ class _DetailSouvenirState extends State<DetailSouvenir> {
                                         width: ScreenUtil().setWidth(10),
                                       ),
                                       Text(
-                                        'S/${widget.sourvenirModel.productPrecio}',
+                                        'S/${widget.sourvenirModel.servicioPrecio}',
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: ScreenUtil().setSp(18),
@@ -95,7 +95,7 @@ class _DetailSouvenirState extends State<DetailSouvenir> {
                                     height: ScreenUtil().setHeight(12),
                                   ),
                                   Text(
-                                    '${widget.sourvenirModel.productDetail}',
+                                    '${widget.sourvenirModel.servicioDetalle}',
                                     style: TextStyle(
                                       color: Colors.black54,
                                       fontSize: ScreenUtil().setSp(15),
@@ -120,8 +120,8 @@ class _DetailSouvenirState extends State<DetailSouvenir> {
                         },
                         child: Container(
                           height: ScreenUtil().setHeight(350),
-                          child: Hero( 
-                            tag: '${widget.sourvenirModel.idProduct}-2',
+                          child: Hero(
+                            tag: '${widget.sourvenirModel.idServicio}-2',
                             child: CachedNetworkImage(
                               placeholder: (context, url) => Container(
                                 width: double.infinity,
@@ -137,7 +137,7 @@ class _DetailSouvenirState extends State<DetailSouvenir> {
                                   child: Icon(Icons.error),
                                 ),
                               ),
-                              imageUrl: '$apiBaseURL/${widget.sourvenirModel.productImagen}',
+                              imageUrl: '$apiBaseURL/${widget.sourvenirModel.servicioImagen}',
                               imageBuilder: (context, imageProvider) => Container(
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
@@ -303,7 +303,7 @@ class _DetailSouvenirState extends State<DetailSouvenir> {
   Future<dynamic> dialiogCart(
     BuildContext context,
     Responsive responsive,
-    SourvenirModel sourvenirModel,
+    ServicioModel sourvenirModel,
     String cantidad,
   ) {
     return showDialog(
@@ -338,24 +338,26 @@ class _DetailSouvenirState extends State<DetailSouvenir> {
                     onTap: () async {
                       final cartDatabase = CartDatabase();
 
-                      final list = await cartDatabase.getCartForIdRelatedAndType(sourvenirModel.idProduct.toString(), '2');
+                      final list = await cartDatabase.getCartForIdRelatedAndType(sourvenirModel.idServicio.toString(), '1');
                       if (list.length > 0) {
-                        var subtotalex =
-                            (double.parse(cantidad) + double.parse(list[0].amount.toString())) * double.parse(sourvenirModel.productPrecio.toString());
+                        var subtotalex = (double.parse(cantidad) + double.parse(list[0].amount.toString())) *
+                            double.parse(sourvenirModel.servicioPrecio.toString());
                         CartModel cartModel = CartModel();
                         cartModel.idCart = list[0].idCart;
-                        cartModel.idRelated = sourvenirModel.idProduct;
-                        cartModel.type = '2';
+                        cartModel.idRelated = sourvenirModel.idServicio;
+                        //cartModel.type = '2';
+                        cartModel.type = '1';
                         cartModel.amount = (int.parse(cantidad) + int.parse(list[0].amount.toString())).toString();
                         cartModel.subtotal = subtotalex.toString();
 
                         await cartDatabase.updateCart(cartModel);
                       } else {
-                        var subtotalex = double.parse(cantidad) * double.parse(sourvenirModel.productPrecio.toString());
+                        var subtotalex = double.parse(cantidad) * double.parse(sourvenirModel.servicioPrecio.toString());
                         CartModel cartModel = CartModel();
-                        cartModel.idRelated = sourvenirModel.idProduct;
+                        cartModel.idRelated = sourvenirModel.idServicio;
                         cartModel.amount = cantidad;
-                        cartModel.type = '2';
+                        //cartModel.type = '2';
+                        cartModel.type = '1';
                         cartModel.subtotal = subtotalex.toString();
 
                         await cartDatabase.insertCart(cartModel);

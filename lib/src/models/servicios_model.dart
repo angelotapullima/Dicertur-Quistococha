@@ -5,6 +5,7 @@ class ServicioModel {
   String? servicioImagen;
   String? servicioPrecio;
   String? servicioEstado;
+  String? servicioTipo;
 
   ServicioModel({
     this.idServicio,
@@ -13,6 +14,7 @@ class ServicioModel {
     this.servicioImagen,
     this.servicioPrecio,
     this.servicioEstado,
+    this.servicioTipo,
   });
 
   static List<ServicioModel> fromJsonList(List<dynamic> json) => json.map((i) => ServicioModel.fromJson(i)).toList();
@@ -24,6 +26,7 @@ class ServicioModel {
         "servicioImagen": servicioImagen,
         "servicioPrecio": servicioPrecio,
         "servicioEstado": servicioEstado,
+        "servicioTipo": servicioTipo,
       };
   factory ServicioModel.fromJson(Map<String, dynamic> json) => ServicioModel(
         idServicio: json["idServicio"],
@@ -32,5 +35,6 @@ class ServicioModel {
         servicioImagen: json["servicioImagen"],
         servicioPrecio: json["servicioPrecio"],
         servicioEstado: json["servicioEstado"],
+        servicioTipo: json["servicioTipo"],
       );
 }

@@ -23,7 +23,7 @@ class ServicioDatabase {
     try {
       final Database db = await dbprovider.getDatabase();
       List<ServicioModel> list = [];
-      List<Map> maps = await db.rawQuery("SELECT * FROM Servicios where servicioEstado = '1' ");
+      List<Map> maps = await db.rawQuery("SELECT * FROM Servicios where servicioEstado = '1' AND servicioTipo ='1' ");
 
       if (maps.length > 0) list = ServicioModel.fromJsonList(maps);
       return list;
@@ -32,6 +32,21 @@ class ServicioDatabase {
       return [];
     }
   }
+
+  Future<List<ServicioModel>> getServiceProducto() async {
+    try {
+      final Database db = await dbprovider.getDatabase();
+      List<ServicioModel> list = [];
+      List<Map> maps = await db.rawQuery("SELECT * FROM Servicios WHERE servicioEstado = '1' AND servicioTipo ='0' ");
+
+      if (maps.length > 0) list = ServicioModel.fromJsonList(maps);
+      return list;
+    } catch (e) {
+      print(" $e Error en la  tabla Servicios");
+      return [];
+    }
+  }
+
   Future<List<ServicioModel>> getServiceForId(String idService) async {
     try {
       final Database db = await dbprovider.getDatabase();

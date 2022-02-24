@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
-import 'package:dicertur_quistococha/src/models/souvenir_model.dart';
+import 'package:dicertur_quistococha/src/models/servicios_model.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/Inicio/Souvenirs/detalle_souvenir.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,12 +12,12 @@ class SourvenirPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sourvenirBloc = ProviderBloc.sou(context);
-    sourvenirBloc.getSouvenir();
+    final serviciosBloc = ProviderBloc.servi(context);
+    serviciosBloc.getServicProducts();
 
     return StreamBuilder(
-        stream: sourvenirBloc.souvenirStream,
-        builder: (context, AsyncSnapshot<List<SourvenirModel>> snapshot) {
+        stream: serviciosBloc.servicioProductStream,
+        builder: (context, AsyncSnapshot<List<ServicioModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.length > 0) {
               return Container(
@@ -25,7 +25,7 @@ class SourvenirPage extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   itemCount: snapshot.data!.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, 
+                    crossAxisCount: 2,
                     childAspectRatio: 0.8,
                   ),
                   scrollDirection: Axis.vertical,
@@ -60,7 +60,7 @@ class SourvenirPage extends StatelessWidget {
                             );
                           },
                           child: Hero(
-                            tag: '${snapshot.data![index].idProduct}-2',
+                            tag: '${snapshot.data![index].idServicio}-2',
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Container(
@@ -106,7 +106,7 @@ class SourvenirPage extends StatelessWidget {
                                                   child: Icon(Icons.error),
                                                 ),
                                               ),
-                                              imageUrl: '$apiBaseURL/${snapshot.data![index].productImagen}',
+                                              imageUrl: '$apiBaseURL/${snapshot.data![index].servicioImagen}',
                                               imageBuilder: (context, imageProvider) => Container(
                                                 decoration: BoxDecoration(
                                                   image: DecorationImage(
@@ -119,7 +119,7 @@ class SourvenirPage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          ' ${snapshot.data![index].productTitle} ',
+                                          ' ${snapshot.data![index].servicioTitulo} ',
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
@@ -128,7 +128,7 @@ class SourvenirPage extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          ' ${snapshot.data![index].productDetail} ',
+                                          ' ${snapshot.data![index].servicioDetalle} ',
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
@@ -147,7 +147,7 @@ class SourvenirPage extends StatelessWidget {
                                         horizontal: ScreenUtil().setWidth(5),
                                       ),
                                       child: Text(
-                                        'S/.${snapshot.data![index].productPrecio}',
+                                        'S/.${snapshot.data![index].servicioPrecio}',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: ScreenUtil().setSp(15),
