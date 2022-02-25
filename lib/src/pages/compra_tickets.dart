@@ -264,7 +264,7 @@ class _CompraTicketPageState extends State<CompraTicketPage> {
   _selectdate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,
-      firstDate: DateTime(DateTime.now().month - 1),
+      firstDate: DateTime.now(),
       initialDate: DateTime.now(),
       lastDate: DateTime(DateTime.now().year + 2),
     );

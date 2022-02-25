@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dicertur_quistococha/src/pages/cobro_ticket.dart'; 
+import 'package:dicertur_quistococha/src/pages/cobro_ticket.dart';
 import 'package:dicertur_quistococha/src/pages/tabs/qr/bloc_contador_qr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,7 +54,9 @@ class _ScanQRState extends State<ScanQR> {
           qrView(context, provider),
           Positioned(
             bottom: 10,
-            child: resultadoScanQR(),
+            right: 1,
+            left: 1,
+            child: Center(child: resultadoScanQR()),
           )
         ],
       ),
@@ -63,7 +65,7 @@ class _ScanQRState extends State<ScanQR> {
 
   Widget resultadoScanQR() {
     return Text(
-      barcodeData != null ? 'Resultado: ${barcodeData!.code}' : 'Scanear QR',
+      barcodeData != null ? 'Resultado: ${barcodeData!.code}' : 'Escanear QR',
       style: TextStyle(color: Colors.white),
       maxLines: 3,
       textAlign: TextAlign.center,

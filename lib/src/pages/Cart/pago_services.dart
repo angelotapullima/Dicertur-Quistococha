@@ -1,17 +1,25 @@
 import 'package:dicertur_quistococha/src/api/ticket_api.dart';
+import 'package:dicertur_quistococha/src/bloc/data_user.dart';
 import 'package:dicertur_quistococha/src/models/cart_model.dart';
 import 'package:dicertur_quistococha/src/pages/web_view_pago_tickets.dart';
 import 'package:dicertur_quistococha/src/utils/constants.dart';
 import 'package:dicertur_quistococha/src/utils/utils.dart';
 import 'package:dicertur_quistococha/src/widget/show_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PayServices extends StatefulWidget {
   final String monto;
   final List<CartModel> cartList;
-  const PayServices({Key? key, required this.monto, required this.cartList}) : super(key: key);
+  final UserModel user;
+  const PayServices({
+    Key? key,
+    required this.monto,
+    required this.cartList,
+    required this.user,
+  }) : super(key: key);
 
   @override
   State<PayServices> createState() => _PayServicesState();
@@ -26,6 +34,14 @@ class _PayServicesState extends State<PayServices> {
   final _controller = ValidarDatosController();
 
   final items = ['DNI', 'RUC', 'Carnet de extranjería', 'Pasaporte'];
+
+  @override
+  void initState() {
+    _nombreController.text = widget.user.personName.toString();
+    _telController.text = widget.user.telefono.toString();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -230,6 +246,10 @@ class _PayServicesState extends State<PayServices> {
                                             keyboardType: (_controller.maxCarateresDoc == 8 || _controller.maxCarateresDoc == 11)
                                                 ? TextInputType.number
                                                 : TextInputType.text,
+                                            inputFormatters: [
+                                              if (_controller.maxCarateresDoc == 8 || _controller.maxCarateresDoc == 11)
+                                                FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                                            ],
                                             maxLength: _controller.maxCarateresDoc,
                                             decoration: InputDecoration(
                                               contentPadding: EdgeInsets.all(4),
@@ -270,6 +290,9 @@ class _PayServicesState extends State<PayServices> {
                                             controller: _nombreController,
                                             maxLines: 1,
                                             keyboardType: TextInputType.text,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter.allow(RegExp('[a-zA-Z-áàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]')),
+                                            ],
                                             decoration: InputDecoration(
                                               contentPadding: EdgeInsets.all(4),
                                               suffixIcon: Icon(
@@ -308,6 +331,9 @@ class _PayServicesState extends State<PayServices> {
                                             controller: _telController,
                                             maxLines: 1,
                                             maxLength: 9,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                                            ],
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
                                               contentPadding: EdgeInsets.all(4),
@@ -402,53 +428,57 @@ class _PayServicesState extends State<PayServices> {
                   if (_dniController.text.isNotEmpty) {
                     if (_nombreController.text.isNotEmpty) {
                       if (_telController.text.isNotEmpty) {
-                        if (_controller.tipoDoc == '01' && _dirController.text.isEmpty) {
-                          showToast2('Ingrese dirección', Colors.black);
-                        } else {
-                          if (_dniController.text.length < _controller.maxCarateresDoc) {
-                            showToast2(
-                                'El ${_controller.tipoDocIdentificacion} debe contener ${_controller.maxCarateresDoc} caracteres', Colors.black);
+                        if (_telController.text.length == 9) {
+                          if (_controller.tipoDoc == '01' && _dirController.text.isEmpty) {
+                            showToast2('Ingrese dirección', Colors.black);
                           } else {
-                            final _ticketApi = TicketApi();
-                            String detalle = '';
-                            for (var i = 0; i < widget.cartList.length; i++) {
-                              detalle += '${widget.cartList[i].idRelated},${widget.cartList[i].amount}//--';
-                            }
-
-                            final res = await _ticketApi.guardarServices(widget.monto, detalle, _nombreController.text, _telController.text,
-                                _dniController.text, _controller.idTipoDocIdentifiacion, _dirController.text, _controller.tipoDoc);
-
-                            if (res.code == '1') {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (context, animation, secondaryAnimation) {
-                                    return WebViewPagosTickets(
-                                      link: res.url.toString(),
-                                      idTicket: res.idTicket.toString(),
-                                      esCarrito: true,
-                                    );
-                                  },
-                                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                    var begin = Offset(0.0, 1.0);
-                                    var end = Offset.zero;
-                                    var curve = Curves.ease;
-
-                                    var tween = Tween(begin: begin, end: end).chain(
-                                      CurveTween(curve: curve),
-                                    );
-
-                                    return SlideTransition(
-                                      position: animation.drive(tween),
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
+                            if (_dniController.text.length < _controller.maxCarateresDoc) {
+                              showToast2(
+                                  'El ${_controller.tipoDocIdentificacion} debe contener ${_controller.maxCarateresDoc} caracteres', Colors.black);
                             } else {
-                              showToast2(res.message.toString(), Colors.black);
+                              final _ticketApi = TicketApi();
+                              String detalle = '';
+                              for (var i = 0; i < widget.cartList.length; i++) {
+                                detalle += '${widget.cartList[i].idRelated},${widget.cartList[i].amount}//--';
+                              }
+
+                              final res = await _ticketApi.guardarServices(widget.monto, detalle, _nombreController.text, _telController.text,
+                                  _dniController.text, _controller.idTipoDocIdentifiacion, _dirController.text, _controller.tipoDoc);
+
+                              if (res.code == '1') {
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    pageBuilder: (context, animation, secondaryAnimation) {
+                                      return WebViewPagosTickets(
+                                        link: res.url.toString(),
+                                        idTicket: res.idTicket.toString(),
+                                        esCarrito: true,
+                                      );
+                                    },
+                                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                      var begin = Offset(0.0, 1.0);
+                                      var end = Offset.zero;
+                                      var curve = Curves.ease;
+
+                                      var tween = Tween(begin: begin, end: end).chain(
+                                        CurveTween(curve: curve),
+                                      );
+
+                                      return SlideTransition(
+                                        position: animation.drive(tween),
+                                        child: child,
+                                      );
+                                    },
+                                  ),
+                                );
+                              } else {
+                                showToast2(res.message.toString(), Colors.black);
+                              }
                             }
                           }
+                        } else {
+                          showToast2('El teléfono debe contener 9 caracteres', Colors.black);
                         }
                       } else {
                         showToast2('Ingrese teléfono', Colors.black);

@@ -29,46 +29,117 @@ class GaleriaPage extends StatelessWidget {
                   ),
                   scrollDirection: Axis.vertical,
                   itemBuilder: (BuildContext context, int index) {
-                    return LayoutBuilder(builder: (context, constrain) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: ScreenUtil().setWidth(5),
-                            vertical: ScreenUtil().setHeight(5),
+                    return InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (c) => Dialog(
+                            backgroundColor: Colors.transparent,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(1),
+                            ), //this right here
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Container(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                                    // height: ScreenUtil().setHeight(600),
+                                    //width: ScreenUtil().setWidth(400),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: CachedNetworkImage(
+                                        placeholder: (context, url) => Container(
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            child: Center(
+                                              child: CupertinoActivityIndicator(),
+                                            )),
+                                        errorWidget: (context, url, error) => Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          child: Center(
+                                            child: Icon(Icons.error),
+                                          ),
+                                        ),
+                                        imageUrl: '$apiBaseURL/${snapshot.data![index].galeriaFoto}',
+                                        imageBuilder: (context, imageProvider) => Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Spacer(),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                          height: constrain.minHeight,
-                          width: constrain.maxWidth,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: CachedNetworkImage(
-                              placeholder: (context, url) => Container(
+                        );
+                      },
+                      child: LayoutBuilder(builder: (context, constrain) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: ScreenUtil().setWidth(5),
+                              vertical: ScreenUtil().setHeight(5),
+                            ),
+                            height: constrain.minHeight,
+                            width: constrain.maxWidth,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: CachedNetworkImage(
+                                placeholder: (context, url) => Container(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    child: Center(
+                                      child: CupertinoActivityIndicator(),
+                                    )),
+                                errorWidget: (context, url, error) => Container(
                                   width: double.infinity,
                                   height: double.infinity,
                                   child: Center(
-                                    child: CupertinoActivityIndicator(),
-                                  )),
-                              errorWidget: (context, url, error) => Container(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: Center(
-                                  child: Icon(Icons.error),
+                                    child: Icon(Icons.error),
+                                  ),
                                 ),
-                              ),
-                              imageUrl: '$apiBaseURL/${snapshot.data![index].galeriaFoto}',
-                              imageBuilder: (context, imageProvider) => Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.cover,
+                                imageUrl: '$apiBaseURL/${snapshot.data![index].galeriaFoto}',
+                                imageBuilder: (context, imageProvider) => Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    });
+                        );
+                      }),
+                    );
                   },
                 ),
               );

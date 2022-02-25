@@ -30,6 +30,25 @@ class DataUserBloc {
   }
 }
 
+Future<UserModel> obtenerUserData() async {
+  UserModel userModel = UserModel();
+  userModel.idUser = await StorageManager.readData('idUser');
+  userModel.idPerson = await StorageManager.readData('idPerson');
+  userModel.userNickname = await StorageManager.readData('userNickname');
+  userModel.userEmail = await StorageManager.readData('userEmail');
+  userModel.userImage = await StorageManager.readData('userImage');
+  userModel.personName = await StorageManager.readData('personName');
+  userModel.personSurnameP = await StorageManager.readData('personSurnameP');
+  userModel.personSurnameM = await StorageManager.readData('personSurnameM');
+  userModel.personSurname = await StorageManager.readData('personSurname');
+  userModel.idRoleUser = await StorageManager.readData('idRoleUser');
+  userModel.roleName = await StorageManager.readData('roleName');
+  userModel.versionApp = await StorageManager.readData('versionApp');
+  userModel.telefono = await StorageManager.readData('telefono');
+  userModel.nacimiento = await StorageManager.readData('nacimiento');
+  return userModel;
+}
+
 class UserModel {
   String? idUser;
   String? idPerson;

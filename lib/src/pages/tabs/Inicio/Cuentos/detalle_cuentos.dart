@@ -51,18 +51,20 @@ class DetalleCuentos extends StatelessWidget {
               ),
               Container(
                 padding: EdgeInsets.symmetric(
-                  horizontal: ScreenUtil().setWidth(10),
-                  vertical: ScreenUtil().setHeight(10),
+                  horizontal: ScreenUtil().setWidth(24),
+                  vertical: ScreenUtil().setHeight(20),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      '${cuentos.cuentoTitulo}',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: ScreenUtil().setSp(24),
-                        fontWeight: FontWeight.w600,
+                    Center(
+                      child: Text(
+                        '${cuentos.cuentoTitulo}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: ScreenUtil().setSp(24),
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -70,11 +72,15 @@ class DetalleCuentos extends StatelessWidget {
                     ),
                     Text(
                       '${cuentos.cuentoDetalle}',
+                      textAlign: TextAlign.justify,
                       style: TextStyle(
                         color: Colors.black54,
                         fontSize: ScreenUtil().setSp(15),
                         fontWeight: FontWeight.w400,
                       ),
+                    ),
+                    SizedBox(
+                      height: ScreenUtil().setHeight(15),
                     ),
                   ],
                 ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dicertur_quistococha/core/sharedpreferences/storage_manager.dart';
 import 'package:dicertur_quistococha/database/detalle_ticket_database.dart';
 import 'package:dicertur_quistococha/database/espacio_database.dart';
@@ -62,9 +63,30 @@ class UserPage extends StatelessWidget {
                         child: CircleAvatar(
                           radius: ScreenUtil().radius(100),
                           child: ClipOval(
-                            child: Image.network(
-                              '${snapshot.data!.userImage}',
-                              fit: BoxFit.contain,
+                            child: CachedNetworkImage(
+                              placeholder: (context, url) => Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: Center(
+                                  child: CupertinoActivityIndicator(),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: Center(
+                                  child: Icon(Icons.error),
+                                ),
+                              ),
+                              imageUrl: '${snapshot.data!.userImage}',
+                              imageBuilder: (context, imageProvider) => Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),

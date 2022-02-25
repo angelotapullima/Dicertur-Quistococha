@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dicertur_quistococha/database/cartDatabase.dart';
+import 'package:dicertur_quistococha/src/bloc/data_user.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/cart_model.dart';
 import 'package:dicertur_quistococha/src/pages/Cart/pago_services.dart';
@@ -110,7 +111,8 @@ class _CartPageState extends State<CartPage> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(15),
                                       ),
-                                      onPressed: () {
+                                      onPressed: () async {
+                                        UserModel data = await obtenerUserData();
                                         Navigator.push(
                                           context,
                                           PageRouteBuilder(
@@ -118,6 +120,7 @@ class _CartPageState extends State<CartPage> {
                                               return PayServices(
                                                 monto: total.toString(),
                                                 cartList: snapshot.data!,
+                                                user: data,
                                               );
                                             },
                                             transitionsBuilder: (context, animation, secondaryAnimation, child) {

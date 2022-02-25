@@ -1,3 +1,4 @@
+import 'package:dicertur_quistococha/src/bloc/data_user.dart';
 import 'package:dicertur_quistococha/src/bloc/provider_bloc.dart';
 import 'package:dicertur_quistococha/src/models/evento_model.dart';
 import 'package:dicertur_quistococha/src/models/tarifa_model.dart';
@@ -163,7 +164,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                               }),
                         ),
                         InkWell(
-                          onTap: () {
+                          onTap: () async {
                             int disponile = int.parse(evento.espacio![0].espacioAforo.toString());
                             num tarifaSeleccionado = 0;
                             double total = 0;
@@ -182,6 +183,12 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                                 if (_controller.tarifas[i].tarifaNombre != 'Adultos Mayor') {
                                   tarifaSeleccionado = tarifaSeleccionado + _controller.array[i];
                                   total = total + (double.parse(tarifita.tarifaPrecio.toString()) * _controller.array[i]);
+                                } else if (_controller.tarifas[i].tarifaNombre == 'Adultos Mayor') {
+                                  tarifaSeleccionado = tarifaSeleccionado + _controller.array[i];
+                                  if (total > 0) {
+                                    total = total - (double.parse(tarifita.tarifaPrecio.toString()) * _controller.array[i]);
+                                  }
+                                  //total = total + (double.parse(tarifita.tarifaPrecio.toString()) * _controller.array[i]);
                                 }
                               }
                             }
@@ -189,6 +196,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                               showToast2('Indique la cantidad de entradas para poder continuar', Colors.black);
                             } else {
                               if (tarifaSeleccionado <= disponile) {
+                                UserModel data = await obtenerUserData();
                                 Navigator.push(
                                   context,
                                   PageRouteBuilder(
@@ -198,6 +206,7 @@ class _MostrarTarifasState extends State<MostrarTarifas> {
                                         tarifas: tarifasseleccionadas,
                                         total: total.toStringAsFixed(2),
                                         totalEntradas: tarifaSeleccionado.toString(),
+                                        user: data,
                                       );
                                     },
                                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
