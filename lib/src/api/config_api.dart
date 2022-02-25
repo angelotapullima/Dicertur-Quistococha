@@ -67,10 +67,10 @@ class ConfigApi {
           servicioModel.servicioImagen = decodedData['servicios'][x]['servicio_imagen'];
           servicioModel.servicioPrecio = decodedData['servicios'][x]['servicio_precio'];
           servicioModel.servicioEstado = decodedData['servicios'][x]['servicio_estado'];
+          servicioModel.servicioTipo = decodedData['servicios'][x]['servicio_tipo'];
           await servicioDatabase.insertarServicio(servicioModel);
         }
       }
-
 
       if (decodedData['productos'].length > 0) {
         for (var x = 0; x < decodedData['productos'].length; x++) {

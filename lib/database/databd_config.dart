@@ -121,6 +121,7 @@ class DatabaseHelper {
       'servicioDetalle TEXT, '
       'servicioImagen TEXT,'
       'servicioPrecio TEXT,'
+      'servicioTipo TEXT,'
       'servicioEstado TEXT)';
   static const String tableSouvenirSql = 'CREATE TABLE Souvenir('
       'idProduct TEXT PRIMARY KEY, '

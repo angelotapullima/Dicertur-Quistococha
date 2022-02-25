@@ -282,6 +282,8 @@ class TicketApi {
         apiModel.estado = decodedData['result']['pago_online']['estado'];
         apiModel.url = decodedData['result']['pago_online']['link'];
         apiModel.message = decodedData['result']['pago_online']['mensaje'];
+      } else if (code == 24) {
+        apiModel.message = decodedData['result']['message'];
       }
 
       return apiModel;

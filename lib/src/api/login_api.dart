@@ -6,6 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class LoginApi {
+  _verificarNull(var data) {
+    if (data != null) {
+      return data;
+    } else {
+      return '';
+    }
+  }
+
   Future<ApiModel> login(String user, String pass) async {
     try {
       final url = Uri.parse('$apiBaseURL/api/Login/validar_sesion');
@@ -30,10 +38,14 @@ class LoginApi {
         StorageManager.saveData('userEmail', decodedData['data']['u_e']);
         StorageManager.saveData('userImage', decodedData['data']['u_i']);
         StorageManager.saveData('personName', decodedData['data']['p_n']);
-        StorageManager.saveData('personSurname', decodedData['data']['p_p']);
+        StorageManager.saveData('personSurname', '${decodedData["data"]["p_p"]} ${_verificarNull(decodedData["data"]["p_m"])}');
         StorageManager.saveData('idRoleUser', decodedData['data']['ru']);
         StorageManager.saveData('roleName', decodedData['data']['rn']);
         StorageManager.saveData('token', decodedData['data']['tn']);
+        StorageManager.saveData('personSurnameP', decodedData['data']['p_p']);
+        StorageManager.saveData('personSurnameM', _verificarNull(decodedData['data']['p_m']));
+        StorageManager.saveData('telefono', _verificarNull(decodedData['data']['tel']));
+        StorageManager.saveData('nacimiento', _verificarNull(decodedData['data']['nac']));
 
         return loginModel;
       } else {

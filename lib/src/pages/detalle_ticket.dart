@@ -396,7 +396,7 @@ class _DetalleTicketPageState extends State<DetalleTicketPage> {
                                               ? Container(
                                                   height: (snapshot.data![0].detalle!.length + 1) * ScreenUtil().setHeight(25),
                                                   child: ListView.builder(
-                                                      //physics: NeverScrollableScrollPhysics(),
+                                                      physics: NeverScrollableScrollPhysics(),
                                                       itemCount: snapshot.data![0].detalle!.length,
                                                       itemBuilder: (context, index2) {
                                                         return Row(
