@@ -41,35 +41,49 @@ class GaleriaPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(1),
                             ), //this right here
                             child: Stack(
+                              fit: StackFit.expand,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
+                                Container(),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
                                   child: Container(
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                                    // height: ScreenUtil().setHeight(600),
-                                    //width: ScreenUtil().setWidth(400),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: CachedNetworkImage(
-                                        placeholder: (context, url) => Container(
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                  ),
+                                ),
+                                InteractiveViewer(
+                                  clipBehavior: Clip.none,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Container(
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                                      // height: ScreenUtil().setHeight(600),
+                                      //width: ScreenUtil().setWidth(400),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: CachedNetworkImage(
+                                          placeholder: (context, url) => Container(
+                                              width: double.infinity,
+                                              height: double.infinity,
+                                              child: Center(
+                                                child: CupertinoActivityIndicator(),
+                                              )),
+                                          errorWidget: (context, url, error) => Container(
                                             width: double.infinity,
                                             height: double.infinity,
                                             child: Center(
-                                              child: CupertinoActivityIndicator(),
-                                            )),
-                                        errorWidget: (context, url, error) => Container(
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          child: Center(
-                                            child: Icon(Icons.error),
+                                              child: Icon(Icons.error),
+                                            ),
                                           ),
-                                        ),
-                                        imageUrl: '$apiBaseURL/${snapshot.data![index].galeriaFoto}',
-                                        imageBuilder: (context, imageProvider) => Container(
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.contain,
+                                          imageUrl: '$apiBaseURL/${snapshot.data![index].galeriaFoto}',
+                                          imageBuilder: (context, imageProvider) => Container(
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.contain,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -77,22 +91,27 @@ class GaleriaPage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Spacer(),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: CircleAvatar(
-                                        backgroundColor: Colors.white,
-                                        child: Icon(
-                                          Icons.close,
-                                          color: Colors.black,
+                                Positioned(
+                                  top: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          child: Icon(
+                                            Icons.close,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
